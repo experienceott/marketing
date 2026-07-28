@@ -5147,8 +5147,7 @@ function install(){
  document.getElementById('calAutoSchedule')?.addEventListener('click',()=>generateMilestones(true));
 }
 document.addEventListener('DOMContentLoaded',()=>{setTimeout(install,600);setTimeout(()=>{repairHomeHover();statusCards();health()},1800)});
-const obs=new MutationObserver(rs=>{if(rs.some(r=>r.target.id==='homeCampaignCurve'))repairHomeHover();if(rs.some(r=>r.target.id==='saved-list'))statusCards()});
-document.addEventListener('DOMContentLoaded',()=>obs.observe(document.body,{childList:true,subtree:true}));
+
 })();
 </script><script>
 (function(){
@@ -5411,10 +5410,7 @@ function repairMilestones(){
 }
 function install(){normalizeTechnology();wireAutomation();repairMilestones();setTimeout(redrawLiveGraph,100)}
 document.addEventListener('DOMContentLoaded',()=>{setTimeout(install,1500);setTimeout(()=>{repairMilestones();redrawLiveGraph()},2600)});
-const observer=new MutationObserver(records=>{
-  if(records.some(r=>r.target.id==='homeCampaignCurve'||r.target.id==='homeMilestoneList'))setTimeout(()=>{repairMilestones();redrawLiveGraph()},50);
-});
-document.addEventListener('DOMContentLoaded',()=>observer.observe(document.body,{childList:true,subtree:true}));
+
 })();
 </script><script data-final-fix="20260727-1">
 (function(){
@@ -5822,12 +5818,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
   setTimeout(()=>{repairMilestoneRail();enhanceHomeGraph()},700);
   setTimeout(()=>{repairMilestoneRail();enhanceHomeGraph()},1800);
 });
-const homeObserver=new MutationObserver(()=>requestAnimationFrame(()=>{repairMilestoneRail();enhanceHomeGraph()}));
-document.addEventListener('DOMContentLoaded',()=>{
-  const rail=document.getElementById('homeMilestoneList'),svg=document.getElementById('homeCampaignCurve');
-  if(rail)homeObserver.observe(rail,{childList:true,subtree:true});
-  if(svg)homeObserver.observe(svg,{childList:true,subtree:true});
-});
+
 })();
 </script><div class="talent-edit-modal" hidden="" id="talentEditModal">
 <div class="talent-edit-backdrop" data-close-talent=""></div>
@@ -6012,11 +6003,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   setTimeout(()=>{renderEditableTalent();cleanMilestoneRail()},500);
   setTimeout(()=>{renderEditableTalent();cleanMilestoneRail()},1600);
 });
-const railObserver=new MutationObserver(()=>requestAnimationFrame(cleanMilestoneRail));
-document.addEventListener('DOMContentLoaded',()=>{
-  const rail=document.getElementById('homeMilestoneList');
-  if(rail)railObserver.observe(rail,{childList:true,subtree:true})
-});
+
 })();
 </script><div class="ott-modal" hidden="" id="socialConnectModal">
 <div class="ott-modal-backdrop" data-close-social=""></div>
@@ -6054,7 +6041,7 @@ window.showTab=showOnly;
 async function testSocial(){const url=$('socialFeedUrl').value.trim()||'./data/social.json';$('socialConnectResult').textContent='Testing…';try{const r=await fetch(url+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);const d=await r.json();$('socialConnectResult').textContent='Connected successfully. '+Object.keys(d.accounts||{}).length+' accounts found.'}catch(e){$('socialConnectResult').textContent='Connection failed: '+e.message}}
 document.addEventListener('click',e=>{const ed=e.target.closest('[data-ott-edit]');if(ed){e.preventDefault();e.stopImmediatePropagation();openTalent(+ed.dataset.ottEdit);return}const wk=e.target.closest('[data-ott-weekly]');if(wk){e.preventDefault();e.stopImmediatePropagation();let all=rows(),i=+wk.dataset.ottWeekly,x=all[i],v=prompt('Current follower count for '+x.name,x.followers||0);if(v!==null){x.previousFollowers=+x.followers||0;x.followers=+v||0;x.updatedAt=new Date().toISOString();all[i]=x;put(all);renderTalent()}return}if(e.target.id==='addTalentBtn'){e.preventDefault();e.stopImmediatePropagation();openTalent(-1);return}if(e.target.id==='ottTalentSave'){saveTalent();return}if(e.target.id==='ottTalentDelete'){let all=rows(),i=+$('ottTalentIndex').value;if(i>=0&&confirm('Delete this talent record?')){all.splice(i,1);put(all);closeTalent();renderTalent()}return}if(e.target.closest('[data-close-ott-talent]')){closeTalent();return}if(e.target.id==='socialDataStatus'){e.preventDefault();$('socialFeedUrl').value=localStorage.getItem('ott_social_feed')||'./data/social.json';$('socialConnectModal').hidden=false;return}if(e.target.closest('[data-close-social]')){$('socialConnectModal').hidden=true;return}if(e.target.id==='testSocialFeed'){testSocial();return}if(e.target.id==='saveSocialFeed'){localStorage.setItem('ott_social_feed',$('socialFeedUrl').value.trim()||'./data/social.json');$('socialConnectResult').textContent='Connection URL saved.';return}},true);
 document.addEventListener('input',e=>{if(e.target.id==='talentSearch')renderTalent()});document.addEventListener('change',e=>{if(e.target.id==='talentTypeFilter')renderTalent()});
-document.addEventListener('DOMContentLoaded',()=>{put(rows());renderTalent();setTimeout(cleanRail,600);setTimeout(cleanRail,1800);const rail=$('homeMilestoneList');if(rail)new MutationObserver(()=>{if(!rail.querySelector('.ott-clean-ms'))setTimeout(cleanRail,20)}).observe(rail,{childList:true})});
+document.addEventListener('DOMContentLoaded',()=>{put(rows());renderTalent();setTimeout(cleanRail,600);setTimeout(cleanRail,1800)});
 })();
 </script>
 <style id="final-directory-guidance-fix-20260727">
@@ -6187,17 +6174,14 @@ document.addEventListener('DOMContentLoaded',()=>{put(rows());renderTalent();set
       }
     });
 
-    if (typeof rebuildPartnerAccordions === 'function') {
-      try { rebuildPartnerAccordions(); } catch (_) {}
-    } else if (typeof groupBrandPartners === 'function') {
-      try { groupBrandPartners(); } catch (_) {}
-    }
+    // Do not rebuild the directory here. The original application already creates
+    // the groups; rebuilding during startup duplicates bindings and can lock the UI.
   }
 
   document.addEventListener('DOMContentLoaded', () => {
     // Limited retries allow the app's original initialization to finish without
     // installing a permanent observer or interval.
-    [0, 300, 1000].forEach(delay => setTimeout(applyPartnerCategories, delay));
+    setTimeout(applyPartnerCategories, 1200);
   });
 })();
 </script>
