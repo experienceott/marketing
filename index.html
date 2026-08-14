@@ -73,6 +73,7 @@ body{font-family:'Poppins',sans-serif;background:#fff;color:#111;min-height:100v
 @media(max-width:600px){#main{padding:40px 14px}}
 /* Calendar tab gets extra width */
 #tab-content{margin:0 -8px}
+#tab-yearcal{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);}
 .tab-panel{display:none}
 .tab-panel.active{display:block}
 
@@ -2615,6 +2616,7 @@ body>.section-divider,body>.ornamental-divider,body>.history-divider{display:non
 <button onclick="showTab('campaign',this)">Campaign Planner</button>
 <button onclick="showTab('saved',this)">Ongoing Campaigns</button>
 <button onclick="showTab('content',this)">Content Calendar</button>
+<button onclick="showTab('yearcal',this)">2027 Event Calendar</button>
 <button onclick="showTab('talent',this)" type="button">Talent</button><button onclick="showTab('partners',this)">Partners</button>
 </nav>
 <div class="live-stats">
@@ -3031,6 +3033,1222 @@ body>.section-divider,body>.ornamental-divider,body>.history-divider{display:non
 <!-- ════════════════════ EVENTS & VENUES ════════════════════ -->
 <!-- ════════════════════ CREATORS ════════════════════ -->
 <!-- ════════════════════ PARTNERS ════════════════════ -->
+<section class="tab-panel" id="tab-yearcal">
+<style>
+
+  :root{
+    --ink:#1d1d1f; --muted:#6e6e73; --muted-2:#8a8a8e;
+    --glass:rgba(255,255,255,0.55); --glass-strong:rgba(255,255,255,0.72);
+    --glass-border:rgba(255,255,255,0.85); --hairline:rgba(0,0,0,0.07);
+    --gold:#c9871a; --gold-deep:#b8790f; --coral:#ff6b5b; --magenta:#ff4f81;
+    --aqua:#2fb8ac; --lavender:#8a6fc9; --rose:#e8608e; --sage:#5a9a58; --orange:#e07a2b; --ice:#4a9fd8;
+    --sat-tint: rgba(201,135,26,0.09); --sat-tint-strong: rgba(201,135,26,0.16);
+  }
+  #tab-yearcal *{box-sizing:border-box;}
+  
+  #tab-yearcal{
+    background:
+      radial-gradient(ellipse 900px 600px at 8% -5%, rgba(255,190,140,0.55), transparent 60%),
+      radial-gradient(ellipse 800px 700px at 95% 10%, rgba(150,200,255,0.5), transparent 60%),
+      radial-gradient(ellipse 900px 800px at 30% 95%, rgba(255,170,210,0.45), transparent 60%),
+      radial-gradient(ellipse 700px 700px at 85% 90%, rgba(180,255,220,0.4), transparent 60%),
+      #f4f3f6;
+    background-attachment:fixed;
+    color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter',sans-serif;
+    -webkit-font-smoothing:antialiased; padding:28px 14px 60px;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  #tab-yearcal .wrap{max-width:1560px;margin:0 auto;}
+
+  #tab-yearcal header{margin-bottom:22px;}
+  #tab-yearcal .eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  #tab-yearcal .head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  #tab-yearcal h1{font-weight:800;font-size:clamp(32px,9vw,44px);line-height:1.04;margin:0 0 8px;letter-spacing:-0.02em;color:var(--ink);}
+  #tab-yearcal h1 em{font-style:normal;font-weight:800;color:var(--gold);}
+  #tab-yearcal .sub{color:var(--muted);font-size:15px;line-height:1.55;max-width:72ch;}
+  #tab-yearcal .sub b{color:var(--ink);font-weight:600;}
+
+  #tab-yearcal .print-btn{
+    flex:none;background:var(--glass);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);
+    border:1px solid var(--glass-border);color:var(--ink);
+    font-size:12px;font-weight:600;letter-spacing:.01em;
+    padding:10px 18px;border-radius:999px;cursor:pointer;white-space:nowrap;
+    box-shadow:0 4px 16px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.7);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  #tab-yearcal .btn-group{display:flex;gap:8px;flex:none;}
+  #tab-yearcal .print-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.09), inset 0 1px 0 rgba(255,255,255,.8);}
+  #tab-yearcal .print-btn:disabled{opacity:.35;cursor:not-allowed;transform:none;}
+  #tab-yearcal .print-btn:disabled:hover{box-shadow:0 4px 16px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.7);}
+  #tab-yearcal .print-btn.danger{color:#d43f3f;}
+
+  #tab-yearcal .stats-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px;}
+  @media (min-width:700px){ #tab-yearcal .stats-bar{grid-template-columns:repeat(5,1fr);} }
+  #tab-yearcal .stat{
+    background:var(--glass);backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);
+    border:1px solid var(--glass-border);border-radius:18px;padding:14px 16px;
+    box-shadow:0 4px 20px rgba(0,0,0,.05), inset 0 1px 0 rgba(255,255,255,.7);
+  }
+  #tab-yearcal .stat .num{font-weight:800;font-size:26px;color:var(--ink);line-height:1;}
+  #tab-yearcal .stat .lbl{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+  #tab-yearcal .stat.warn .num{color:#d43f3f;}
+
+  /* legend */
+  #tab-yearcal .legend{
+    display:flex;flex-direction:column;gap:14px;margin:20px 0 6px;padding:16px;
+    background:var(--glass);backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);
+    border:1px solid var(--glass-border);border-radius:18px;
+    box-shadow:0 4px 20px rgba(0,0,0,.05), inset 0 1px 0 rgba(255,255,255,.7);
+  }
+  #tab-yearcal .legend-group{display:flex;flex-wrap:wrap;align-items:center;gap:8px;}
+  #tab-yearcal .legend-group .group-label{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);width:118px;flex:none;}
+  #tab-yearcal .chip{
+    display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink);font-weight:500;
+    padding:4px 10px 4px 5px;border-radius:999px;background:rgba(255,255,255,.55);
+    cursor:grab;border:1px solid var(--hairline);touch-action:none;
+    transition:border-color .12s ease, opacity .12s ease, background .12s ease;
+  }
+  #tab-yearcal .chip:hover{background:rgba(255,255,255,.85);border-color:rgba(0,0,0,.12);}
+  #tab-yearcal .chip.dragging{opacity:.35;}
+  #tab-yearcal .chip.hidden-cat{opacity:.3;}
+  #tab-yearcal .chip .freq{font-size:9.5px;color:var(--muted-2);font-weight:600;margin-left:1px;}
+  #tab-yearcal .dot{width:8px;height:8px;border-radius:50%;flex:none;}
+  #tab-yearcal .chip.flag{color:var(--ink);font-weight:700;}
+  #tab-yearcal .flagmark{width:9px;height:9px;border-radius:50%;flex:none;box-shadow:0 0 0 3px currentColor22, 0 0 8px currentColor;}
+
+  #tab-yearcal #months{display:grid;grid-template-columns:1fr;gap:26px;margin-top:26px;}
+  @media (min-width:900px){ #tab-yearcal #months{grid-template-columns:repeat(2,1fr);} }
+
+  #tab-yearcal .month{
+    background:var(--glass);backdrop-filter:blur(28px) saturate(170%);-webkit-backdrop-filter:blur(28px) saturate(170%);
+    border:1px solid var(--glass-border);border-radius:24px;overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.7);
+  }
+  #tab-yearcal .month-head{display:flex;align-items:baseline;justify-content:space-between;padding:22px 22px 14px;}
+  #tab-yearcal .month-head .name{font-weight:800;font-size:30px;letter-spacing:-0.01em;color:var(--ink);}
+  #tab-yearcal .month-head .idx{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;}
+
+  #tab-yearcal .dow-row{display:grid;grid-template-columns:repeat(7,1fr);padding:0 12px;margin-bottom:4px;}
+  #tab-yearcal .dow{text-align:center;font-size:12px;font-weight:700;color:var(--muted);padding:6px 0;letter-spacing:.03em;}
+  #tab-yearcal .dow.sat{color:var(--gold);}
+
+  #tab-yearcal .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;padding:0 12px 16px;}
+  #tab-yearcal .cell{
+    min-height:134px;background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.6);
+    border-radius:12px;padding:9px 7px 7px;
+    position:relative;display:flex;flex-direction:column;gap:5px;
+    transition:box-shadow .12s ease, background .12s ease;
+  }
+  #tab-yearcal .cell.blank{background:transparent;border-color:transparent;}
+  #tab-yearcal .cell.sat{background:var(--sat-tint);}
+  #tab-yearcal .cell.sat.has-event{background:var(--sat-tint-strong);}
+  #tab-yearcal .cell.cell-drag-over{box-shadow:0 0 0 2px var(--gold) inset;background:rgba(201,135,26,.12);}
+  #tab-yearcal .cell .num-row{display:flex;align-items:center;justify-content:space-between;}
+  #tab-yearcal .cell .num{font-size:14px;font-weight:600;color:var(--muted);}
+  #tab-yearcal .cell.sat .num{color:var(--gold);font-weight:800;}
+
+  #tab-yearcal .add-ev{
+    width:20px;height:20px;border-radius:50%;border:1px solid var(--hairline);background:rgba(255,255,255,.5);color:var(--muted);
+    font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.7;padding:0;
+  }
+  #tab-yearcal .add-ev:hover, #tab-yearcal .add-ev:focus{opacity:1;border-color:var(--gold);color:var(--gold);background:#fff;}
+
+  #tab-yearcal .pill{
+    font-size:13px;line-height:1.3;font-weight:600;color:#14151a;
+    padding:7px 8px 6px;overflow:visible;cursor:grab;touch-action:none;
+    display:flex;flex-direction:column;gap:3px;position:relative;border-radius:0;margin:0 -1px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
+  }
+  #tab-yearcal .pill.seg-single{border-radius:10px;margin:0;}
+  #tab-yearcal .pill.seg-start{border-top-left-radius:10px;border-bottom-left-radius:10px;}
+  #tab-yearcal .pill.seg-end{border-top-right-radius:10px;border-bottom-right-radius:10px;}
+  #tab-yearcal .pill.dragging{opacity:.35;}
+  #tab-yearcal .pill.resizing{box-shadow:0 0 0 2px #fff inset;}
+  #tab-yearcal .pill.conflict{box-shadow:0 0 0 2px #d43f3f inset;}
+  #tab-yearcal .pill-top{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:800;margin-bottom:3px;}
+  #tab-yearcal .owner-badge{
+    width:14px;height:14px;border-radius:50%;background:rgba(0,0,0,.2);
+    display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;flex:none;
+  }
+  #tab-yearcal .pill.flagship .owner-badge{background:rgba(255,255,255,.35);}
+  #tab-yearcal .pill .t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  #tab-yearcal .pill .c{font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;}
+  #tab-yearcal .pill.notheme .c{font-size:12px;}
+  #tab-yearcal .pill.flagship{color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 4px 14px rgba(0,0,0,.18);}
+  #tab-yearcal .pill.flagship.resizing{box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 0 0 2px #fff;}
+  #tab-yearcal .pill.flagship.conflict{box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 0 0 2px #d43f3f;}
+
+  #tab-yearcal .handle{position:absolute;top:0;bottom:0;width:12px;cursor:ew-resize;display:flex;align-items:center;justify-content:center;z-index:2;touch-action:none;}
+  #tab-yearcal .handle.left{left:-2px;}
+  #tab-yearcal .handle.right{right:-2px;}
+  #tab-yearcal .handle::after{content:'';width:3px;height:60%;border-radius:2px;background:rgba(0,0,0,.3);}
+  #tab-yearcal .pill.flagship .handle::after{background:rgba(255,255,255,.65);}
+  #tab-yearcal .handle:hover::after{background:rgba(0,0,0,.55);}
+  #tab-yearcal .pill.flagship .handle:hover::after{background:#fff;}
+
+  #tab-yearcal .cont-in::before{content:'‹';position:absolute;left:-1px;top:50%;transform:translateY(-50%);font-size:10px;opacity:.5;}
+  #tab-yearcal .cont-out::after{content:'›';position:absolute;right:-1px;top:50%;transform:translateY(-50%);font-size:10px;opacity:.5;}
+
+  #tab-yearcal .holiday-tag{font-size:9.5px;line-height:1.2;padding:2px 5px;border-radius:6px;font-weight:700;letter-spacing:.01em;pointer-events:none;}
+  #tab-yearcal .holiday-tag.off{background:rgba(0,0,0,.06);color:var(--ink);border:1px solid rgba(0,0,0,.1);}
+  #tab-yearcal .holiday-tag.comm{background:transparent;color:var(--gold);border:1px dashed rgba(201,135,26,.55);}
+  #tab-yearcal .holiday-tag.marquee{background:rgba(232,96,142,.1);color:var(--rose);border:1px solid rgba(232,96,142,.4);}
+
+  #tab-yearcal .suggest-chip{
+    font-size:9.5px;line-height:1.3;padding:3px 5px;border-radius:6px;
+    border:1px dashed rgba(232,96,142,.6);color:var(--rose);background:transparent;
+    cursor:pointer;text-align:left;font-family:inherit;
+  }
+  #tab-yearcal .suggest-chip:hover{background:rgba(232,96,142,.08);}
+
+  #tab-yearcal .runway-bar{display:flex;gap:2px;height:4px;margin-top:auto;border-radius:2px;overflow:hidden;}
+  #tab-yearcal .runway-bar span{flex:1;opacity:.75;}
+
+  #tab-yearcal .observance{
+    margin:0 22px 12px;padding:8px 12px;border-left:3px solid var(--gold);background:rgba(201,135,26,.08);
+    border-radius:0 10px 10px 0;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--gold-deep);
+  }
+
+  #tab-yearcal footer{margin-top:30px;font-size:11.5px;color:var(--muted);line-height:1.6;border-top:1px solid var(--hairline);padding-top:14px;}
+
+  #tab-yearcal .conflict-panel{
+    margin:16px 0 0;padding:14px 16px;background:rgba(255,90,90,.1);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border:1px solid rgba(212,63,63,.3);border-radius:16px;
+  }
+  #tab-yearcal .conflict-panel .cp-title{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#d43f3f;margin-bottom:8px;}
+  #tab-yearcal .conflict-row{font-size:13px;color:var(--ink);line-height:1.6;}
+  #tab-yearcal .conflict-row b{color:#d43f3f;}
+
+  #tab-yearcal .drag-ghost{
+    position:fixed;pointer-events:none;z-index:100;
+    padding:6px 10px;border-radius:10px;font-size:12px;font-weight:600;color:#0d0e13;
+    box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:.94;transform:translate(-50%,-120%);
+  }
+
+  /* modals */
+  #tab-yearcal .overlay{position:fixed;inset:0;background:rgba(30,30,35,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px;z-index:50;}
+  #tab-yearcal .overlay.open{display:flex;}
+  #tab-yearcal .modal{
+    width:100%;max-width:380px;background:var(--glass-strong);backdrop-filter:blur(32px) saturate(180%);-webkit-backdrop-filter:blur(32px) saturate(180%);
+    border:1px solid var(--glass-border);border-radius:24px;padding:22px;max-height:90vh;overflow-y:auto;
+    box-shadow:0 20px 60px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.8);
+  }
+  #tab-yearcal .modal h3{font-weight:800;font-size:20px;margin:0 0 3px;color:var(--ink);}
+  #tab-yearcal .modal .date-label{font-size:11px;font-weight:700;color:var(--gold);margin-bottom:16px;letter-spacing:.02em;}
+  #tab-yearcal .field{margin-bottom:14px;}
+  #tab-yearcal .field label{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px;letter-spacing:.02em;}
+  #tab-yearcal .field .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  #tab-yearcal .field input[type=text], #tab-yearcal .field input[type=number], #tab-yearcal .field select, #tab-yearcal .field textarea{
+    width:100%;background:rgba(255,255,255,.6);border:1px solid var(--hairline);color:var(--ink);
+    border-radius:12px;padding:9px 11px;font-family:inherit;font-size:13.5px;resize:vertical;
+  }
+  #tab-yearcal .field input:focus, #tab-yearcal .field select:focus, #tab-yearcal .field textarea:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  #tab-yearcal .field select{appearance:none;-webkit-appearance:none;}
+  #tab-yearcal .modal-actions{display:flex;gap:8px;margin-top:18px;}
+  #tab-yearcal .btn{flex:1;border:none;border-radius:999px;padding:11px 12px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:transform .1s ease;}
+  #tab-yearcal .btn:active{transform:scale(.97);}
+  #tab-yearcal .btn.primary{background:linear-gradient(180deg, #d99a2b, var(--gold-deep));color:#fff;box-shadow:0 4px 14px rgba(184,121,15,.35);}
+  #tab-yearcal .btn.ghost{background:rgba(255,255,255,.5);color:var(--muted);border:1px solid var(--hairline);}
+  #tab-yearcal .btn.ghost.danger{color:#d43f3f;border-color:rgba(212,63,63,.3);}
+  #tab-yearcal .btn.ghost.danger:hover{border-color:#d43f3f;background:rgba(212,63,63,.08);}
+  #tab-yearcal .attendee-note{font-size:11px;color:var(--muted);margin-top:6px;}
+
+  @media print{
+    #tab-yearcal{background:#fff !important;color:#111 !important;padding:12px;}
+    #tab-yearcal .print-btn, #tab-yearcal .btn-group, #tab-yearcal .add-ev, #tab-yearcal .handle, #tab-yearcal .overlay{display:none !important;}
+    #tab-yearcal .legend{border-color:#ccc;background:#f7f7f7;backdrop-filter:none;}
+    #tab-yearcal .chip{cursor:default;}
+    #tab-yearcal .stats-bar .stat{background:#f7f7f7;border-color:#ccc;backdrop-filter:none;}
+    #tab-yearcal .stat .num, #tab-yearcal .month-head .name{color:#111 !important;}
+    #tab-yearcal #months{grid-template-columns:1fr !important;}
+    #tab-yearcal .month{border-color:#ccc;background:#fff;backdrop-filter:none;page-break-inside:avoid;break-inside:avoid;}
+    #tab-yearcal .cell{background:#fafafa;border:1px solid #eee;}
+    #tab-yearcal .cell.sat{background:#fdf3df;}
+    #tab-yearcal .pill{cursor:default;color:#111 !important;}
+    #tab-yearcal .observance{color:#8a6a1f;background:#fdf3df;}
+    #tab-yearcal .conflict-panel{background:#fff2f2;backdrop-filter:none;}
+  }
+
+</style>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Over The Top Experiences</div>
+    <div class="head-row">
+      <div>
+        <h1>2027 <em>Event</em> Calendar</h1>
+        <p class="sub">Gold columns mark Saturdays. Drag chips to add events, drag pills to move or resize them, tap a pill to edit it. Conflicts flag in red, live.</p>
+      </div>
+      <div class="btn-group">
+        <button class="print-btn" id="undoBtn" disabled>↺ Undo</button>
+        <button class="print-btn" id="printBtn">🖨 Print / Export</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="stats-bar" id="statsBar"></div>
+
+  <div class="legend" id="legend"></div>
+  <div class="legend-group" style="padding:0 16px;">
+    <div class="group-label">Holidays</div>
+    <div class="holiday-tag off" style="cursor:default;">Federal — day off</div>
+    <div class="holiday-tag comm" style="cursor:default;">Commemorative</div>
+  </div>
+
+  <div id="conflictPanel"></div>
+
+  <div id="months"></div>
+
+  <footer>
+    Marketing lead time: &lt;300 attendees → 3 weeks · 300–999 → 4 weeks · 1,000+ → 6 weeks minimum. Yacht Party is priced/treated as a "big" event regardless of headcount. * = attendee estimate not specified — edit any event to correct it. Changes autosave to this browser only (not shared with your team).
+  </footer>
+</div>
+
+<!-- add event modal -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h3>Add event</h3>
+    <div class="date-label" id="modalDate"></div>
+    <div class="field">
+      <label for="evTitle">Theme (optional)</label>
+      <input type="text" id="evTitle" placeholder="e.g. Trivia Night — leave blank if none">
+    </div>
+    <div class="field">
+      <label for="evCat">Category</label>
+      <select id="evCat"></select>
+    </div>
+    <div class="field">
+      <button type="button" class="suggest-chip" id="suggestBtn" style="width:100%;padding:8px;">💡 Suggest better dates for this category</button>
+      <div id="suggestResults" style="margin-top:8px;display:flex;flex-direction:column;gap:6px;"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" id="cancelBtn">Cancel</button>
+      <button class="btn primary" id="addBtn">Add event</button>
+    </div>
+  </div>
+</div>
+
+<!-- edit event modal -->
+<div class="overlay" id="editOverlay">
+  <div class="modal">
+    <h3>Edit event</h3>
+    <div class="date-label" id="editDateLabel"></div>
+    <div class="field">
+      <label for="editTheme">Theme (optional)</label>
+      <input type="text" id="editTheme" placeholder="e.g. Trivia Night">
+    </div>
+    <div class="field row2">
+      <div>
+        <label for="editCat">Category</label>
+        <select id="editCat"></select>
+      </div>
+      <div>
+        <label for="editOwner">Owner</label>
+        <select id="editOwner">
+          <option value="">Unassigned</option>
+          <option value="Rechelle">Rechelle</option>
+          <option value="Gabe">Gabe</option>
+          <option value="Kyle">Kyle</option>
+          <option value="Team">Whole team</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label for="editVenue">Venue</label>
+      <input type="text" id="editVenue" placeholder="e.g. Hotel Nikko, SF">
+    </div>
+    <div class="field">
+      <label for="editSponsor">Sponsor</label>
+      <input type="text" id="editSponsor" placeholder="e.g. Absolut, local roastery, etc.">
+    </div>
+    <div class="field row2">
+      <div>
+        <label for="editAttendees">Est. attendees</label>
+        <input type="number" id="editAttendees" min="0" placeholder="e.g. 500">
+      </div>
+      <div>
+        <label for="editPrice">Ticket price ($)</label>
+        <input type="number" id="editPrice" min="0" step="0.01" placeholder="e.g. 45">
+      </div>
+    </div>
+    <div class="field row2">
+      <div>
+        <label for="editExpenses">Est. expenses ($)</label>
+        <input type="number" id="editExpenses" min="0" step="0.01" placeholder="e.g. 5000">
+      </div>
+      <div>
+        <label for="editSponsorAmt">Sponsor $</label>
+        <input type="number" id="editSponsorAmt" min="0" step="0.01" placeholder="e.g. 3000">
+      </div>
+    </div>
+    <div class="attendee-note" id="editRevenueNote"></div>
+    <div class="attendee-note" id="editLeadNote"></div>
+    <div class="field" style="margin-top:14px;">
+      <label for="editDetails">Event details</label>
+      <textarea id="editDetails" rows="3" placeholder="Time, notes, run of show..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost danger" id="editDeleteBtn">Delete</button>
+      <button class="btn ghost" id="editDupeBtn">Duplicate</button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" id="editCancelBtn">Cancel</button>
+      <button class="btn primary" id="editSaveBtn">Save</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+
+const CATS = {
+  blend:      {label:'The Blend',                 tag:'Blend',        color:'var(--gold)', hex:'#c9871a', avgAttendees:500, freq:'Monthly'},
+  flagship:   {label:'Blend — Flagship edition',   tag:'Blend Flagship',color:'var(--gold-deep)', hex:'#b8790f', flag:true, avgAttendees:500, freq:'Special edition'},
+  blendfest:  {label:'BlendFest',                  tag:'BlendFest',    color:'var(--coral)', hex:'#ff6b5b', flag:true, avgAttendees:1500, freq:'Annual'},
+  yacht:      {label:'Anniversary Yacht Party',    tag:'Yacht Party',  color:'var(--magenta)', hex:'#ff4f81', flag:true, avgAttendees:500, tierOverride:'mega', freq:'Annual'},
+  pool:       {label:'Pool Party',                 tag:'Pool Party',   color:'var(--aqua)', hex:'#2fb8ac', avgAttendees:250, freq:'Seasonal · Jun–Sep'},
+  members:    {label:'Members Only',               tag:'Members Only', color:'var(--lavender)', hex:'#8a6fc9', avgAttendees:150, estimated:true, freq:'Monthly'},
+  winedown:   {label:'Wine Down Social',           tag:'Wine Down',    color:'var(--rose)', hex:'#e8608e', avgAttendees:150, estimated:true, freq:'Bi-monthly'},
+  brunch:     {label:'Brunch & Build',              tag:'Brunch & Build',color:'var(--sage)', hex:'#5a9a58', avgAttendees:300, freq:'Quarterly'},
+  fitfest:    {label:'SF Fit Fest',                tag:'Fit Fest',     color:'var(--orange)', hex:'#e07a2b', avgAttendees:600, freq:'Biannual'},
+  ski:        {label:'Tahoe Ski Trip',             tag:'Ski Trip',     color:'var(--ice)', hex:'#4a9fd8', avgAttendees:40, estimated:true, freq:'Annual'},
+};
+
+// pick the text color (near-black or white) with the higher contrast ratio against a given hex
+function relLum(hex){
+  const r=parseInt(hex.slice(1,3),16)/255, g=parseInt(hex.slice(3,5),16)/255, b=parseInt(hex.slice(5,7),16)/255;
+  const f = c => c<=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055,2.4);
+  return 0.2126*f(r)+0.7152*f(g)+0.0722*f(b);
+}
+function contrastRatio(hexA, hexB){
+  const L1=relLum(hexA), L2=relLum(hexB);
+  const lighter=Math.max(L1,L2), darker=Math.min(L1,L2);
+  return (lighter+0.05)/(darker+0.05);
+}
+function pillTextColor(hex){
+  return contrastRatio(hex,'#14151a') >= contrastRatio(hex,'#ffffff') ? '#14151a' : '#ffffff';
+}
+
+const GROUPS = [
+  {name:'Day Party',      cats:['blend','flagship','blendfest','pool']},
+  {name:'Nightlife',      cats:['winedown','yacht']},
+  {name:'Members Events', cats:['members','brunch']},
+  {name:'Trips',          cats:['ski']},
+  {name:'Fitness',        cats:['fitfest']},
+];
+
+// [start, end, theme, cat]
+const RAW = [
+  ['2027-01-09','2027-01-09','','blend'],
+  ['2027-01-16','2027-01-18','MLK Weekend','ski'],
+  ['2027-01-21','2027-01-21','Dinner','members'],
+  ['2027-01-29','2027-01-29','','winedown'],
+  ['2027-02-06','2027-02-06','Winter Edition','fitfest'],
+  ['2027-02-13','2027-02-13','Black History Month','flagship'],
+  ['2027-02-21','2027-02-21','','brunch'],
+  ['2027-03-13','2027-03-13','','blend'],
+  ['2027-03-21','2027-03-21','Private Screening','members'],
+  ['2027-03-26','2027-03-26','','winedown'],
+  ['2027-04-08','2027-04-08','Dinner','members'],
+  ['2027-04-17','2027-04-17','','blend'],
+  ['2027-05-01','2027-05-01','','blend'],
+  ['2027-05-09','2027-05-09','','brunch'],
+  ['2027-05-13','2027-05-13','Wine Tasting','members'],
+  ['2027-05-28','2027-05-28','','winedown'],
+  ['2027-06-05','2027-06-05','Season Opener','pool'],
+  ['2027-06-19','2027-06-19','Juneteenth','flagship'],
+  ['2027-06-26','2027-06-26','Summer Edition','fitfest'],
+  ['2027-07-08','2027-07-08','Dinner','members'],
+  ['2027-07-10','2027-07-10','','pool'],
+  ['2027-07-24','2027-07-24','','blend'],
+  ['2027-07-30','2027-07-30','','winedown'],
+  ['2027-08-07','2027-08-07','','pool'],
+  ['2027-08-14','2027-08-14','Annual Flagship','blendfest'],
+  ['2027-08-22','2027-08-22','','brunch'],
+  ['2027-09-04','2027-09-04','9th Anniversary','yacht'],
+  ['2027-09-18','2027-09-18','Season Closer','pool'],
+  ['2027-09-24','2027-09-24','','winedown'],
+  ['2027-10-09','2027-10-09','','blend'],
+  ['2027-10-14','2027-10-14','Dinner','members'],
+  ['2027-10-30','2027-10-30','Halloween','blend'],
+  ['2027-11-07','2027-11-07','','brunch'],
+  ['2027-11-11','2027-11-11','Paint & Sip','members'],
+  ['2027-11-13','2027-11-13','','blend'],
+  ['2027-11-19','2027-11-19','','winedown'],
+  ['2027-12-12','2027-12-12','Private Screening','members'],
+  ['2027-12-18','2027-12-18','Holiday','blend'],
+];
+
+let uid = 1;
+const state = {
+  events: RAW.map(([start,end,theme,cat]) => ({
+    id: uid++, start, end, theme, cat,
+    sponsor:'', details:'', owner:'', venue:'', price:0, expenses:0, sponsorAmt:0,
+    attendees: CATS[cat].avgAttendees
+  }))
+};
+
+const HOLIDAYS_OFF = [
+  ['2027-01-01',"New Year's Day"], ['2027-01-18','MLK Jr. Day'], ['2027-02-15','Presidents Day'],
+  ['2027-05-31','Memorial Day'], ['2027-06-19','Juneteenth'], ['2027-07-04','Independence Day'],
+  ['2027-09-06','Labor Day'], ['2027-10-11',"Indigenous Peoples' Day"], ['2027-11-11','Veterans Day'],
+  ['2027-11-25','Thanksgiving'], ['2027-12-25','Christmas'],
+];
+const HOLIDAYS_COMMEMORATIVE = [
+  ['2027-02-06','Lunar New Year'], ['2027-02-14',"Valentine's Day"], ['2027-03-08',"Int'l Women's Day"],
+  ['2027-05-05','Cinco de Mayo'], ['2027-05-09',"Mother's Day"], ['2027-10-29','Diwali'], ['2027-10-31','Halloween'],
+];
+const OBSERVANCES = {
+  1: '✦ Black History Month', 2: "✦ Women's History Month", 4: '✦ AAPI Heritage Month',
+  8: '✦ Hispanic Heritage Month (from 9/15)', 9: '✦ Hispanic Heritage Month (through 10/15)',
+};
+function holidaysOn(dateStr){
+  const off = HOLIDAYS_OFF.filter(h => h[0] === dateStr).map(h => ({label:h[1], type:'off'}));
+  const comm = HOLIDAYS_COMMEMORATIVE.filter(h => h[0] === dateStr).map(h => ({label:h[1], type:'comm'}));
+  return off.concat(comm);
+}
+
+// --- marquee cultural moments (used for date suggestions, not fixed like holidays) ---
+function lastWeekdayOf(year, monthIdx, weekday){ // weekday: 0=Sun...6=Sat
+  const last = new Date(year, monthIdx + 1, 0);
+  const diff = (last.getDay() - weekday + 7) % 7;
+  last.setDate(last.getDate() - diff);
+  return toStr(last);
+}
+const MARQUEE = [
+  {
+    key:'black-joy-parade',
+    label:'Black Joy Parade',
+    venue:'Oakland',
+    parade: lastWeekdayOf(2027, 1, 0), // last Sunday of February
+    suggestedDate: addDays(lastWeekdayOf(2027, 1, 0), -1), // the Saturday right before
+    relevantCats:['blend','flagship'],
+    note:'Consider a Blend edition in Oakland the Saturday before — rides the same weekend energy citywide. (2027 date projected from the last-Sunday-of-Feb pattern; not yet officially announced.)'
+  },
+];
+function marqueeOn(dateStr){
+  return MARQUEE.filter(mm => mm.parade === dateStr || mm.suggestedDate === dateStr);
+}
+
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DOW = ['S','M','T','W','T','F','S'];
+
+function toDate(str){ const [y,m,d] = str.split('-').map(Number); return new Date(y, m-1, d); }
+function toStr(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function addDays(str, n){ const d = toDate(str); d.setDate(d.getDate()+n); return toStr(d); }
+function daysBetween(a, b){ return Math.round((toDate(b) - toDate(a)) / 86400000); }
+function fmtDate(dateStr){ return toDate(dateStr).toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'}); }
+function fmtRange(start, end){ return start === end ? fmtDate(start) : `${fmtDate(start)} – ${fmtDate(end)}`; }
+function mondayOf(dateStr){
+  const d = toDate(dateStr);
+  const day = d.getDay();
+  const diff = (day === 0 ? -6 : 1 - day);
+  d.setDate(d.getDate() + diff);
+  return toStr(d);
+}
+
+// --- size tier + marketing lead-time logic ---
+function tierFor(ev){
+  const c = CATS[ev.cat];
+  if (c.tierOverride) return c.tierOverride;
+  const n = ev.attendees || 0;
+  if (n >= 1000) return 'mega';
+  if (n >= 300) return 'large';
+  return 'small';
+}
+function leadWeeksFor(ev){
+  const tier = tierFor(ev);
+  if (tier === 'mega') return 6;
+  if (tier === 'large') return 4;
+  return 3;
+}
+function marketingStart(ev){ return addDays(ev.start, -leadWeeksFor(ev) * 7); }
+function netRevenue(ev){
+  return (ev.attendees||0) * (ev.price||0) - (ev.expenses||0) + (ev.sponsorAmt||0);
+}
+function rangeGapDays(a, b){
+  if (a.end < b.start) return daysBetween(a.end, b.start);
+  if (b.end < a.start) return daysBetween(b.end, a.start);
+  return 0;
+}
+function runwaysOn(dateStr){
+  return state.events.filter(ev => dateStr >= marketingStart(ev) && dateStr < ev.start);
+}
+function computeConflicts(){
+  const conflicts = [];
+  const sizable = state.events.filter(ev => tierFor(ev) !== 'small');
+  for (let i=0; i<sizable.length; i++){
+    for (let j=i+1; j<sizable.length; j++){
+      const a = sizable[i], b = sizable[j];
+      const tA = tierFor(a), tB = tierFor(b);
+      if (tA !== 'mega' && tB !== 'mega') continue;
+      const gap = rangeGapDays(a, b);
+      if (gap < 14) conflicts.push({a, b, gap, reason:'proximity'});
+    }
+  }
+  const members = state.events.filter(ev => ev.cat === 'members');
+  const wineDowns = state.events.filter(ev => ev.cat === 'winedown');
+  members.forEach(a => {
+    wineDowns.forEach(b => {
+      if (mondayOf(a.start) === mondayOf(b.start)) {
+        conflicts.push({a, b, gap:0, reason:'sameweek'});
+      }
+    });
+  });
+  return conflicts;
+}
+
+// --- automated date suggestions: score candidate dates for a category ---
+function allSaturdaysIn2027(){
+  const out = [];
+  let d = new Date(2027, 0, 1);
+  while (d.getDay() !== 6) d.setDate(d.getDate() + 1);
+  while (d.getFullYear() === 2027) {
+    out.push(toStr(d));
+    d.setDate(d.getDate() + 7);
+  }
+  return out;
+}
+function suggestDatesFor(cat){
+  const freq = CATS[cat].freq;
+  const candidates = new Set(allSaturdaysIn2027());
+  MARQUEE.forEach(mm => { if (mm.relevantCats.includes(cat)) candidates.add(mm.suggestedDate); });
+
+  const scored = [...candidates].map(dateStr => {
+    let score = 0;
+    const reasons = [];
+    const d = toDate(dateStr);
+    if (d.getDay() === 6) { score += 5; }
+
+    // proximity penalty to any mega event
+    let nearMega = false;
+    state.events.forEach(ev => {
+      if (tierFor(ev) === 'mega') {
+        const gap = Math.min(Math.abs(daysBetween(dateStr, ev.start)), Math.abs(daysBetween(dateStr, ev.end)));
+        if (gap < 14) { score -= (14 - gap) * 3; nearMega = true; }
+      }
+    });
+    if (!nearMega) reasons.push('clear of BlendFest & Yacht Party');
+
+    // same-week members/winedown pairing penalty
+    if (cat === 'members' || cat === 'winedown') {
+      const otherCat = cat === 'members' ? 'winedown' : 'members';
+      const clash = state.events.some(ev => ev.cat === otherCat && mondayOf(ev.start) === mondayOf(dateStr));
+      if (clash) score -= 25;
+    }
+
+    // spacing penalty from same-category events
+    let tooClose = false;
+    state.events.filter(ev => ev.cat === cat).forEach(ev => {
+      const gap = Math.abs(daysBetween(dateStr, ev.start));
+      if (gap < 14) { score -= (14 - gap) * 1.5; tooClose = true; }
+    });
+    if (!tooClose) reasons.push('3+ weeks from the last one in this category');
+
+    // frequency-aware bonus: for Monthly categories, prioritize months that don't have one yet
+    if (freq === 'Monthly') {
+      const monthHasEvent = state.events.some(ev => ev.cat === cat && toDate(ev.start).getMonth() === d.getMonth());
+      if (!monthHasEvent) { score += 15; reasons.push(`fills a month with no ${CATS[cat].label} yet`); }
+    }
+
+    // marquee alignment bonus
+    MARQUEE.forEach(mm => {
+      if (mm.relevantCats.includes(cat)) {
+        if (dateStr === mm.suggestedDate) { score += 40; reasons.push(`aligns with ${mm.label} (${mm.venue})`); }
+      }
+    });
+
+    return { dateStr, score, reasons };
+  });
+
+  scored.sort((a,b) => b.score - a.score);
+
+  let advisory = null;
+  const existingCount = state.events.filter(ev => ev.cat === cat).length;
+  if (freq === 'Annual' && existingCount >= 1) {
+    advisory = `Heads up — ${CATS[cat].label} is annual and you already have ${existingCount} scheduled this year. An extra one may be redundant.`;
+  }
+
+  return { top: scored.slice(0, 5), advisory };
+}
+
+// legend
+const legendEl = document.getElementById('legend');
+GROUPS.forEach(group=>{
+  const row = document.createElement('div');
+  row.className = 'legend-group';
+  const label = document.createElement('div');
+  label.className = 'group-label';
+  label.textContent = group.name;
+  row.appendChild(label);
+  group.cats.forEach(key=>{
+    const c = CATS[key];
+    const chip = document.createElement('div');
+    chip.className = 'chip' + (c.flag ? ' flag' : '');
+    chip.dataset.cat = key;
+    chip.innerHTML = c.flag
+      ? `<span class="flagmark" style="color:${c.color};background:${c.color}"></span>${c.label}<span class="freq">· ${c.freq}</span>`
+      : `<span class="dot" style="background:${c.color}"></span>${c.label}<span class="freq">· ${c.freq}</span>`;
+    row.appendChild(chip);
+  });
+  legendEl.appendChild(row);
+});
+
+function fillCatSelect(sel){
+  sel.innerHTML = '';
+  Object.entries(CATS).forEach(([key,c])=>{
+    const opt = document.createElement('option');
+    opt.value = key;
+    opt.textContent = c.label;
+    sel.appendChild(opt);
+  });
+}
+const evCatSel = document.getElementById('evCat');
+const editCatSel = document.getElementById('editCat');
+fillCatSelect(evCatSel);
+fillCatSelect(editCatSel);
+
+const monthsEl = document.getElementById('months');
+const hiddenCats = new Set();
+let resizingId = null, resizeEdge = null, lastResizeDate = null;
+let pendingAddDate = null;
+let dragState = null; // {type:'move'|'create', id/cat, startX, startY, moved, offsetDays, duration, ghostEl}
+
+function render(){
+  monthsEl.innerHTML = '';
+
+  const conflicts = computeConflicts();
+  const conflictIds = new Set();
+  conflicts.forEach(cf => { conflictIds.add(cf.a.id); conflictIds.add(cf.b.id); });
+
+  const panel = document.getElementById('conflictPanel');
+  if (conflicts.length){
+    panel.innerHTML = `<div class="conflict-panel">
+      <div class="cp-title">⚠ ${conflicts.length} scheduling conflict${conflicts.length>1?'s':''}</div>
+      ${conflicts.map(cf => {
+        const nameA = cf.a.theme || CATS[cf.a.cat].label, nameB = cf.b.theme || CATS[cf.b.cat].label;
+        if (cf.reason === 'sameweek') {
+          return `<div class="conflict-row"><b>${nameA}</b> (${fmtDate(cf.a.start)}) and <b>${nameB}</b> (${fmtDate(cf.b.start)}) land in the same week — Members Only and Wine Down should be on different weeks.</div>`;
+        }
+        return `<div class="conflict-row"><b>${nameA}</b> (${fmtDate(cf.a.start)}) and <b>${nameB}</b> (${fmtDate(cf.b.start)}) are only ${cf.gap} day${cf.gap===1?'':'s'} apart — need at least 2 weeks between sizable events.</div>`;
+      }).join('')}
+    </div>`;
+  } else {
+    panel.innerHTML = '';
+  }
+
+  const totalEvents = state.events.length;
+  const totalAttendees = state.events.reduce((sum, ev) => sum + (ev.attendees || 0), 0);
+  const megaCount = state.events.filter(ev => tierFor(ev) === 'mega').length;
+  const totalRevenue = state.events.reduce((sum, ev) => sum + netRevenue(ev), 0);
+  const statsEl = document.getElementById('statsBar');
+  statsEl.innerHTML = `
+    <div class="stat"><div class="num">${totalEvents}</div><div class="lbl">Events scheduled</div></div>
+    <div class="stat"><div class="num">${totalAttendees.toLocaleString()}</div><div class="lbl">Est. total attendees</div></div>
+    <div class="stat"><div class="num">${megaCount}</div><div class="lbl">Flagship / mega events</div></div>
+    <div class="stat"><div class="num">$${totalRevenue.toLocaleString(undefined,{maximumFractionDigits:0})}</div><div class="lbl">Projected revenue</div></div>
+    <div class="stat${conflicts.length ? ' warn' : ''}"><div class="num">${conflicts.length}</div><div class="lbl">Active conflicts</div></div>
+  `;
+
+  for(let m=0; m<12; m++){
+    const first = new Date(2027, m, 1);
+    const daysInMonth = new Date(2027, m+1, 0).getDate();
+    const startDow = first.getDay();
+
+    const monthCard = document.createElement('div');
+    monthCard.className = 'month';
+    monthCard.innerHTML = `
+      <div class="month-head">
+        <div class="name">${MONTH_NAMES[m]}</div>
+        <div class="idx">2027 · ${String(m+1).padStart(2,'0')}/12</div>
+      </div>
+      ${OBSERVANCES[m] ? `<div class="observance">${OBSERVANCES[m]}</div>` : ''}
+      <div class="dow-row">${DOW.map((d,i)=>`<div class="dow${i===6?' sat':''}">${d}</div>`).join('')}</div>
+    `;
+
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+
+    for(let i=0;i<startDow;i++){
+      const blank = document.createElement('div');
+      blank.className = 'cell blank';
+      grid.appendChild(blank);
+    }
+
+    for(let day=1; day<=daysInMonth; day++){
+      const dow = new Date(2027, m, day).getDay();
+      const dateStr = `2027-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+      const evs = state.events.filter(ev => dateStr >= ev.start && dateStr <= ev.end && !hiddenCats.has(ev.cat));
+      const hols = holidaysOn(dateStr);
+      const cell = document.createElement('div');
+      cell.className = 'cell' + (dow===6 ? ' sat' : '') + ((evs.length || hols.length) ? ' has-event' : '');
+      cell.dataset.date = dateStr;
+
+      const numRow = document.createElement('div');
+      numRow.className = 'num-row';
+      numRow.innerHTML = `<span class="num">${day}</span>`;
+      const addBtn = document.createElement('button');
+      addBtn.className = 'add-ev';
+      addBtn.type = 'button';
+      addBtn.title = 'Add event';
+      addBtn.textContent = '+';
+      addBtn.dataset.date = dateStr;
+      numRow.appendChild(addBtn);
+      cell.appendChild(numRow);
+
+      evs.forEach(ev=>{
+        const c = CATS[ev.cat];
+        const isStart = dateStr === ev.start;
+        const isEnd = dateStr === ev.end;
+        const segClass = (isStart && isEnd) ? 'seg-single' : isStart ? 'seg-start' : isEnd ? 'seg-end' : 'seg-mid';
+
+        const pill = document.createElement('div');
+        pill.className = 'pill ' + segClass + (c.flag ? ' flagship' : '') + (ev.id === resizingId ? ' resizing' : '') + (!ev.theme ? ' notheme' : '') + (conflictIds.has(ev.id) ? ' conflict' : '');
+        pill.style.background = c.color;
+        pill.style.color = pillTextColor(c.hex);
+        pill.dataset.id = ev.id;
+        pill.dataset.segDate = dateStr;
+        const detailBits = [ev.owner ? `Owner: ${ev.owner}` : '', ev.venue ? `Venue: ${ev.venue}` : '', ev.sponsor ? `Sponsor: ${ev.sponsor}` : ''].filter(Boolean);
+        if (detailBits.length) pill.title = detailBits.join(' · ');
+
+        pill.innerHTML =
+          (conflictIds.has(ev.id) ? `<div class="pill-top"><span title="Scheduling conflict">⚠ Conflict</span></div>` : '') +
+          (ev.theme ? `<span class="t">${ev.theme}</span>` : '') +
+          `<span class="c">${c.tag}</span>`;
+
+        if(!isStart) pill.classList.add('cont-in');
+        if(!isEnd) pill.classList.add('cont-out');
+
+        if(isStart){
+          const h = document.createElement('div');
+          h.className = 'handle left';
+          h.dataset.edge = 'start';
+          h.dataset.id = ev.id;
+          pill.appendChild(h);
+        }
+        if(isEnd){
+          const h = document.createElement('div');
+          h.className = 'handle right';
+          h.dataset.edge = 'end';
+          h.dataset.id = ev.id;
+          pill.appendChild(h);
+        }
+
+        cell.appendChild(pill);
+      });
+
+      hols.forEach(h => {
+        const tag = document.createElement('div');
+        tag.className = 'holiday-tag ' + h.type;
+        tag.textContent = h.label;
+        cell.appendChild(tag);
+      });
+
+      marqueeOn(dateStr).forEach(mm => {
+        if (mm.parade === dateStr) {
+          const tag = document.createElement('div');
+          tag.className = 'holiday-tag marquee';
+          tag.textContent = `🎉 ${mm.label} — ${mm.venue}`;
+          cell.appendChild(tag);
+        }
+        if (mm.suggestedDate === dateStr && !evs.some(e => mm.relevantCats.includes(e.cat))) {
+          const chip = document.createElement('button');
+          chip.type = 'button';
+          chip.className = 'suggest-chip';
+          chip.textContent = `💡 Suggested: Blend — ${mm.venue}`;
+          chip.title = mm.note;
+          chip.dataset.date = dateStr;
+          chip.dataset.suggestCat = mm.relevantCats[0];
+          cell.appendChild(chip);
+        }
+      });
+
+      const rw = runwaysOn(dateStr).filter(ev => !hiddenCats.has(ev.cat));
+      if (rw.length){
+        const bar = document.createElement('div');
+        bar.className = 'runway-bar';
+        bar.title = 'Marketing runway active: ' + rw.map(e => (e.theme || CATS[e.cat].label)).join(', ');
+        rw.slice(0,4).forEach(e=>{
+          const seg = document.createElement('span');
+          seg.style.background = CATS[e.cat].hex;
+          bar.appendChild(seg);
+        });
+        cell.appendChild(bar);
+      }
+
+      grid.appendChild(cell);
+    }
+
+    monthCard.appendChild(grid);
+    monthsEl.appendChild(monthCard);
+  }
+}
+
+const STORAGE_KEY = 'ott-2027-events-v2';
+async function persist(){
+  try { await window.storage.set(STORAGE_KEY, JSON.stringify(state.events), false); } catch(e){}
+}
+async function init(){
+  try {
+    const res = await window.storage.get(STORAGE_KEY, false);
+    if (res && res.value) {
+      const saved = JSON.parse(res.value);
+      if (Array.isArray(saved) && saved.length) {
+        state.events = saved;
+        uid = saved.reduce((mx,e)=>Math.max(mx,e.id),0) + 1;
+      }
+    }
+  } catch(e){}
+  render();
+}
+init();
+
+// --- undo history ---
+const historyStack = [];
+const undoBtn = document.getElementById('undoBtn');
+function pushHistory(){
+  historyStack.push(JSON.stringify(state.events));
+  if (historyStack.length > 20) historyStack.shift();
+  undoBtn.disabled = historyStack.length === 0;
+}
+function undo(){
+  if (!historyStack.length) return;
+  const prev = historyStack.pop();
+  state.events = JSON.parse(prev);
+  uid = state.events.reduce((mx,e)=>Math.max(mx,e.id),0) + 1;
+  render();
+  persist();
+  undoBtn.disabled = historyStack.length === 0;
+}
+undoBtn.addEventListener('click', undo);
+
+document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+// ============ unified pointer-based drag system (mouse + touch) ============
+function cellAtPoint(x, y){
+  const el = document.elementFromPoint(x, y);
+  return el ? el.closest('.cell[data-date]') : null;
+}
+function clearCellHighlights(){
+  document.querySelectorAll('.cell-drag-over').forEach(el => el.classList.remove('cell-drag-over'));
+}
+function makeGhost(text, hex){
+  const g = document.createElement('div');
+  g.className = 'drag-ghost';
+  g.style.background = hex;
+  g.style.color = pillTextColor(hex);
+  g.textContent = text;
+  document.body.appendChild(g);
+  return g;
+}
+function positionGhost(g, x, y){
+  g.style.left = x + 'px';
+  g.style.top = y + 'px';
+}
+
+// --- start a potential drag from a pill (move) ---
+monthsEl.addEventListener('pointerdown', (e) => {
+  const handle = e.target.closest('.handle');
+  if (handle) {
+    e.preventDefault(); e.stopPropagation();
+    pushHistory();
+    resizingId = Number(handle.dataset.id);
+    resizeEdge = handle.dataset.edge;
+    lastResizeDate = null;
+    document.body.style.userSelect = 'none';
+    render();
+    return;
+  }
+  const addBtn = e.target.closest('.add-ev');
+  if (addBtn) return; // handled by click
+  const pill = e.target.closest('.pill');
+  if (!pill) return;
+  const ev = state.events.find(x => x.id === Number(pill.dataset.id));
+  if (!ev) return;
+  dragState = {
+    type:'move', id: ev.id,
+    startX: e.clientX, startY: e.clientY, moved:false,
+    offsetDays: daysBetween(ev.start, pill.dataset.segDate),
+    duration: daysBetween(ev.start, ev.end),
+    ghostEl:null
+  };
+});
+
+// --- start a potential drag from a legend chip (create) ---
+legendEl.addEventListener('pointerdown', (e) => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  dragState = {
+    type:'create', cat: chip.dataset.cat,
+    startX: e.clientX, startY: e.clientY, moved:false,
+    ghostEl:null
+  };
+});
+
+document.addEventListener('pointermove', (e) => {
+  // resize path (unchanged behavior, already touch-friendly via pointer events)
+  if (resizingId != null) {
+    const cell = cellAtPoint(e.clientX, e.clientY);
+    if (!cell) return;
+    const dateStr = cell.dataset.date;
+    if (dateStr === lastResizeDate) return;
+    lastResizeDate = dateStr;
+    const ev = state.events.find(x => x.id === resizingId);
+    if (!ev) return;
+    if (resizeEdge === 'start') { if (dateStr <= ev.end) ev.start = dateStr; }
+    else { if (dateStr >= ev.start) ev.end = dateStr; }
+    render();
+    return;
+  }
+
+  // move/create path
+  if (!dragState) return;
+  const dx = e.clientX - dragState.startX, dy = e.clientY - dragState.startY;
+  if (!dragState.moved && Math.hypot(dx,dy) > 6) {
+    dragState.moved = true;
+    pushHistory();
+    let text, hex;
+    if (dragState.type === 'move') {
+      const ev = state.events.find(x => x.id === dragState.id);
+      const c = CATS[ev.cat];
+      text = ev.theme || c.label;
+      hex = c.hex;
+    } else {
+      const c = CATS[dragState.cat];
+      text = c.label;
+      hex = c.hex;
+    }
+    dragState.ghostEl = makeGhost(text, hex);
+  }
+  if (dragState.moved) {
+    positionGhost(dragState.ghostEl, e.clientX, e.clientY);
+    clearCellHighlights();
+    const cell = cellAtPoint(e.clientX, e.clientY);
+    if (cell) cell.classList.add('cell-drag-over');
+  }
+});
+
+document.addEventListener('pointerup', (e) => {
+  if (resizingId != null) {
+    resizingId = null; resizeEdge = null; lastResizeDate = null;
+    document.body.style.userSelect = '';
+    render();
+    persist();
+    return;
+  }
+
+  if (!dragState) return;
+  clearCellHighlights();
+  if (dragState.ghostEl) dragState.ghostEl.remove();
+
+  if (dragState.moved) {
+    const cell = cellAtPoint(e.clientX, e.clientY);
+    if (cell) {
+      if (dragState.type === 'move') {
+        const ev = state.events.find(x => x.id === dragState.id);
+        if (ev) {
+          const newStart = addDays(cell.dataset.date, -dragState.offsetDays);
+          ev.start = newStart;
+          ev.end = addDays(newStart, dragState.duration);
+        }
+      } else if (dragState.type === 'create') {
+        const c = CATS[dragState.cat];
+        state.events.push({
+          id: uid++, start: cell.dataset.date, end: cell.dataset.date,
+          theme:'', cat: dragState.cat, sponsor:'', details:'', owner:'', venue:'', price:0, expenses:0, sponsorAmt:0,
+          attendees: c.avgAttendees
+        });
+      }
+      render();
+      persist();
+    }
+  } else {
+    // no movement — treat as a tap
+    if (dragState.type === 'move') {
+      openEditModal(dragState.id);
+    } else if (dragState.type === 'create') {
+      const key = dragState.cat;
+      if (hiddenCats.has(key)) hiddenCats.delete(key); else hiddenCats.add(key);
+      render();
+    }
+  }
+  dragState = null;
+});
+
+// --- add event modal (+ button) ---
+const overlay = document.getElementById('overlay');
+const modalDate = document.getElementById('modalDate');
+const evTitle = document.getElementById('evTitle');
+const suggestBtn = document.getElementById('suggestBtn');
+const suggestResults = document.getElementById('suggestResults');
+
+suggestBtn.addEventListener('click', () => {
+  const { top, advisory } = suggestDatesFor(evCatSel.value);
+  const advisoryHtml = advisory ? `<div class="attendee-note" style="margin-bottom:6px;">${advisory}</div>` : '';
+  suggestResults.innerHTML = advisoryHtml + top.map(s => `
+    <button type="button" class="suggest-chip suggest-result" data-date="${s.dateStr}" style="width:100%;text-align:left;">
+      <b>${fmtDate(s.dateStr)}</b>${s.reasons.length ? ' — ' + s.reasons.join(', ') : ''}
+    </button>
+  `).join('');
+});
+
+suggestResults.addEventListener('click', (e) => {
+  const btn = e.target.closest('.suggest-result');
+  if (!btn) return;
+  pendingAddDate = btn.dataset.date;
+  modalDate.textContent = fmtDate(pendingAddDate);
+  suggestResults.innerHTML = '';
+});
+
+monthsEl.addEventListener('click', (e) => {
+  const suggestChip = e.target.closest('.suggest-chip:not(.suggest-result)');
+  if (suggestChip && suggestChip.closest('.cell')) {
+    pendingAddDate = suggestChip.dataset.date;
+    modalDate.textContent = fmtDate(pendingAddDate);
+    evTitle.value = 'Black Joy Parade Weekend';
+    evCatSel.value = suggestChip.dataset.suggestCat || 'blend';
+    suggestResults.innerHTML = '';
+    overlay.classList.add('open');
+    evTitle.focus();
+    return;
+  }
+  const addBtn = e.target.closest('.add-ev');
+  if (!addBtn) return;
+  pendingAddDate = addBtn.dataset.date;
+  modalDate.textContent = fmtDate(pendingAddDate);
+  evTitle.value = '';
+  evCatSel.value = 'blend';
+  suggestResults.innerHTML = '';
+  overlay.classList.add('open');
+  evTitle.focus();
+});
+
+document.getElementById('cancelBtn').addEventListener('click', () => overlay.classList.remove('open'));
+overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
+
+document.getElementById('addBtn').addEventListener('click', () => {
+  if (!pendingAddDate) return;
+  pushHistory();
+  const theme = evTitle.value.trim();
+  const c = CATS[evCatSel.value];
+  state.events.push({
+    id: uid++, start: pendingAddDate, end: pendingAddDate, theme, cat: evCatSel.value,
+    sponsor:'', details:'', owner:'', venue:'', price:0, expenses:0, sponsorAmt:0, attendees: c.avgAttendees
+  });
+  overlay.classList.remove('open');
+  render();
+  persist();
+});
+
+// --- edit event modal ---
+const editOverlay = document.getElementById('editOverlay');
+const editDateLabel = document.getElementById('editDateLabel');
+const editTheme = document.getElementById('editTheme');
+const editOwner = document.getElementById('editOwner');
+const editVenue = document.getElementById('editVenue');
+const editSponsor = document.getElementById('editSponsor');
+const editAttendees = document.getElementById('editAttendees');
+const editPrice = document.getElementById('editPrice');
+const editExpenses = document.getElementById('editExpenses');
+const editSponsorAmt = document.getElementById('editSponsorAmt');
+const editRevenueNote = document.getElementById('editRevenueNote');
+const editLeadNote = document.getElementById('editLeadNote');
+const editDetails = document.getElementById('editDetails');
+let editingId = null;
+
+function updateLeadNote(){
+  const n = parseInt(editAttendees.value, 10) || 0;
+  const cat = CATS[editCatSel.value];
+  const tier = cat.tierOverride || (n >= 1000 ? 'mega' : n >= 300 ? 'large' : 'small');
+  const weeks = tier === 'mega' ? 6 : tier === 'large' ? 4 : 3;
+  const overrideNote = cat.tierOverride ? ' (treated as a big event regardless of headcount — ticket price)' : '';
+  editLeadNote.textContent = `Needs ~${weeks} weeks marketing lead time${overrideNote}.`;
+}
+function updateRevenueNote(){
+  const attendees = parseInt(editAttendees.value, 10) || 0;
+  const price = parseFloat(editPrice.value) || 0;
+  const expenses = parseFloat(editExpenses.value) || 0;
+  const sponsorAmt = parseFloat(editSponsorAmt.value) || 0;
+  const gross = attendees * price;
+  const net = gross - expenses + sponsorAmt;
+  editRevenueNote.textContent = `${attendees}×$${price} ticket sales = $${gross.toLocaleString()} − $${expenses.toLocaleString()} expenses + $${sponsorAmt.toLocaleString()} sponsor = projected $${net.toLocaleString()}.`;
+}
+editAttendees.addEventListener('input', () => { updateLeadNote(); updateRevenueNote(); });
+editCatSel.addEventListener('change', updateLeadNote);
+editPrice.addEventListener('input', updateRevenueNote);
+editExpenses.addEventListener('input', updateRevenueNote);
+editSponsorAmt.addEventListener('input', updateRevenueNote);
+
+function openEditModal(id){
+  const ev = state.events.find(x => x.id === id);
+  if (!ev) return;
+  editingId = id;
+  editDateLabel.textContent = fmtRange(ev.start, ev.end);
+  editTheme.value = ev.theme || '';
+  editCatSel.value = ev.cat;
+  editOwner.value = ev.owner || '';
+  editVenue.value = ev.venue || '';
+  editSponsor.value = ev.sponsor || '';
+  editAttendees.value = ev.attendees || '';
+  editPrice.value = ev.price || '';
+  editExpenses.value = ev.expenses || '';
+  editSponsorAmt.value = ev.sponsorAmt || '';
+  editDetails.value = ev.details || '';
+  updateLeadNote();
+  updateRevenueNote();
+  editOverlay.classList.add('open');
+  editTheme.focus();
+}
+
+document.getElementById('editCancelBtn').addEventListener('click', () => editOverlay.classList.remove('open'));
+editOverlay.addEventListener('click', (e) => { if (e.target === editOverlay) editOverlay.classList.remove('open'); });
+
+document.getElementById('editSaveBtn').addEventListener('click', () => {
+  const ev = state.events.find(x => x.id === editingId);
+  if (!ev) return;
+  pushHistory();
+  ev.theme = editTheme.value.trim();
+  ev.cat = editCatSel.value;
+  ev.owner = editOwner.value;
+  ev.venue = editVenue.value.trim();
+  ev.sponsor = editSponsor.value.trim();
+  ev.attendees = parseInt(editAttendees.value, 10) || 0;
+  ev.price = parseFloat(editPrice.value) || 0;
+  ev.expenses = parseFloat(editExpenses.value) || 0;
+  ev.sponsorAmt = parseFloat(editSponsorAmt.value) || 0;
+  ev.details = editDetails.value.trim();
+  editOverlay.classList.remove('open');
+  render();
+  persist();
+});
+
+document.getElementById('editDeleteBtn').addEventListener('click', () => {
+  const ev = state.events.find(x => x.id === editingId);
+  if (!ev) return;
+  const name = ev.theme || CATS[ev.cat].label;
+  if (!confirm(`Delete "${name}" (${fmtRange(ev.start, ev.end)})? This can be undone with the Undo button.`)) return;
+  pushHistory();
+  state.events = state.events.filter(x => x.id !== editingId);
+  editOverlay.classList.remove('open');
+  render();
+  persist();
+});
+
+document.getElementById('editDupeBtn').addEventListener('click', () => {
+  const ev = state.events.find(x => x.id === editingId);
+  if (!ev) return;
+  pushHistory();
+  const duration = daysBetween(ev.start, ev.end);
+  const newStart = addDays(ev.start, 7); // default to a week later; drag to reposition
+  const clone = { ...ev, id: uid++, start: newStart, end: addDays(newStart, duration) };
+  state.events.push(clone);
+  editOverlay.classList.remove('open');
+  render();
+  persist();
+});
+
+})();
+</script>
+</section>
 <main class="tab-panel" id="tab-talent">
 <section class="talent-hero glass-panel">
 <div>
