@@ -2601,7 +2601,21 @@ body>.section-divider,body>.ornamental-divider,body>.history-divider{display:non
   font-size:2.7rem!important;
   text-align:left!important;
 }
-</style></head>
+</style>
+<script id="ott-event-type-config">
+window.OTT_EVENT_TYPES = Object.freeze({
+  blend:{label:'The Blend',defaultCapacity:500,defaultLeadTime:32,comparable:'blend',market:'proven',series:'The Blend'},
+  blendfest:{label:'BlendFest',defaultCapacity:1500,defaultLeadTime:55,comparable:'festival',market:'proven',series:'BlendFest',flagship:true},
+  yacht:{label:'Anniversary Yacht Party',defaultCapacity:500,defaultLeadTime:38,comparable:'yacht',market:'proven',series:'Yacht Party'},
+  pool:{label:'Pool Party',defaultCapacity:250,defaultLeadTime:32,comparable:'pool',market:'proven',series:'One-off / Custom'},
+  members:{label:'Members Only',defaultCapacity:150,defaultLeadTime:21,comparable:'blend',market:'proven',series:'Dinner Series'},
+  winedown:{label:'Wine Down Social',defaultCapacity:150,defaultLeadTime:21,comparable:'blend',market:'proven',series:'Wine Down'},
+  brunch:{label:'Brunch & Build',defaultCapacity:300,defaultLeadTime:32,comparable:'blend',market:'proven',series:'Brunch & Build'},
+  fitfest:{label:'SF Fit Fest',defaultCapacity:600,defaultLeadTime:39,comparable:'festival',market:'proven',series:'SF Fit Fest'},
+  ski:{label:'Tahoe Ski Trip',defaultCapacity:40,defaultLeadTime:21,comparable:'blend',market:'proven',series:'One-off / Custom'}
+});
+</script>
+</head>
 <body>
 <!-- ══ TOP BAR ══ -->
 <div id="topbar">
@@ -2614,7 +2628,7 @@ body>.section-divider,body>.ornamental-divider,body>.history-divider{display:non
 <nav id="nav">
 <button class="active" onclick="showTab('overview',this)">Overview</button>
 <button onclick="showTab('campaign',this)">Campaign Planner</button>
-<button onclick="showTab('saved',this)">Ongoing Campaigns</button>
+<button onclick="showTab('saved',this)">Campaigns</button>
 <button onclick="showTab('content',this)">Content Calendar</button>
 <button onclick="showTab('yearcal',this)">2027 Event Calendar</button>
 <button onclick="showTab('talent',this)" type="button">Talent</button><button onclick="showTab('partners',this)">Partners</button>
@@ -2767,7 +2781,6 @@ body>.section-divider,body>.ornamental-divider,body>.history-divider{display:non
 <option>Wine Down</option>
 <option>Yacht Party</option>
 </optgroup>
-<option>Blend Fest</option>
 <option>One-off / Custom</option>
 </select>
 </div>
@@ -2902,7 +2915,7 @@ body>.section-divider,body>.ornamental-divider,body>.history-divider{display:non
 </section>
 </section><section class="tab-panel" id="tab-saved">
 <div class="eyebrow">Active work</div>
-<h2 class="section-head">Ongoing campaigns.</h2>
+<h2 class="section-head">Campaigns.</h2>
 <div id="saved-list"></div>
 </section>
 <!-- ════════════════════ CONTENT CALENDAR ════════════════════ -->
@@ -2933,7 +2946,7 @@ body>.section-divider,body>.ornamental-divider,body>.history-divider{display:non
 <span style="display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:10px;height:8px;background:var(--y);outline:2px solid #999;outline-offset:-1px"></span>Plan</span>
 </div>
 <div style="display:flex;gap:8px;flex-wrap:wrap">
-<button class="btn btn-sm btn-dark" onclick="importPlansToCalendar()" title="Pull key dates from saved campaign plans">↓ Import Plans</button>
+<button class="btn btn-sm btn-dark" onclick="importPlansToCalendar()" title="Campaign milestones sync automatically" style="display:none">↓ Import Plans</button>
 <button class="btn btn-sm" onclick="openPostModal(null)">+ Add Post</button>
 </div>
 </div>
@@ -3300,7 +3313,7 @@ body>.section-divider,body>.ornamental-divider,body>.history-divider{display:non
   <div id="months"></div>
 
   <footer>
-    Marketing lead time: &lt;300 attendees → 3 weeks · 300–999 → 4 weeks · 1,000+ → 6 weeks minimum. Yacht Party is priced/treated as a "big" event regardless of headcount. * = attendee estimate not specified — edit any event to correct it. Changes autosave to this browser only (not shared with your team).
+    Marketing lead time: &lt;300 capacity → 3 weeks · 300–999 → 4 weeks · 1,000+ → 6 weeks minimum. Yacht Party is priced/treated as a "big" event regardless of headcount. * = capacity estimate not specified — edit any event to correct it. Changes autosave in this browser. A shared backend is still required for team-wide sync.
   </footer>
 </div>
 
@@ -3363,7 +3376,7 @@ body>.section-divider,body>.ornamental-divider,body>.history-divider{display:non
     </div>
     <div class="field row2">
       <div>
-        <label for="editAttendees">Est. attendees</label>
+        <label for="editAttendees">Capacity</label>
         <input type="number" id="editAttendees" min="0" placeholder="e.g. 500">
       </div>
       <div>
@@ -3401,16 +3414,15 @@ body>.section-divider,body>.ornamental-divider,body>.history-divider{display:non
 (function(){
 
 const CATS = {
-  blend:      {label:'The Blend',                 tag:'Blend',        color:'var(--gold)', hex:'#c9871a', avgAttendees:500, freq:'Monthly'},
-  flagship:   {label:'Blend — Flagship edition',   tag:'Blend Flagship',color:'var(--gold-deep)', hex:'#b8790f', flag:true, avgAttendees:500, freq:'Special edition'},
-  blendfest:  {label:'BlendFest',                  tag:'BlendFest',    color:'var(--coral)', hex:'#ff6b5b', flag:true, avgAttendees:1500, freq:'Annual'},
-  yacht:      {label:'Anniversary Yacht Party',    tag:'Yacht Party',  color:'var(--magenta)', hex:'#ff4f81', flag:true, avgAttendees:500, tierOverride:'mega', freq:'Annual'},
-  pool:       {label:'Pool Party',                 tag:'Pool Party',   color:'var(--aqua)', hex:'#2fb8ac', avgAttendees:250, freq:'Seasonal · Jun–Sep'},
-  members:    {label:'Members Only',               tag:'Members Only', color:'var(--lavender)', hex:'#8a6fc9', avgAttendees:150, estimated:true, freq:'Monthly'},
-  winedown:   {label:'Wine Down Social',           tag:'Wine Down',    color:'var(--rose)', hex:'#e8608e', avgAttendees:150, estimated:true, freq:'Bi-monthly'},
-  brunch:     {label:'Brunch & Build',              tag:'Brunch & Build',color:'var(--sage)', hex:'#5a9a58', avgAttendees:300, freq:'Quarterly'},
-  fitfest:    {label:'SF Fit Fest',                tag:'Fit Fest',     color:'var(--orange)', hex:'#e07a2b', avgAttendees:600, freq:'Biannual'},
-  ski:        {label:'Tahoe Ski Trip',             tag:'Ski Trip',     color:'var(--ice)', hex:'#4a9fd8', avgAttendees:40, estimated:true, freq:'Annual'},
+  blend:      {label:'The Blend',                 tag:'Blend',        color:'var(--gold)', hex:'#c9871a', defaultCapacity:OTT_EVENT_TYPES.blend.defaultCapacity, freq:'Monthly'},
+  blendfest:  {label:'BlendFest',                 tag:'BlendFest',    color:'var(--coral)', hex:'#ff6b5b', flag:true, defaultCapacity:OTT_EVENT_TYPES.blendfest.defaultCapacity, freq:'Annual'},
+  yacht:      {label:'Anniversary Yacht Party',   tag:'Yacht Party',  color:'var(--magenta)', hex:'#ff4f81', flag:true, defaultCapacity:OTT_EVENT_TYPES.yacht.defaultCapacity, tierOverride:'mega', freq:'Annual'},
+  pool:       {label:'Pool Party',                 tag:'Pool Party',   color:'var(--aqua)', hex:'#2fb8ac', defaultCapacity:OTT_EVENT_TYPES.pool.defaultCapacity, freq:'Seasonal · Jun–Sep'},
+  members:    {label:'Members Only',               tag:'Members Only', color:'var(--lavender)', hex:'#8a6fc9', defaultCapacity:OTT_EVENT_TYPES.members.defaultCapacity, estimated:true, freq:'Monthly'},
+  winedown:   {label:'Wine Down Social',           tag:'Wine Down',    color:'var(--rose)', hex:'#e8608e', defaultCapacity:OTT_EVENT_TYPES.winedown.defaultCapacity, estimated:true, freq:'Bi-monthly'},
+  brunch:     {label:'Brunch & Build',             tag:'Brunch & Build',color:'var(--sage)', hex:'#5a9a58', defaultCapacity:OTT_EVENT_TYPES.brunch.defaultCapacity, freq:'Quarterly'},
+  fitfest:    {label:'SF Fit Fest',                tag:'Fit Fest',     color:'var(--orange)', hex:'#e07a2b', defaultCapacity:OTT_EVENT_TYPES.fitfest.defaultCapacity, freq:'Biannual'},
+  ski:        {label:'Tahoe Ski Trip',             tag:'Ski Trip',     color:'var(--ice)', hex:'#4a9fd8', defaultCapacity:OTT_EVENT_TYPES.ski.defaultCapacity, estimated:true, freq:'Annual'},
 };
 
 // pick the text color (near-black or white) with the higher contrast ratio against a given hex
@@ -3429,7 +3441,7 @@ function pillTextColor(hex){
 }
 
 const GROUPS = [
-  {name:'Day Party',      cats:['blend','flagship','blendfest','pool']},
+  {name:'Day Party',      cats:['blend','blendfest','pool']},
   {name:'Nightlife',      cats:['winedown','yacht']},
   {name:'Members Events', cats:['members','brunch']},
   {name:'Trips',          cats:['ski']},
@@ -3443,7 +3455,7 @@ const RAW = [
   ['2027-01-21','2027-01-21','Dinner','members'],
   ['2027-01-29','2027-01-29','','winedown'],
   ['2027-02-06','2027-02-06','Winter Edition','fitfest'],
-  ['2027-02-13','2027-02-13','Black History Month','flagship'],
+  ['2027-02-13','2027-02-13','Black History Month','blend'],
   ['2027-02-21','2027-02-21','','brunch'],
   ['2027-03-13','2027-03-13','','blend'],
   ['2027-03-21','2027-03-21','Private Screening','members'],
@@ -3455,7 +3467,7 @@ const RAW = [
   ['2027-05-13','2027-05-13','Wine Tasting','members'],
   ['2027-05-28','2027-05-28','','winedown'],
   ['2027-06-05','2027-06-05','Season Opener','pool'],
-  ['2027-06-19','2027-06-19','Juneteenth','flagship'],
+  ['2027-06-19','2027-06-19','Juneteenth','blend'],
   ['2027-06-26','2027-06-26','Summer Edition','fitfest'],
   ['2027-07-08','2027-07-08','Dinner','members'],
   ['2027-07-10','2027-07-10','','pool'],
@@ -3483,7 +3495,7 @@ const state = {
   events: RAW.map(([start,end,theme,cat]) => ({
     id: uid++, start, end, theme, cat,
     sponsor:'', details:'', owner:'', venue:'', price:0, expenses:0, sponsorAmt:0,
-    attendees: CATS[cat].avgAttendees
+    attendees: CATS[cat].defaultCapacity
   }))
 };
 
@@ -3521,7 +3533,7 @@ const MARQUEE = [
     venue:'Oakland',
     parade: lastWeekdayOf(2027, 1, 0), // last Sunday of February
     suggestedDate: addDays(lastWeekdayOf(2027, 1, 0), -1), // the Saturday right before
-    relevantCats:['blend','flagship'],
+    relevantCats:['blend','blendfest'],
     note:'Consider a Blend edition in Oakland the Saturday before — rides the same weekend energy citywide. (2027 date projected from the last-Sunday-of-Feb pattern; not yet officially announced.)'
   },
 ];
@@ -3709,7 +3721,7 @@ fillCatSelect(editCatSel);
 
 const monthsEl = document.getElementById('months');
 const hiddenCats = new Set();
-let resizingId = null, resizeEdge = null, lastResizeDate = null;
+let resizingId = null, resizeEdge = null, lastResizeDate = null, resizePreviewDate = null, resizeOriginal = null;
 let pendingAddDate = null;
 let dragState = null; // {type:'move'|'create', id/cat, startX, startY, moved, offsetDays, duration, ghostEl}
 
@@ -3729,7 +3741,7 @@ function render(){
         if (cf.reason === 'sameweek') {
           return `<div class="conflict-row"><b>${nameA}</b> (${fmtDate(cf.a.start)}) and <b>${nameB}</b> (${fmtDate(cf.b.start)}) land in the same week — Members Only and Wine Down should be on different weeks.</div>`;
         }
-        return `<div class="conflict-row"><b>${nameA}</b> (${fmtDate(cf.a.start)}) and <b>${nameB}</b> (${fmtDate(cf.b.start)}) are only ${cf.gap} day${cf.gap===1?'':'s'} apart — need at least 2 weeks between sizable events.</div>`;
+        return `<div class="conflict-row"><b>${nameA}</b> (${fmtDate(cf.a.start)}) and <b>${nameB}</b> (${fmtDate(cf.b.start)}) are only ${cf.gap} day${cf.gap===1?'':'s'} apart — need at least 2 weeks between sizable events. <button class="suggest-chip conflict-suggest" data-event-id="${cf.b.id}">Find better date</button></div>`;
       }).join('')}
     </div>`;
   } else {
@@ -3737,15 +3749,15 @@ function render(){
   }
 
   const totalEvents = state.events.length;
-  const totalAttendees = state.events.reduce((sum, ev) => sum + (ev.attendees || 0), 0);
+  const totalCapacity = state.events.reduce((sum, ev) => sum + (ev.attendees || 0), 0);
   const megaCount = state.events.filter(ev => tierFor(ev) === 'mega').length;
   const totalRevenue = state.events.reduce((sum, ev) => sum + netRevenue(ev), 0);
   const statsEl = document.getElementById('statsBar');
   statsEl.innerHTML = `
     <div class="stat"><div class="num">${totalEvents}</div><div class="lbl">Events scheduled</div></div>
-    <div class="stat"><div class="num">${totalAttendees.toLocaleString()}</div><div class="lbl">Est. total attendees</div></div>
+    <div class="stat"><div class="num">${totalCapacity.toLocaleString()}</div><div class="lbl">Total capacity</div></div>
     <div class="stat"><div class="num">${megaCount}</div><div class="lbl">Flagship / mega events</div></div>
-    <div class="stat"><div class="num">$${totalRevenue.toLocaleString(undefined,{maximumFractionDigits:0})}</div><div class="lbl">Projected revenue</div></div>
+    <div class="stat"><div class="num">$${totalRevenue.toLocaleString(undefined,{maximumFractionDigits:0})}</div><div class="lbl">Capacity-based revenue potential</div></div>
     <div class="stat${conflicts.length ? ' warn' : ''}"><div class="num">${conflicts.length}</div><div class="lbl">Active conflicts</div></div>
   `;
 
@@ -3885,16 +3897,25 @@ function render(){
 
 const STORAGE_KEY = 'ott-2027-events-v2';
 async function persist(){
-  try { await window.storage.set(STORAGE_KEY, JSON.stringify(state.events), false); } catch(e){}
+  const payload = JSON.stringify(state.events);
+  try {
+    if (window.storage?.set) await window.storage.set(STORAGE_KEY, payload, false);
+    else localStorage.setItem(STORAGE_KEY, payload);
+  } catch(e){ try{ localStorage.setItem(STORAGE_KEY, payload); }catch(_){} }
+  // Expose the normalized annual event plan to the rest of the marketing hub.
+  try { localStorage.setItem('ott_event_plan_2027', payload); } catch(_){}
 }
 async function init(){
   try {
-    const res = await window.storage.get(STORAGE_KEY, false);
-    if (res && res.value) {
-      const saved = JSON.parse(res.value);
+    let raw = null;
+    if (window.storage?.get) { const res = await window.storage.get(STORAGE_KEY, false); raw = res?.value || null; }
+    if (!raw) raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const saved = JSON.parse(raw);
       if (Array.isArray(saved) && saved.length) {
-        state.events = saved;
-        uid = saved.reduce((mx,e)=>Math.max(mx,e.id),0) + 1;
+        // Migrate the retired special-edition category into The Blend. BlendFest remains the only flagship event type.
+        state.events = saved.map(ev=>({...ev,cat:ev.cat==='flagship'?'blend':ev.cat}));
+        uid = state.events.reduce((mx,e)=>Math.max(mx,e.id),0) + 1;
       }
     }
   } catch(e){}
@@ -3954,8 +3975,10 @@ monthsEl.addEventListener('pointerdown', (e) => {
     resizingId = Number(handle.dataset.id);
     resizeEdge = handle.dataset.edge;
     lastResizeDate = null;
+    resizePreviewDate = null;
+    const rev = state.events.find(x => x.id === resizingId);
+    resizeOriginal = rev ? {start:rev.start,end:rev.end} : null;
     document.body.style.userSelect = 'none';
-    render();
     return;
   }
   const addBtn = e.target.closest('.add-ev');
@@ -3985,25 +4008,22 @@ legendEl.addEventListener('pointerdown', (e) => {
 });
 
 document.addEventListener('pointermove', (e) => {
-  // resize path (unchanged behavior, already touch-friendly via pointer events)
+  // resize preview: keep the existing 12-month DOM stable and commit once on pointerup
   if (resizingId != null) {
     const cell = cellAtPoint(e.clientX, e.clientY);
+    clearCellHighlights();
     if (!cell) return;
     const dateStr = cell.dataset.date;
     if (dateStr === lastResizeDate) return;
-    lastResizeDate = dateStr;
-    const ev = state.events.find(x => x.id === resizingId);
-    if (!ev) return;
-    if (resizeEdge === 'start') { if (dateStr <= ev.end) ev.start = dateStr; }
-    else { if (dateStr >= ev.start) ev.end = dateStr; }
-    render();
+    lastResizeDate = dateStr; resizePreviewDate = dateStr;
+    cell.classList.add('cell-drag-over');
     return;
   }
 
   // move/create path
   if (!dragState) return;
   const dx = e.clientX - dragState.startX, dy = e.clientY - dragState.startY;
-  if (!dragState.moved && Math.hypot(dx,dy) > 6) {
+  if (!dragState.moved && Math.hypot(dx,dy) > 9) {
     dragState.moved = true;
     pushHistory();
     let text, hex;
@@ -4029,10 +4049,15 @@ document.addEventListener('pointermove', (e) => {
 
 document.addEventListener('pointerup', (e) => {
   if (resizingId != null) {
-    resizingId = null; resizeEdge = null; lastResizeDate = null;
+    const ev = state.events.find(x => x.id === resizingId);
+    if (ev && resizePreviewDate) {
+      if (resizeEdge === 'start' && resizePreviewDate <= ev.end) ev.start = resizePreviewDate;
+      if (resizeEdge === 'end' && resizePreviewDate >= ev.start) ev.end = resizePreviewDate;
+    }
+    clearCellHighlights();
+    resizingId = null; resizeEdge = null; lastResizeDate = null; resizePreviewDate = null; resizeOriginal = null;
     document.body.style.userSelect = '';
-    render();
-    persist();
+    render(); persist();
     return;
   }
 
@@ -4055,7 +4080,7 @@ document.addEventListener('pointerup', (e) => {
         state.events.push({
           id: uid++, start: cell.dataset.date, end: cell.dataset.date,
           theme:'', cat: dragState.cat, sponsor:'', details:'', owner:'', venue:'', price:0, expenses:0, sponsorAmt:0,
-          attendees: c.avgAttendees
+          attendees: c.defaultCapacity
         });
       }
       render();
@@ -4132,7 +4157,7 @@ document.getElementById('addBtn').addEventListener('click', () => {
   const c = CATS[evCatSel.value];
   state.events.push({
     id: uid++, start: pendingAddDate, end: pendingAddDate, theme, cat: evCatSel.value,
-    sponsor:'', details:'', owner:'', venue:'', price:0, expenses:0, sponsorAmt:0, attendees: c.avgAttendees
+    sponsor:'', details:'', owner:'', venue:'', price:0, expenses:0, sponsorAmt:0, attendees: c.defaultCapacity
   });
   overlay.classList.remove('open');
   render();
@@ -4170,7 +4195,7 @@ function updateRevenueNote(){
   const sponsorAmt = parseFloat(editSponsorAmt.value) || 0;
   const gross = attendees * price;
   const net = gross - expenses + sponsorAmt;
-  editRevenueNote.textContent = `${attendees}×$${price} ticket sales = $${gross.toLocaleString()} − $${expenses.toLocaleString()} expenses + $${sponsorAmt.toLocaleString()} sponsor = projected $${net.toLocaleString()}.`;
+  editRevenueNote.textContent = `${attendees}×$${price} capacity × ticket price = $${gross.toLocaleString()} − $${expenses.toLocaleString()} expenses + $${sponsorAmt.toLocaleString()} sponsor = projected $${net.toLocaleString()}.`;
 }
 editAttendees.addEventListener('input', () => { updateLeadNote(); updateRevenueNote(); });
 editCatSel.addEventListener('change', updateLeadNote);
@@ -4570,12 +4595,12 @@ function renderLivePosition(name,dateVal,goal,profile,currentOverride){
 function expectedAtDaysOut(goal,p,launchDays,daysOut){const pts=[[launchDays,0],[Math.max(launchDays-2,0),p.d1],[Math.round(launchDays*.78),goal*p.launchShare],[Math.round(launchDays*.5),goal*p.midShare],[7,goal*(1-p.finalWeekShare)],[0,goal]].sort((a,b)=>b[0]-a[0]);if(daysOut>=pts[0][0])return 0;if(daysOut<=0)return goal;for(let i=0;i<pts.length-1;i++){const a=pts[i],b=pts[i+1];if(daysOut<=a[0]&&daysOut>=b[0]){const t=(a[0]-daysOut)/(a[0]-b[0]||1);return a[1]+t*(b[1]-a[1])}}return 0}
 
 const UPCOMING_EVENTS = [
- {name:'BlendFest with Hennessy + Sightglass Coffee',date:'2026-08-15',goal:2000,stretch:2500,price:45,series:'BlendFest',market:'proven',comp:'festival',capacity:2500},
- {name:'Pool Party with Hotel Nikko + Nectar Collective',date:'2026-08-22',goal:250,stretch:300,price:55,series:'One-off / Custom',market:'proven',comp:'pool',capacity:300},
- {name:'OTT 8 Year Anniversary Yacht Party',date:'2026-09-05',goal:500,stretch:550,price:125,series:'Yacht Party',market:'proven',comp:'yacht',capacity:550},
- {name:'The Blend Tour: Los Angeles',date:'2026-10-03',goal:500,stretch:650,price:40,series:'The Blend',market:'new',comp:'newmarket',capacity:650},
- {name:'The Blend Tour: Las Vegas',date:'2026-11-14',goal:200,stretch:300,price:40,series:'The Blend',market:'new',comp:'newmarket',capacity:300},
- {name:'The Blend Tour: Miami',date:'2026-12-05',goal:200,stretch:300,price:40,series:'The Blend',market:'new',comp:'newmarket',capacity:300}
+ {eventType:'blendfest',name:'BlendFest with Hennessy + Sightglass Coffee',date:'2026-08-15',goal:2000,stretch:2500,price:45,series:'BlendFest',market:'proven',comp:'festival',capacity:OTT_EVENT_TYPES.blendfest.defaultCapacity},
+ {eventType:'pool',name:'Pool Party with Hotel Nikko + Nectar Collective',date:'2026-08-22',goal:250,stretch:300,price:55,series:'One-off / Custom',market:'proven',comp:'pool',capacity:OTT_EVENT_TYPES.pool.defaultCapacity},
+ {eventType:'yacht',name:'OTT 8 Year Anniversary Yacht Party',date:'2026-09-05',goal:500,stretch:550,price:125,series:'Yacht Party',market:'proven',comp:'yacht',capacity:OTT_EVENT_TYPES.yacht.defaultCapacity},
+ {eventType:'blend',name:'The Blend Tour: Los Angeles',date:'2026-10-03',goal:500,stretch:650,price:40,series:'The Blend',market:'new',comp:'newmarket',capacity:OTT_EVENT_TYPES.blend.defaultCapacity},
+ {eventType:'blend',name:'The Blend Tour: Las Vegas',date:'2026-11-14',goal:200,stretch:300,price:40,series:'The Blend',market:'new',comp:'newmarket',capacity:OTT_EVENT_TYPES.blend.defaultCapacity},
+ {eventType:'blend',name:'The Blend Tour: Miami',date:'2026-12-05',goal:200,stretch:300,price:40,series:'The Blend',market:'new',comp:'newmarket',capacity:OTT_EVENT_TYPES.blend.defaultCapacity}
 ];
 const COMPARABLES = {
  blend:{label:'The Blend historical curve',launchShare:.20,d1Share:.22,midShare:.55,finalWeekShare:.24,launchDays:32,risk:1.0,finals:[624,566,498,401,384,368,211,175,158]},
@@ -5922,7 +5947,7 @@ window.addEventListener('DOMContentLoaded',()=>setTimeout(renderHomeNextEvent,0)
     const dates=getHomeCampaignDates(event),days=Math.max(0,homeDaysBetween(today,dates.eventDate)),live=matchedLive(event);
     document.getElementById('nextEventDays').textContent=days;
     document.getElementById('nextEventName').textContent=event.name;
-    document.getElementById('nextEventMeta').textContent=`${homeFmtDate(dates.eventDate)} · Goal ${fmt(event.goal)}${event.stretch&&event.stretch>event.goal?` · Stretch ${fmt(event.stretch)}`:''}`;
+    document.getElementById('nextEventMeta').textContent=`${homeFmtDate(dates.eventDate)} · Goal ${fmt(event.goal)} · Capacity ${fmt(event.capacity)}${event.goal>event.capacity?' · Goal exceeds capacity':''}`;
     const btn=document.getElementById('nextEventPlanBtn'); btn.onclick=()=>{document.querySelector('#nav button[onclick*=campaign]').click();loadUpcoming(event._index)};
 
     const sold=live?.sold||0,forecast=live?.forecast||0,waitlist=live?.waitlist||0,attendance=live?.attendance||0;
@@ -5993,7 +6018,7 @@ window.addEventListener('DOMContentLoaded',()=>setTimeout(renderHomeNextEvent,0)
       const marks=[['Tease',dates.teaserDate],['Launch',dates.launchDate],['Final',dates.finalDate],['Event',dates.eventDate]];
       const nextIndex=marks.findIndex(m=>m[1]>=today);
       const markerHtml=marks.map((m,idx)=>`<i class="queue-marker ${idx<nextIndex?'done':''} ${idx===nextIndex?'next':''}" style="left:${pos(m[1])}%" title="${m[0]} · ${homeFmtDate(m[1])}"></i><span class="queue-marker-label" style="left:${pos(m[1])}%">${m[0]}</span>`).join('');
-      return `<article class="queue-card glass-panel"><div class="queue-date">${safeDate(e.date).toLocaleDateString('en-US',{month:'short'}).toUpperCase()} ${String(safeDate(e.date).getDate()).padStart(2,'0')}<span class="queue-date-count">${days} days away</span></div><div class="queue-main"><h3>${e.name.replace(' with Hennessy + Sightglass Coffee','').replace('OTT 8 Year ','')}</h3><p>${e.name.includes('BlendFest')?'Hennessy × Sightglass Coffee':e.name.includes('Pool Party')?'Hotel Nikko × Nectar Collective':e.name.includes('Yacht')?'OTT 8 Year Anniversary':e.market==='new'?'New market launch':''}</p><div class="queue-milestone-track"><i class="queue-milestone-base"></i><i class="queue-milestone-fill" style="width:${todayPos}%"></i><i class="queue-today" style="left:${todayPos}%"></i>${markerHtml}</div><div class="queue-sales-meta"><span>Goal <strong>${fmt(e.goal)}</strong></span>${sold?`<span>Sold <strong>${fmt(sold)}</strong> (${Math.round(pct)}%)</span>`:''}${live?.forecast?`<span>Forecast <strong>${fmt(live.forecast)}</strong></span>`:''}${live?.waitlist?`<span>Waitlist <strong>${fmt(live.waitlist)}</strong></span>`:''}</div></div><button onclick="document.querySelector('#nav button[onclick*=campaign]').click();loadUpcoming(${originalIndex})">Plan</button></article>`;
+      return `<article class="queue-card glass-panel"><div class="queue-date">${safeDate(e.date).toLocaleDateString('en-US',{month:'short'}).toUpperCase()} ${String(safeDate(e.date).getDate()).padStart(2,'0')}<span class="queue-date-count">${days} days away</span></div><div class="queue-main"><h3>${e.name.replace(' with Hennessy + Sightglass Coffee','').replace('OTT 8 Year ','')}</h3><p>${e.name.includes('BlendFest')?'Hennessy × Sightglass Coffee':e.name.includes('Pool Party')?'Hotel Nikko × Nectar Collective':e.name.includes('Yacht')?'OTT 8 Year Anniversary':e.market==='new'?'New market launch':''}</p><div class="queue-milestone-track"><i class="queue-milestone-base"></i><i class="queue-milestone-fill" style="width:${todayPos}%"></i><i class="queue-today" style="left:${todayPos}%"></i>${markerHtml}</div><div class="queue-sales-meta"><span>Goal <strong>${fmt(e.goal)}</strong></span><span>Capacity <strong>${fmt(e.capacity)}</strong></span>${sold?`<span>Sold <strong>${fmt(sold)}</strong> (${Math.round(pct)}%)</span>`:''}${live?.forecast?`<span>Forecast <strong>${fmt(live.forecast)}</strong></span>`:''}${live?.waitlist?`<span>Waitlist <strong>${fmt(live.waitlist)}</strong></span>`:''}</div></div><button onclick="document.querySelector('#nav button[onclick*=campaign]').click();loadUpcoming(${originalIndex})">Plan</button></article>`;
     }).join('');
   };
 
@@ -6056,7 +6081,7 @@ window.addEventListener('DOMContentLoaded',()=>setTimeout(renderHomeNextEvent,0)
         <p class="lcc-partner">${partnerLine(e)}</p>
         <div class="lcc-sales"><div class="lcc-sold"><span>${live?'Live sold':'Sales Hub match'}</span><strong>${live?fmt(sold):'—'}${live?` <small style="font-size:.62rem;color:#858b96;font-weight:700">/ ${fmt(goal)}</small>`:''}</strong></div>${forecast||waitlist?`<div class="lcc-forecast">${forecast?'Forecast':''}${forecast?`<strong>${fmt(forecast)}</strong>`:''}${waitlist?`<span style="display:block;margin-top:3px">Waitlist ${fmt(waitlist)}</span>`:''}</div>`:''}</div>
         <div class="lcc-progress"><i style="width:${live?pct:0}%"></i></div>
-        <div class="lcc-foot"><span>${live?`${Math.round(pct)}% of goal`:'Awaiting live event match'}</span>${pace?`<span class="lcc-status ${paceClass}">${pace}</span>`:`<span>Goal ${fmt(e.goal)}</span>`}</div>
+        <div class="lcc-foot"><span>${live?`${Math.round(pct)}% of goal · Cap ${fmt(e.capacity)}`:'Awaiting live event match'}</span>${pace?`<span class="lcc-status ${paceClass}">${pace}</span>`:`<span>Goal ${fmt(e.goal)} · Cap ${fmt(e.capacity)}</span>`}</div>
       </article>`;
     }).join('');
     grid.querySelectorAll('.live-countdown-card').forEach(card=>card.addEventListener('click',()=>{
@@ -6091,7 +6116,7 @@ window.addEventListener('DOMContentLoaded',()=>setTimeout(renderHomeNextEvent,0)
     const dates=getHomeCampaignDates(event),left=days(today,dates.eventDate),live=matchLive(event);
     document.getElementById('nextEventDays').textContent=left;
     document.getElementById('nextEventName').textContent=event.name;
-    document.getElementById('nextEventMeta').textContent=`${homeFmtDate(dates.eventDate)} · Goal ${fmt(event.goal)}${event.stretch&&event.stretch>event.goal?` · Stretch ${fmt(event.stretch)}`:''}`;
+    document.getElementById('nextEventMeta').textContent=`${homeFmtDate(dates.eventDate)} · Goal ${fmt(event.goal)} · Capacity ${fmt(event.capacity)}${event.goal>event.capacity?' · Goal exceeds capacity':''}`;
     const btn=document.getElementById('nextEventPlanBtn');if(btn)btn.onclick=()=>{document.querySelector('#nav button[onclick*=campaign]').click();loadUpcoming(event._index)};
     const signals=document.getElementById('nextEventSalesSignals'),sold=live?.sold||0;
     if(signals)signals.innerHTML=`<span class="sales-signal-pill"><span>Live sold</span><strong>${fmt(sold)}</strong></span>${live?.forecast?`<span class="sales-signal-pill"><span>Forecast</span><strong>${fmt(live.forecast)}</strong></span>`:''}${live?.waitlist?`<span class="sales-signal-pill"><span>Waitlist</span><strong>${fmt(live.waitlist)}</strong></span>`:''}${live?.attendance?`<span class="sales-signal-pill"><span>Expected attendance</span><strong>${fmt(live.attendance)}</strong></span>`:''}${live?.pace?`<span class="sales-signal-pill"><span>Pace</span><strong>${live.pace}</strong></span>`:''}`;
@@ -6201,7 +6226,7 @@ window.addEventListener('DOMContentLoaded',()=>setTimeout(renderHomeNextEvent,0)
    el.innerHTML=groups.map(([title,key])=>{const rows=enriched.filter(x=>x.h.level===key);if(!rows.length)return'';return `<section class="campaign-group"><div class="campaign-group-head"><h3>${title}</h3><span>${rows.length} campaign${rows.length===1?'':'s'}</span></div><div class="campaign-group-grid">${rows.map(({p,live,h,m})=>{const goal=h.goal||0,pct=Math.round(Math.min(1,h.pct)*100),forecast=live?.forecast||0;return `<article class="scan-campaign-card ${key==='risk'?'attention':key==='ok'?'healthy':''}"><div class="scan-card-top"><h3>${esc(p.name)}</h3><button class="scan-open" data-preview-open="${esc(p.id)}">Open</button></div><div class="scan-meta">${d(p.evDate)?.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})||'Date TBD'} · ${goal.toLocaleString()} ticket goal · Owner: ${esc(p.owner||'Rechelle')}</div><span class="health-chip ${h.level}">${h.label} · ${esc(h.reason)}</span><div class="scan-hero"><div><small>Live sold</small><strong>${live?h.sold.toLocaleString():'—'}${goal?` <em>/ ${goal.toLocaleString()}</em>`:''}</strong></div><div style="text-align:right"><small>Days left</small><strong>${h.left}</strong></div></div><div class="scan-progress"><i style="width:${pct}%"></i></div><div class="scan-progress-row"><span>${pct}% of goal</span><span>${forecast?'Forecast '+forecast.toLocaleString():'No forecast'}</span></div><div class="scan-details"><div class="scan-detail ${h.level==='risk'?'alert':''}"><small>Next milestone</small><strong>${esc(m[0])}${m[1]?` · ${d(m[1]).toLocaleDateString('en-US',{month:'short',day:'numeric'})}`:''}</strong></div><div class="scan-detail"><small>Data</small><strong>${live?'Live Sales Hub':'Campaign plan'}</strong></div><div class="scan-detail"><small>Waitlist</small><strong>${live?.waitlist?Number(live.waitlist).toLocaleString():'—'}</strong></div><div class="scan-detail"><small>Needed / day</small><strong>${goal&&h.left?Math.max(0,(goal-h.sold)/h.left).toFixed(1):'—'}</strong></div></div></article>`}).join('')}</div></section>`}).join('');
    el.querySelectorAll('[data-preview-open]').forEach((btn,i)=>btn.onclick=()=>{const row=enriched.flatMap(x=>[x]).find(x=>String(x.p.id)===btn.dataset.previewOpen);const idx=typeof UPCOMING_EVENTS!=='undefined'?UPCOMING_EVENTS.findIndex(e=>eventSimilarity?eventSimilarity(e.name,row?.p.name)>.5:e.name===row?.p.name):-1;document.querySelector('#nav button[onclick*=campaign]')?.click();if(idx>=0&&typeof loadUpcoming==='function')loadUpcoming(idx)});
  };
- function enhancePartners(){const tab=document.getElementById('tab-partners');if(!tab||document.getElementById('partnerCommandToolbar'))return;const first=tab.querySelector('.partner-group');const bar=document.createElement('div');bar.id='partnerCommandToolbar';bar.innerHTML='<input id="partnerCommandSearch" type="search" placeholder="Search partners, venues, category or city"><button class="partner-filter-btn active" data-pfilter="all">All</button><button class="partner-filter-btn" data-pfilter="brand">Brands</button><button class="partner-filter-btn" data-pfilter="venue">Venues</button><button class="partner-filter-btn" data-pfilter="recent">Recent</button>';first?.parentNode.insertBefore(bar,first);const apply=()=>{const q=document.getElementById('partnerCommandSearch').value.toLowerCase(),f=bar.querySelector('.active')?.dataset.pfilter||'all';tab.querySelectorAll('.partner-logo-card').forEach((c,i)=>{const text=c.textContent.toLowerCase(),isVenue=/venue|hotel|rooftop|restaurant|bar/.test(text),match=(!q||text.includes(q))&&(f==='all'||f==='venue'&&isVenue||f==='brand'&&!isVenue||f==='recent'&&i<8);c.classList.toggle('is-hidden',!match)});tab.querySelectorAll('.partner-group').forEach(g=>g.classList.toggle('is-hidden',![...g.querySelectorAll('.partner-logo-card')].some(c=>!c.classList.contains('is-hidden'))))};bar.querySelector('input').addEventListener('input',apply);bar.querySelectorAll('button').forEach(b=>b.onclick=()=>{bar.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');apply()});tab.querySelectorAll('.partner-logo-card').forEach(c=>{if(c.querySelector('.partner-quick-meta'))return;const role=c.querySelector('.partner-role')?.textContent||'',city=c.querySelector('.partner-city')?.textContent||'';const m=document.createElement('div');m.className='partner-quick-meta';m.innerHTML=`${city?`<span>${esc(city)}</span>`:''}<span>${/venue|hotel|rooftop|restaurant|bar/i.test(role)?'Venue':'Brand'}</span>`;c.appendChild(m)})}
+ function enhancePartners(){const tab=document.getElementById('tab-partners');if(!tab||document.getElementById('partnerCommandToolbar'))return;const first=tab.querySelector('.partner-group');const bar=document.createElement('div');bar.id='partnerCommandToolbar';bar.innerHTML='<input id="partnerCommandSearch" type="search" placeholder="Search partners, venues, category or city"><button class="partner-filter-btn active" data-pfilter="all">All</button><button class="partner-filter-btn" data-pfilter="brand">Brands</button><button class="partner-filter-btn" data-pfilter="venue">Venues</button><button class="partner-filter-btn" data-pfilter="recent">Recent</button>';first?.parentNode.insertBefore(bar,first);const apply=()=>{const q=document.getElementById('partnerCommandSearch').value.toLowerCase(),f=bar.querySelector('.active')?.dataset.pfilter||'all';tab.querySelectorAll('.partner-logo-card').forEach((c,i)=>{const text=c.textContent.toLowerCase(),explicitType=(c.dataset.partnerCategory||c.querySelector('.partner-kind')?.dataset.category||'').toLowerCase(),isVenue=explicitType==='venue',match=(!q||text.includes(q))&&(f==='all'||f==='venue'&&isVenue||f==='brand'&&!isVenue||f==='recent'&&i<8);c.classList.toggle('is-hidden',!match)});tab.querySelectorAll('.partner-group').forEach(g=>g.classList.toggle('is-hidden',![...g.querySelectorAll('.partner-logo-card')].some(c=>!c.classList.contains('is-hidden'))))};bar.querySelector('input').addEventListener('input',apply);bar.querySelectorAll('button').forEach(b=>b.onclick=()=>{bar.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');apply()});tab.querySelectorAll('.partner-logo-card').forEach(c=>{if(c.querySelector('.partner-quick-meta'))return;const role=c.querySelector('.partner-role')?.textContent||'',city=c.querySelector('.partner-city')?.textContent||'';const m=document.createElement('div');m.className='partner-quick-meta';m.innerHTML=`${city?`<span>${esc(city)}</span>`:''}<span>${((c.dataset.partnerCategory||c.querySelector('.partner-kind')?.dataset.category||'brand').toLowerCase()==='venue')?'Venue':'Brand'}</span>`;c.appendChild(m)})}
  function boot(){enhancePartners();renderSaved()}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,30));else setTimeout(boot,30);
  document.getElementById('nav')?.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;setTimeout(()=>{if(t.textContent.includes('Ongoing'))renderSaved();if(t.textContent.includes('Partners'))enhancePartners()},30)});
@@ -6341,5 +6366,105 @@ document.addEventListener('DOMContentLoaded', function () {
     closeRecord();
   });
 });
-</script></body>
+</script>
+<style id="ott-product-cleanup">
+/* Product cleanup: preserve aesthetic, improve hierarchy + progressive disclosure */
+#tab-overview{display:flex;flex-direction:column;gap:18px}
+#tab-overview.active #mosTodayWork{order:1}#tab-overview.active #nextEventCommand{order:2}#tab-overview.active #liveEventStrip{order:3}#tab-overview.active #socialPulsePanel{order:4}
+#tab-overview .glass-panel{margin-bottom:0!important}
+.capacity-warning{display:inline-flex;margin-left:8px;padding:3px 8px;border-radius:999px;background:rgba(255,59,48,.1);color:#b42318;font-size:.58rem;font-weight:800}
+#campaignAdvanced{margin:10px 0 24px;border:1px solid rgba(255,255,255,.76);border-radius:20px;background:rgba(255,255,255,.34);overflow:hidden}
+#campaignAdvanced>summary{cursor:pointer;list-style:none;padding:16px 18px;font-size:.72rem;font-weight:800;color:#535862;display:flex;justify-content:space-between;align-items:center}
+#campaignAdvanced>summary::-webkit-details-marker{display:none}#campaignAdvanced>summary:after{content:'+';font-size:1rem}#campaignAdvanced[open]>summary:after{content:'−'}
+#campaignAdvancedBody{padding:0 18px 4px}
+#tab-yearcal .conflict-suggest{margin-left:8px;padding:4px 8px!important;font-size:10px!important;cursor:pointer;pointer-events:auto}
+#tab-yearcal .pill{touch-action:none;transition:box-shadow .12s ease,transform .12s ease}#tab-yearcal .pill:hover{transform:translateY(-1px)}
+#tab-yearcal .cell-drag-over:after{content:attr(data-date);position:absolute;left:50%;bottom:4px;transform:translateX(-50%);font-size:8px;font-weight:800;color:var(--gold);background:rgba(255,255,255,.9);padding:2px 5px;border-radius:999px;z-index:5;pointer-events:none}
+.event-data-note{font-size:.64rem;color:#747b86;margin-top:7px;line-height:1.5}
+</style>
+<script id="ott-product-cleanup-js">
+(function(){
+  const cfg=window.OTT_EVENT_TYPES||{};
+  function typeForName(name=''){const n=name.toLowerCase();if(n.includes('blendfest'))return'blendfest';if(n.includes('pool'))return'pool';if(n.includes('yacht'))return'yacht';if(n.includes('fit fest'))return'fitfest';if(n.includes('brunch'))return'brunch';if(n.includes('wine down'))return'winedown';if(n.includes('ski'))return'ski';if(n.includes('blend'))return'blend';return null}
+  function autofillFromName(){
+    const name=document.getElementById('evName')?.value||''; const key=typeForName(name); const c=cfg[key]; if(!c)return;
+    const cap=document.getElementById('capInput'), series=document.getElementById('evSeries'), market=document.getElementById('marketType'), comp=document.getElementById('comparableType');
+    if(cap && (!cap.value || cap.dataset.auto==='1')){cap.value=c.defaultCapacity;cap.dataset.auto='1'}
+    if(series && (!series.value || series.dataset.auto==='1')){series.value=c.series||'';series.dataset.auto='1'}
+    if(market){market.value=c.market||market.value;market.dataset.auto='1'}
+    if(comp){comp.value=c.comparable||comp.value;comp.dataset.auto='1'}
+    updateGoalCapacityWarning();
+  }
+  function updateGoalCapacityWarning(){
+    const goal=Number(document.getElementById('goalInput')?.value||0),cap=Number(document.getElementById('capInput')?.value||0);
+    let note=document.getElementById('goalCapacityNote');const host=document.getElementById('goalInput')?.closest('.field');if(!host)return;
+    if(!note){note=document.createElement('div');note.id='goalCapacityNote';note.className='event-data-note';host.appendChild(note)}
+    if(goal&&cap&&goal>cap)note.innerHTML=`<span class="capacity-warning">Goal exceeds capacity by ${(goal-cap).toLocaleString()}</span> Treat the difference as planned oversell/waitlist, not physical capacity.`;
+    else if(goal&&cap)note.textContent=`Ticket goal ${goal.toLocaleString()} · physical capacity ${cap.toLocaleString()}.`;
+    else note.textContent='Capacity and ticket goal are tracked separately.';
+  }
+  function progressivePlanner(){
+    const card=document.querySelector('#tab-campaign>.card:has(#evName)');if(!card||document.getElementById('campaignAdvanced'))return;
+    const advancedLabels=['Market Type','Comparable Sales Pattern','Venue Search','Capacity','Event Series','DJs on the Lineup','Brand Partners'];
+    const fields=[...card.querySelectorAll('.field')];
+    const toMove=fields.filter(f=>advancedLabels.some(x=>(f.querySelector('.field-label')?.textContent||'').includes(x)));
+    const details=document.createElement('details');details.id='campaignAdvanced';details.innerHTML='<summary>Advanced settings <span>Auto-filled from the event when possible</span></summary><div id="campaignAdvancedBody"></div>';
+    const gen=card.querySelector('button[onclick="generate()"]');card.insertBefore(details,gen);const body=details.querySelector('#campaignAdvancedBody');toMove.forEach(f=>body.appendChild(f));
+    // Field-grid wrappers that became empty are removed; partially populated ones remain.
+    card.querySelectorAll('.field-grid').forEach(g=>{if(!g.querySelector('.field'))g.remove()});
+  }
+  function socialEmptyState(){
+    const status=document.getElementById('socialDataStatus');if(!status||!status.textContent.toLowerCase().includes('connect'))return;
+    const grid=document.getElementById('socialAccountGrid');if(!grid)return;
+    grid.innerHTML='<article class="social-account-card social-recommendation-card" style="grid-column:1/-1"><small>Social intelligence</small><h3>Not connected</h3><p>Connect Instagram and TikTok data to surface best-performing formats, audience growth, content signals and posting windows.</p></article>';
+  }
+  function addCalendarConflictActions(){
+    document.getElementById('conflictPanel')?.addEventListener('click',e=>{const b=e.target.closest('.conflict-suggest');if(!b)return;const id=Number(b.dataset.eventId);if(typeof openEditModal==='function')openEditModal(id);});
+  }
+  function campaignCommandFirst(){
+    const tab=document.getElementById('tab-campaign'),control=document.getElementById('mosControl');if(!tab||!control)return;
+    const form=tab.querySelector('.card:has(#evName)');const ops=document.getElementById('mosOperations'),perf=document.getElementById('mosPerformance');
+    const presets=document.getElementById('upcomingPresets');
+    if(form){tab.insertBefore(control,presets||form); if(ops)tab.insertBefore(ops,presets||form); if(perf)tab.insertBefore(perf,presets||form);}
+    const head=tab.querySelector('.section-head');if(head)head.textContent='Campaign command center.';
+    const intro=head?.nextElementSibling;if(intro&&intro.tagName==='P')intro.textContent='See what is live, what needs action, and what is next. Open or create a campaign only when you need to change the plan.';
+    if(form&&!document.getElementById('campaignCreateLabel')){const label=document.createElement('div');label.id='campaignCreateLabel';label.className='section-intro';label.innerHTML='<div><span class="eyebrow">Create / edit campaign</span><h3 style="font-size:1.35rem;letter-spacing:-.03em;margin-top:4px">Campaign inputs</h3></div>';form.parentNode.insertBefore(label,form)}
+  }
+  function capacityAwareForecasts(){
+    if(typeof UPCOMING_EVENTS==='undefined')return;
+    document.querySelectorAll('.live-countdown-card').forEach(card=>{
+      const e=UPCOMING_EVENTS[Number(card.dataset.eventIndex)];if(!e)return;
+      const live=(typeof matchLive==='function'?matchLive(e):null);const raw=Number(live?.forecast||0);
+      let n=card.querySelector('.forecast-capacity-note'); if(n)n.remove();
+      const host=card.querySelector('.lcc-forecast')||card.querySelector('.lcc-sales');if(!host)return;
+      n=document.createElement('span');n.className='forecast-capacity-note';n.style.cssText='display:block;margin-top:4px;font-size:.55rem;color:#747a86;text-transform:none;letter-spacing:0';
+      n.textContent=`Capacity ${Number(e.capacity||0).toLocaleString()}${raw>e.capacity?` · +${(raw-e.capacity).toLocaleString()} projected over capacity`:''}`;host.appendChild(n);
+    });
+    const future=UPCOMING_EVENTS.map((e,i)=>({...e,_i:i,_d:new Date(e.date+'T12:00:00')})).filter(e=>e._d>=new Date(new Date().toDateString())).sort((a,b)=>a._d-b._d);
+    const e=future[typeof selectedHomeEventIndex==='number'?selectedHomeEventIndex:0]||future[0];if(!e)return;
+    const live=(typeof matchLive==='function'?matchLive(e):null),signals=document.getElementById('nextEventSalesSignals');if(!signals)return;
+    signals.querySelectorAll('.forecast-capacity-extra').forEach(x=>x.remove());
+    const raw=Number(live?.forecast||0);const span=document.createElement('span');span.className='sales-signal-pill forecast-capacity-extra';span.innerHTML=`<span>Capacity</span><strong>${Number(e.capacity).toLocaleString()}</strong>${raw>e.capacity?`<small style="display:block;color:#b42318;margin-top:2px">+${(raw-e.capacity).toLocaleString()} over</small>`:''}`;signals.appendChild(span);
+  }
+  function observeForecasts(){
+    const grid=document.getElementById('liveEventCountdownGrid'),signals=document.getElementById('nextEventSalesSignals');
+    const obs=new MutationObserver(()=>requestAnimationFrame(capacityAwareForecasts));
+    if(grid)obs.observe(grid,{childList:true,subtree:true});if(signals)obs.observe(signals,{childList:true,subtree:true});setTimeout(capacityAwareForecasts,150);
+  }
+  function enableDragAutoscroll(){
+    document.addEventListener('pointermove',e=>{
+      const dragging=document.querySelector('#tab-yearcal .drag-ghost')||document.querySelector('#tab-yearcal .pill.dragging')||document.querySelector('#tab-yearcal .cell-drag-over');if(!dragging)return;
+      const edge=72,step=14;if(e.clientY<edge)window.scrollBy({top:-step,left:0,behavior:'auto'});else if(e.clientY>window.innerHeight-edge)window.scrollBy({top:step,left:0,behavior:'auto'});
+    },{passive:true});
+  }
+  function boot(){
+    campaignCommandFirst();progressivePlanner();socialEmptyState();addCalendarConflictActions();autofillFromName();updateGoalCapacityWarning();observeForecasts();enableDragAutoscroll();
+    document.getElementById('evName')?.addEventListener('input',autofillFromName);
+    ['goalInput','capInput'].forEach(id=>document.getElementById(id)?.addEventListener('input',e=>{if(id==='capInput')e.currentTarget.dataset.auto='0';updateGoalCapacityWarning()}));
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
+
+</body>
 </html>
