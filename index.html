@@ -5976,7 +5976,7 @@ window.addEventListener('DOMContentLoaded',()=>setTimeout(renderHomeNextEvent,0)
     const dates=getHomeCampaignDates(event),days=Math.max(0,homeDaysBetween(today,dates.eventDate)),live=matchedLive(event);
     document.getElementById('nextEventDays').textContent=days;
     document.getElementById('nextEventName').textContent=event.name;
-    document.getElementById('nextEventMeta').textContent=`${homeFmtDate(dates.eventDate)} · Goal ${fmt(event.goal)} · Capacity ${fmt(event.capacity)}${event.goal>event.capacity?' · Goal exceeds capacity':''}`;
+    document.getElementById('nextEventMeta').textContent=`${homeFmtDate(dates.eventDate)} · Goal ${fmt(event.goal)} · Forecast ${fmt(event.capacity)}`;
     const btn=document.getElementById('nextEventPlanBtn'); btn.onclick=()=>{document.querySelector('#nav button[onclick*=campaign]').click();loadUpcoming(event._index)};
 
     const sold=live?.sold||0,forecast=live?.forecast||0,waitlist=live?.waitlist||0,attendance=live?.attendance||0;
@@ -6047,7 +6047,7 @@ window.addEventListener('DOMContentLoaded',()=>setTimeout(renderHomeNextEvent,0)
       const marks=[['Tease',dates.teaserDate],['Launch',dates.launchDate],['Final',dates.finalDate],['Event',dates.eventDate]];
       const nextIndex=marks.findIndex(m=>m[1]>=today);
       const markerHtml=marks.map((m,idx)=>`<i class="queue-marker ${idx<nextIndex?'done':''} ${idx===nextIndex?'next':''}" style="left:${pos(m[1])}%" title="${m[0]} · ${homeFmtDate(m[1])}"></i><span class="queue-marker-label" style="left:${pos(m[1])}%">${m[0]}</span>`).join('');
-      return `<article class="queue-card glass-panel"><div class="queue-date">${safeDate(e.date).toLocaleDateString('en-US',{month:'short'}).toUpperCase()} ${String(safeDate(e.date).getDate()).padStart(2,'0')}<span class="queue-date-count">${days} days away</span></div><div class="queue-main"><h3>${e.name.replace(' with Hennessy + Sightglass Coffee','').replace('OTT 8 Year ','')}</h3><p>${e.name.includes('BlendFest')?'Hennessy × Sightglass Coffee':e.name.includes('Pool Party')?'Hotel Nikko × Nectar Collective':e.name.includes('Yacht')?'OTT 8 Year Anniversary':e.market==='new'?'New market launch':''}</p><div class="queue-milestone-track"><i class="queue-milestone-base"></i><i class="queue-milestone-fill" style="width:${todayPos}%"></i><i class="queue-today" style="left:${todayPos}%"></i>${markerHtml}</div><div class="queue-sales-meta"><span>Goal <strong>${fmt(e.goal)}</strong></span><span>Capacity <strong>${fmt(e.capacity)}</strong></span>${sold?`<span>Sold <strong>${fmt(sold)}</strong> (${Math.round(pct)}%)</span>`:''}${(()=>{const rf=Number(live?.forecast||0),cap=Number(e.capacity||e.goal||0);return rf>=(live?.sold||0)&&(!cap||rf<=Math.max(cap*1.5,cap+500))?`<span>Projected sales <strong>${fmt(rf)}</strong></span>`:''})()}${live?.waitlist?`<span>Waitlist <strong>${fmt(live.waitlist)}</strong></span>`:''}</div></div><button onclick="document.querySelector('#nav button[onclick*=campaign]').click();loadUpcoming(${originalIndex})">Plan</button></article>`;
+      return `<article class="queue-card glass-panel"><div class="queue-date">${safeDate(e.date).toLocaleDateString('en-US',{month:'short'}).toUpperCase()} ${String(safeDate(e.date).getDate()).padStart(2,'0')}<span class="queue-date-count">${days} days away</span></div><div class="queue-main"><h3>${e.name.replace(' with Hennessy + Sightglass Coffee','').replace('OTT 8 Year ','')}</h3><p>${e.name.includes('BlendFest')?'Hennessy × Sightglass Coffee':e.name.includes('Pool Party')?'Hotel Nikko × Nectar Collective':e.name.includes('Yacht')?'OTT 8 Year Anniversary':e.market==='new'?'New market launch':''}</p><div class="queue-milestone-track"><i class="queue-milestone-base"></i><i class="queue-milestone-fill" style="width:${todayPos}%"></i><i class="queue-today" style="left:${todayPos}%"></i>${markerHtml}</div><div class="queue-sales-meta"><span>Goal <strong>${fmt(e.goal)}</strong></span>${sold?`<span>Sold <strong>${fmt(sold)}</strong> (${Math.round(pct)}%)</span>`:''}<span>Forecast <strong>${fmt(e.capacity)}</strong></span>${live?.waitlist?`<span>Waitlist <strong>${fmt(live.waitlist)}</strong></span>`:''}</div></div><button onclick="document.querySelector('#nav button[onclick*=campaign]').click();loadUpcoming(${originalIndex})">Plan</button></article>`;
     }).join('');
   };
 
@@ -6102,17 +6102,16 @@ window.addEventListener('DOMContentLoaded',()=>setTimeout(renderHomeNextEvent,0)
     if(selectedHomeEventIndex>=events.length)selectedHomeEventIndex=0;
     grid.innerHTML=events.map((e,displayIndex)=>{
       const live=matchLive(e),left=days(today,e.date),sold=live?.sold||0,goal=live?.target||e.goal||1,pct=Math.max(0,Math.min(100,sold/goal*100));
-      const rawForecast=Number(live?.forecast||0),capForForecast=Number(e.capacity||goal||0),
-forecast=(rawForecast>=sold && (!capForForecast || rawForecast<=Math.max(capForForecast*1.5,capForForecast+500)))?rawForecast:0,
+      const forecast=Number(e.capacity||goal||0),
 waitlist=live?.waitlist||0,pace=String(live?.pace||'').trim(),paceClass=pace.toLowerCase().includes('ahead')?'ahead':pace.toLowerCase().includes('behind')?'behind':'on-pace';
       const date=dOnly(e.date).toLocaleDateString('en-US',{month:'short',day:'numeric'});
       return `<article class="live-countdown-card ${live?'':'no-match'} ${displayIndex===selectedHomeEventIndex?'is-selected':''}" data-display-index="${displayIndex}" data-event-index="${e._i}">
         <div class="lcc-top"><span class="lcc-date">${date}</span><div class="lcc-days">${left}<small>days away</small></div></div>
         <h3 class="lcc-name">${e.name.replace(' with Hennessy + Sightglass Coffee','').replace('OTT 8 Year ','')}</h3>
         <p class="lcc-partner">${partnerLine(e)}</p>
-        <div class="lcc-sales"><div class="lcc-sold"><span>${live?'Live sold':'Sales Hub match'}</span><strong>${live?fmt(sold):'—'}${live?` <small style="font-size:.62rem;color:#858b96;font-weight:700">/ ${fmt(goal)}</small>`:''}</strong></div>${forecast||waitlist?`<div class="lcc-forecast">${forecast?'Projected sales':'Forecast unavailable'}${forecast?`<strong>${fmt(forecast)}</strong>`:''}${waitlist?`<span style="display:block;margin-top:3px">Waitlist ${fmt(waitlist)}</span>`:''}</div>`:''}</div>
+        <div class="lcc-sales"><div class="lcc-sold"><span>${live?'Live sold':'Sales Hub match'}</span><strong>${live?fmt(sold):'—'}${live?` <small style="font-size:.62rem;color:#858b96;font-weight:700">/ ${fmt(goal)}</small>`:''}</strong></div><div class="lcc-forecast">Forecast<strong>${fmt(forecast)}</strong>${waitlist?`<span style="display:block;margin-top:3px">Waitlist ${fmt(waitlist)}</span>`:''}</div></div>
         <div class="lcc-progress"><i style="width:${live?pct:0}%"></i></div>
-        <div class="lcc-foot"><span>${live?`${Math.round(pct)}% of goal · Cap ${fmt(e.capacity)}`:'Awaiting live event match'}</span>${pace?`<span class="lcc-status ${paceClass}">${pace}</span>`:`<span>Goal ${fmt(e.goal)} · Cap ${fmt(e.capacity)}</span>`}</div>
+        <div class="lcc-foot"><span>${live?`${Math.round(pct)}% of goal`:'Awaiting live event match'}</span>${pace?`<span class="lcc-status ${paceClass}">${pace}</span>`:`<span>Goal ${fmt(e.goal)}</span>`}</div>
       </article>`;
     }).join('');
     grid.querySelectorAll('.live-countdown-card').forEach(card=>card.addEventListener('click',()=>{
@@ -6147,10 +6146,10 @@ waitlist=live?.waitlist||0,pace=String(live?.pace||'').trim(),paceClass=pace.toL
     const dates=getHomeCampaignDates(event),left=days(today,dates.eventDate),live=matchLive(event);
     document.getElementById('nextEventDays').textContent=left;
     document.getElementById('nextEventName').textContent=event.name;
-    document.getElementById('nextEventMeta').textContent=`${homeFmtDate(dates.eventDate)} · Goal ${fmt(event.goal)} · Capacity ${fmt(event.capacity)}${event.goal>event.capacity?' · Goal exceeds capacity':''}`;
+    document.getElementById('nextEventMeta').textContent=`${homeFmtDate(dates.eventDate)} · Goal ${fmt(event.goal)} · Forecast ${fmt(event.capacity)}`;
     const btn=document.getElementById('nextEventPlanBtn');if(btn)btn.onclick=()=>{document.querySelector('#nav button[onclick*=campaign]').click();loadUpcoming(event._index)};
     const signals=document.getElementById('nextEventSalesSignals'),sold=live?.sold||0;
-    if(signals)signals.innerHTML=`<span class="sales-signal-pill"><span>Live sold</span><strong>${fmt(sold)}</strong></span>${live?.forecast?`<span class="sales-signal-pill"><span>Projected sales</span><strong>${fmt(Math.round(Number(live.forecast)))}</strong></span>`:''}${live?.waitlist?`<span class="sales-signal-pill"><span>Waitlist</span><strong>${fmt(live.waitlist)}</strong></span>`:''}${live?.attendance?`<span class="sales-signal-pill"><span>Expected attendance</span><strong>${fmt(live.attendance)}</strong></span>`:''}${live?.pace?`<span class="sales-signal-pill"><span>Pace</span><strong>${live.pace}</strong></span>`:''}`;
+    if(signals)signals.innerHTML=`<span class="sales-signal-pill"><span>Live sold</span><strong>${fmt(sold)}</strong></span><span class="sales-signal-pill"><span>Forecast</span><strong>${fmt(event.capacity)}</strong></span>${live?.waitlist?`<span class="sales-signal-pill"><span>Waitlist</span><strong>${fmt(live.waitlist)}</strong></span>`:''}${live?.attendance?`<span class="sales-signal-pill"><span>Expected attendance</span><strong>${fmt(live.attendance)}</strong></span>`:''}${live?.pace?`<span class="sales-signal-pill"><span>Pace</span><strong>${live.pace}</strong></span>`:''}`;
     const milestones=[{label:'Teasers start',date:dates.teaserDate,detail:'Build anticipation before the link drops'},{label:'Tickets on sale',date:dates.launchDate,detail:'Full launch across social, email and SMS'},{label:'Final push',date:dates.finalDate,detail:'Urgency, scarcity and conversion content'},{label:'Event day',date:dates.eventDate,detail:'Live coverage and content capture'}];
     let nextFound=false;document.getElementById('homeMilestoneList').innerHTML=milestones.map((m,i)=>{const past=m.date<today,next=!past&&!nextFound;if(next)nextFound=true;const delta=Math.round((m.date-today)/86400000),timing=delta===0?'Today':delta>0?`In ${delta} day${delta===1?'':'s'}`:`${Math.abs(delta)} day${Math.abs(delta)===1?'':'s'} ago`;return `<div class="home-ms-card${past?' is-past':''}${next?' is-next':''}"><div class="home-ms-index">0${i+1}</div><div><small>${homeFmtDate(m.date)} · ${timing}</small><strong>${m.label}</strong><em>${m.detail}</em></div></div>`}).join('');
     if(typeof drawHomeCampaignCurve==='function')drawHomeCampaignCurve(event,dates,today,milestones,live);
@@ -6519,18 +6518,28 @@ document.addEventListener('DOMContentLoaded', function () {
     <h2 id="talentProfileModalTitle">Add talent</h2>
     <input id="talentProfileId" type="hidden">
     <div class="talent-profile-form">
-      <label>Name<input id="talentProfileName" placeholder="DJ / creator name"></label>
+      <div class="talent-span-2 talent-social-first">
+        <div><strong>Start with their social profiles</strong><span>Paste one or both profiles, then let the connected social-data service fill the public profile fields.</span></div>
+        <button class="glass-button primary" id="talentAutoFill" type="button">Auto-fill profile</button>
+      </div>
+      <label>Instagram profile<input id="talentProfileInstagram" placeholder="@handle or instagram.com/handle"></label>
+      <label>TikTok profile<input id="talentProfileTikTok" placeholder="@handle or tiktok.com/@handle"></label>
+      <div class="talent-span-2" id="talentLookupStatus" aria-live="polite"></div>
+      <label>Name<input id="talentProfileName" placeholder="Auto-filled when available"></label>
       <label>Type<select id="talentProfileType"><option>DJ</option><option>Creator</option><option>Brand Face</option></select></label>
       <label>City / market<input id="talentProfileCity" placeholder="Bay Area"></label>
-      <label>Hourly rate<input id="talentProfileRate" type="number" min="0" step="1" placeholder="250"></label>
-      <label>Instagram profile<input id="talentProfileInstagram" placeholder="@handle or instagram.com/handle"></label>
-      <label>Instagram followers<input id="talentProfileIGFollowers" type="number" min="0" placeholder="18200"></label>
-      <label>TikTok profile<input id="talentProfileTikTok" placeholder="@handle or tiktok.com/@handle"></label>
-      <label>TikTok followers<input id="talentProfileTikTokFollowers" type="number" min="0" placeholder="9100"></label>
-      <label class="talent-span-2">Instagram / profile photo URL<input id="talentProfileImage" placeholder="Paste a direct image URL"></label>
+      <label>Hourly rate<input id="talentProfileRate" type="number" min="0" step="1" placeholder="Manual"></label>
       <label class="talent-span-2">Music style / genre<input id="talentProfileMusic" placeholder="R&B · Hip-Hop · Afrobeats · Dancehall"></label>
-      <label class="talent-span-2">Audience demographic<textarea id="talentProfileDemo" placeholder="Example: 25–34, Bay Area-heavy, 65% women, nightlife + culture audience"></textarea></label>
-      <div class="talent-form-help">Instagram and TikTok do not allow this static GitHub page to reliably scrape profile photos or follower counts without an authenticated data source. Enter the social profile plus follower counts manually for now; this record is structured so a social API/feed can populate those fields later.</div>
+      <label class="talent-span-2">Audience demographic<textarea id="talentProfileDemo" placeholder="Age, market, gender split, audience interests — auto-fill when your data source provides it"></textarea></label>
+      <details class="talent-span-2 talent-fallback-details">
+        <summary>Manual fallback fields</summary>
+        <div class="talent-fallback-grid">
+          <label>Instagram followers<input id="talentProfileIGFollowers" type="number" min="0"></label>
+          <label>TikTok followers<input id="talentProfileTikTokFollowers" type="number" min="0"></label>
+          <label class="talent-span-2">Profile photo URL<input id="talentProfileImage" placeholder="Direct image URL"></label>
+        </div>
+      </details>
+      <div class="talent-form-help">Auto-fill requires a connected social-profile data endpoint. Instagram/TikTok do not expose arbitrary public profile stats directly to this static GitHub page. Hourly rate and music style remain editable because the platforms do not provide those as profile fields.</div>
     </div>
     <div class="talent-modal-actions">
       <button class="glass-button" id="talentProfileDelete" type="button">Delete</button>
@@ -6896,3 +6905,190 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   #tab-yearcal .pill{padding:7px 6px 6px!important;font-size:11px!important;}
 }
 </style>
+
+<style id="ott-social-connect-fix-css">
+#socialDataStatus{user-select:none}
+#socialConnectModal[hidden]{display:none!important}
+#socialConnectModal{position:fixed;inset:0;z-index:20000;display:grid;place-items:center;padding:20px}
+#socialConnectModal .ott-modal-backdrop{position:absolute;inset:0;background:rgba(18,22,30,.38);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+#socialConnectModal .ott-modal-panel{position:relative;width:min(620px,100%);max-height:90vh;overflow:auto;padding:30px;border-radius:30px;background:rgba(248,249,252,.94);border:1px solid rgba(255,255,255,.92);box-shadow:0 30px 90px rgba(20,24,36,.28);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px)}
+#socialConnectModal .ott-modal-close{position:absolute;right:16px;top:16px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.8);font-size:1.3rem;cursor:pointer}
+#socialConnectModal h2{font-size:2rem;letter-spacing:-.045em;margin:6px 0 10px}
+#socialConnectModal p{font-size:.78rem;line-height:1.6;color:#737985;margin-bottom:18px}
+#socialConnectModal label{display:block;font-size:.6rem;font-weight:800;color:#5f6570;text-transform:uppercase;letter-spacing:.08em}
+#socialConnectModal input{margin-top:7px;width:100%;border:1px solid rgba(255,255,255,.92);background:rgba(255,255,255,.72);border-radius:16px;padding:13px 14px;font:500 .83rem -apple-system,BlinkMacSystemFont,sans-serif;color:#191a1e;outline:none}
+#socialConnectModal .ott-modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;flex-wrap:wrap}
+#socialConnectModal .ott-connect-result{margin-top:14px;padding:12px 14px;border-radius:15px;background:rgba(255,255,255,.54);font-size:.68rem;line-height:1.55;color:#646a75;min-height:44px}
+#socialConnectModal .ott-connect-result.ok{background:rgba(48,209,88,.10);color:#166534}
+#socialConnectModal .ott-connect-result.bad{background:rgba(255,59,48,.09);color:#9f241b}
+#socialPulsePanel .social-account-card strong{font-variant-numeric:tabular-nums}
+#socialPulsePanel .social-account-card .social-change{display:block;margin-top:4px;font-size:.58rem;font-weight:800;color:#16834a}
+#socialPulsePanel .social-account-card .social-change.down{color:#b42318}
+#socialPulsePanel .social-recommendation-card h3{margin-bottom:6px}
+</style>
+
+<script id="ott-social-connect-fix-js">
+(function(){
+  const KEY='ott_social_feed_connection_v1';
+  const DATA_KEY='ott_social_feed_cache_v1';
+  const $=id=>document.getElementById(id);
+  const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const num=v=>{const n=Number(String(v??'').replace(/,/g,''));return Number.isFinite(n)?n:0};
+  const fmt=n=>{n=num(n);if(n>=1e6)return (n/1e6).toFixed(n>=1e7?0:1).replace('.0','')+'M';if(n>=1e3)return (n/1e3).toFixed(n>=1e4?0:1).replace('.0','')+'K';return Math.round(n).toLocaleString()};
+
+  function normalizeAccount(a, platformFallback='Social'){
+    if(!a||typeof a!=='object')return null;
+    return {
+      platform:a.platform||platformFallback,
+      handle:a.handle||a.username||a.account||'',
+      followers:num(a.followers??a.followerCount??a.followers_count),
+      previous:num(a.previousFollowers??a.previous_followers??a.previous),
+      engagement:a.engagementRate??a.engagement_rate??null,
+      bestFormat:a.bestFormat||a.best_format||'',
+      bestWindow:a.bestWindow||a.best_window||a.postingWindow||'',
+      signal:a.signal||a.topContent||a.top_content||''
+    };
+  }
+  function normalizePayload(data){
+    let accounts=[];
+    if(Array.isArray(data?.accounts)) accounts=data.accounts.map(a=>normalizeAccount(a)).filter(Boolean);
+    else {
+      if(data?.instagram) accounts.push(normalizeAccount(data.instagram,'Instagram'));
+      if(data?.tiktok) accounts.push(normalizeAccount(data.tiktok,'TikTok'));
+    }
+    accounts=accounts.filter(a=>a&&a.handle||a&&a.followers);
+    return {
+      accounts,
+      bestFormat:data?.bestFormat||data?.best_format||accounts.find(a=>a.bestFormat)?.bestFormat||'',
+      bestWindow:data?.bestWindow||data?.best_window||accounts.find(a=>a.bestWindow)?.bestWindow||'',
+      recommendation:data?.recommendation||data?.contentRecommendation||data?.content_recommendation||'',
+      updated:data?.updated||data?.updatedAt||data?.updated_at||new Date().toISOString()
+    };
+  }
+  function renderSocial(payload){
+    const grid=$('socialAccountGrid'),status=$('socialDataStatus');if(!grid||!status)return;
+    const p=normalizePayload(payload||{});
+    if(!p.accounts.length){
+      status.textContent='Connect social data';status.classList.add('os-source-manual');
+      grid.innerHTML='<article class="social-account-card social-recommendation-card" style="grid-column:1/-1"><small>Social intelligence</small><h3>Not connected</h3><p>Connect Instagram and TikTok data to surface best-performing formats, audience growth, content signals and posting windows.</p></article>';
+      return;
+    }
+    status.textContent='Social data connected';status.classList.remove('os-source-manual');status.title='Click to manage social connection';
+    const cards=p.accounts.map(a=>{
+      const delta=a.previous? a.followers-a.previous : 0;
+      const pct=a.previous?delta/a.previous*100:0;
+      return `<article class="social-account-card"><small>${esc(a.platform)}</small><h3>${esc(a.handle||'Connected account')}</h3><strong>${fmt(a.followers)}</strong><span>Followers</span>${a.previous?`<span class="social-change ${delta<0?'down':''}">${delta>=0?'+':''}${fmt(delta)} · ${pct>=0?'+':''}${pct.toFixed(1)}%</span>`:''}</article>`;
+    }).join('');
+    const signals=[p.bestFormat?`Best format: ${p.bestFormat}`:'',p.bestWindow?`Best posting window: ${p.bestWindow}`:''].filter(Boolean).join(' · ');
+    grid.innerHTML=cards+`<article class="social-account-card social-recommendation-card"><small>Content signal</small><h3>${esc(p.bestFormat||'Connected')}</h3><p>${esc(p.recommendation||signals||'Social feed connected. Add recommendation, bestFormat and bestWindow fields to your JSON feed for richer guidance.')}</p></article>`;
+    if($('socialBestFormat'))$('socialBestFormat').textContent=p.bestFormat||'Connected';
+    if($('socialRecommendation'))$('socialRecommendation').textContent=p.recommendation||signals||'Social feed connected.';
+  }
+  function openModal(){
+    const modal=$('socialConnectModal');if(!modal)return;
+    const saved=localStorage.getItem(KEY)||'';if($('socialFeedUrl'))$('socialFeedUrl').value=saved;
+    const r=$('socialConnectResult');if(r){r.className='ott-connect-result';r.textContent=saved?'Saved feed found. Test it to refresh the data.':'Enter the URL of your sanitized social JSON feed.'}
+    modal.hidden=false;setTimeout(()=>$('socialFeedUrl')?.focus(),30);
+  }
+  function closeModal(){const modal=$('socialConnectModal');if(modal)modal.hidden=true}
+  async function fetchFeed(){
+    const url=$('socialFeedUrl')?.value.trim();if(!url)throw new Error('Enter a JSON feed URL first.');
+    const res=await fetch(url+(url.includes('?')?'&':'?')+'t='+Date.now(),{cache:'no-store'});
+    if(!res.ok)throw new Error('Feed returned HTTP '+res.status+'.');
+    const data=await res.json();const p=normalizePayload(data);
+    if(!p.accounts.length)throw new Error('The JSON loaded, but I could not find an Instagram or TikTok account. Use an accounts array or instagram/tiktok objects.');
+    return {raw:data,normalized:p,url};
+  }
+  async function test(saveIt=false){
+    const r=$('socialConnectResult'),testBtn=$('testSocialFeed'),saveBtn=$('saveSocialFeed');
+    if(r){r.className='ott-connect-result';r.textContent='Connecting…'}
+    if(testBtn)testBtn.disabled=true;if(saveBtn)saveBtn.disabled=true;
+    try{
+      const out=await fetchFeed();
+      localStorage.setItem(DATA_KEY,JSON.stringify(out.raw));
+      if(saveIt)localStorage.setItem(KEY,out.url);
+      renderSocial(out.raw);
+      if(r){r.className='ott-connect-result ok';r.textContent=`Connected successfully. ${out.normalized.accounts.length} account${out.normalized.accounts.length===1?'':'s'} loaded${saveIt?' and saved':''}.`}
+      if(saveIt)setTimeout(closeModal,650);
+    }catch(err){
+      console.error('Social feed connection failed',err);
+      if(r){r.className='ott-connect-result bad';r.textContent=err.message||'Could not connect to that feed.'}
+    }finally{if(testBtn)testBtn.disabled=false;if(saveBtn)saveBtn.disabled=false}
+  }
+  function boot(){
+    const status=$('socialDataStatus');
+    if(status){status.setAttribute('role','button');status.setAttribute('tabindex','0');status.addEventListener('click',openModal);status.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal()}})}
+    document.querySelectorAll('[data-close-social]').forEach(el=>el.addEventListener('click',closeModal));
+    $('testSocialFeed')?.addEventListener('click',()=>test(false));
+    $('saveSocialFeed')?.addEventListener('click',()=>test(true));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('socialConnectModal')?.hidden)closeModal()});
+    try{const cached=JSON.parse(localStorage.getItem(DATA_KEY)||'null');if(cached)renderSocial(cached)}catch(e){}
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
+
+<style id="ott-calendar-talent-final-fix-20260814">
+/* Calendar: one genuinely usable full-width month per row. */
+#tab-yearcal{width:calc(100vw - 20px)!important;max-width:none!important;margin-left:calc(50% - 50vw + 10px)!important;margin-right:calc(50% - 50vw + 10px)!important;overflow:visible!important}
+#tab-yearcal .wrap{width:100%!important;max-width:none!important;padding:0!important}
+#tab-yearcal #months{display:grid!important;grid-template-columns:1fr!important;gap:24px!important;width:100%!important;max-width:1560px!important;margin:22px auto 0!important}
+#tab-yearcal header,#tab-yearcal .stats-bar,#tab-yearcal .legend,#tab-yearcal #conflictPanel,#tab-yearcal footer{width:100%!important;max-width:1560px!important;margin-left:auto!important;margin-right:auto!important}
+#tab-yearcal .month{width:100%!important;max-width:none!important;overflow:visible!important}
+#tab-yearcal .grid,#tab-yearcal .dow-row{grid-template-columns:repeat(7,minmax(110px,1fr))!important}
+#tab-yearcal .grid{overflow:visible!important}
+#tab-yearcal .cell{min-height:138px!important;min-width:0!important}
+#tab-yearcal .pill{max-width:100%!important;white-space:normal!important}
+@media(max-width:900px){#tab-yearcal .grid,#tab-yearcal .dow-row{grid-template-columns:repeat(7,minmax(82px,1fr))!important}#tab-yearcal .cell{min-height:120px!important}}
+
+/* Talent: social-first, manual fallback tucked away. */
+.talent-social-first{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 18px;border-radius:20px;background:rgba(255,214,10,.12);border:1px solid rgba(255,255,255,.86)}
+.talent-social-first strong{display:block;font-size:.78rem}.talent-social-first span{display:block;margin-top:4px;font-size:.63rem;line-height:1.45;color:#737985}
+#talentLookupStatus{min-height:0;font-size:.65rem;color:#6b707a}.talent-lookup-ok{color:#18794e!important}.talent-lookup-warn{color:#946200!important}.talent-lookup-error{color:#b42318!important}
+.talent-fallback-details{border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.38);border-radius:18px;padding:0 15px}.talent-fallback-details summary{cursor:pointer;padding:13px 2px;font-size:.62rem;font-weight:800;color:#6d727d}.talent-fallback-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:0 0 14px}
+@media(max-width:700px){.talent-social-first{align-items:flex-start;flex-direction:column}.talent-fallback-grid{grid-template-columns:1fr}}
+</style>
+<script id="ott-talent-autofill-social-profile-20260814">
+(function(){
+ const $=id=>document.getElementById(id);
+ const cleanHandle=(v,platform)=>{v=String(v||'').trim();if(!v)return'';try{if(/^https?:/i.test(v)){const u=new URL(v);let parts=u.pathname.split('/').filter(Boolean);return (platform==='tt'?parts.find(x=>x.startsWith('@')):parts[0]||'').replace(/^@/,'')}}catch(e){}return v.replace(/^@/,'').replace(/^.*instagram\.com\//i,'').replace(/^.*tiktok\.com\/@?/i,'').split(/[/?#]/)[0]};
+ function setStatus(msg,cls=''){const el=$('talentLookupStatus');if(!el)return;el.className='talent-span-2 '+cls;el.textContent=msg}
+ function accountFromPayload(data,platform,handle){
+   const pools=[];
+   if(Array.isArray(data?.accounts))pools.push(...data.accounts);
+   if(Array.isArray(data?.profiles))pools.push(...data.profiles);
+   if(data?.instagram)pools.push({...data.instagram,platform:'instagram'});
+   if(data?.tiktok)pools.push({...data.tiktok,platform:'tiktok'});
+   if(data?.profile)pools.push(data.profile);
+   const p=platform==='ig'?'instagram':'tiktok';
+   return pools.find(x=>{const xp=String(x.platform||x.network||'').toLowerCase();const xh=String(x.username||x.handle||x.user_name||'').replace(/^@/,'').toLowerCase();return (!xp||xp.includes(p))&&(!handle||xh===handle.toLowerCase())})||null;
+ }
+ function applyProfile(ig,tt,data){
+   const primary=ig||tt||data?.talent||data?.profile||{};
+   if(primary.name||primary.display_name)$('talentProfileName').value=primary.name||primary.display_name;
+   if(primary.city||primary.market||data?.city)$('talentProfileCity').value=primary.city||primary.market||data.city||'';
+   const photo=ig?.profile_picture_url||ig?.profile_pic||ig?.avatar_url||tt?.avatar_url||tt?.profile_picture_url||primary.image||primary.photo||primary.avatar_url||'';if(photo)$('talentProfileImage').value=photo;
+   const igf=ig?.followers??ig?.follower_count??ig?.followers_count;if(igf!=null)$('talentProfileIGFollowers').value=Math.round(Number(igf)||0);
+   const ttf=tt?.followers??tt?.follower_count??tt?.followers_count;if(ttf!=null)$('talentProfileTikTokFollowers').value=Math.round(Number(ttf)||0);
+   const bio=[ig?.bio,ig?.biography,tt?.bio_description,tt?.bio,primary.bio].find(Boolean);if(bio&&!$('talentProfileDemo').value)$('talentProfileDemo').value=bio;
+   const demo=data?.demographic||data?.audience_demographic||primary.demographic;if(demo)$('talentProfileDemo').value=typeof demo==='string'?demo:JSON.stringify(demo);
+ }
+ async function autofill(){
+   const igHandle=cleanHandle($('talentProfileInstagram')?.value,'ig'),ttHandle=cleanHandle($('talentProfileTikTok')?.value,'tt');
+   if(!igHandle&&!ttHandle){setStatus('Paste an Instagram or TikTok profile first.','talent-lookup-warn');return}
+   const base=localStorage.getItem('ott_social_profile_lookup_url_v1')||localStorage.getItem('ott_social_feed_connection_v1')||'';
+   if(!base){setStatus('Connect a social-data endpoint on the Overview page first. The static page cannot query Instagram/TikTok directly.','talent-lookup-warn');return}
+   const btn=$('talentAutoFill');btn.disabled=true;btn.textContent='Looking up…';setStatus('Looking up public profile data…');
+   try{
+     const url=new URL(base,location.href);if(igHandle)url.searchParams.set('instagram',igHandle);if(ttHandle)url.searchParams.set('tiktok',ttHandle);url.searchParams.set('type','talent_profile');url.searchParams.set('_t',Date.now());
+     const res=await fetch(url.toString(),{cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();
+     const ig=accountFromPayload(data,'ig',igHandle),tt=accountFromPayload(data,'tt',ttHandle);
+     if(!ig&&!tt&&!data?.talent&&!data?.profile)throw new Error('No matching profile returned by the connected feed');
+     applyProfile(ig,tt,data);setStatus('Profile data filled. Review the rate, music style and audience notes before saving.','talent-lookup-ok');
+   }catch(err){console.warn(err);setStatus('Could not auto-fill from the connected feed. Open Manual fallback fields or connect a profile-capable social API.','talent-lookup-error')}
+   finally{btn.disabled=false;btn.textContent='Auto-fill profile'}
+ }
+ function boot(){const b=$('talentAutoFill');if(b)b.addEventListener('click',autofill)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
