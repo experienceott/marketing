@@ -5967,7 +5967,7 @@ window.addEventListener('DOMContentLoaded',()=>setTimeout(renderHomeNextEvent,0)
     const signals=document.getElementById('nextEventSalesSignals');
     signals.innerHTML=`
       <span class="sales-signal-pill"><span>Sold</span><strong>${fmt(sold)}</strong></span>
-      ${forecast?`<span class="sales-signal-pill"><span>Forecast</span><strong>${fmt(forecast)}</strong></span>`:''}
+      ${forecast?`<span class="sales-signal-pill"><span>Projected sales</span><strong>${fmt(forecast)}</strong></span>`:''}
       ${waitlist?`<span class="sales-signal-pill"><span>Waitlist</span><strong>${fmt(waitlist)}</strong></span>`:''}
       ${attendance?`<span class="sales-signal-pill"><span>Expected attendance</span><strong>${fmt(attendance)}</strong></span>`:''}
       ${live?.pace?`<span class="sales-signal-pill status-${String(live.pace).toLowerCase().includes('ahead')?'ahead':'behind'}"><span>Pace</span><strong>${live.pace}</strong></span>`:''}
@@ -6030,7 +6030,7 @@ window.addEventListener('DOMContentLoaded',()=>setTimeout(renderHomeNextEvent,0)
       const marks=[['Tease',dates.teaserDate],['Launch',dates.launchDate],['Final',dates.finalDate],['Event',dates.eventDate]];
       const nextIndex=marks.findIndex(m=>m[1]>=today);
       const markerHtml=marks.map((m,idx)=>`<i class="queue-marker ${idx<nextIndex?'done':''} ${idx===nextIndex?'next':''}" style="left:${pos(m[1])}%" title="${m[0]} · ${homeFmtDate(m[1])}"></i><span class="queue-marker-label" style="left:${pos(m[1])}%">${m[0]}</span>`).join('');
-      return `<article class="queue-card glass-panel"><div class="queue-date">${safeDate(e.date).toLocaleDateString('en-US',{month:'short'}).toUpperCase()} ${String(safeDate(e.date).getDate()).padStart(2,'0')}<span class="queue-date-count">${days} days away</span></div><div class="queue-main"><h3>${e.name.replace(' with Hennessy + Sightglass Coffee','').replace('OTT 8 Year ','')}</h3><p>${e.name.includes('BlendFest')?'Hennessy × Sightglass Coffee':e.name.includes('Pool Party')?'Hotel Nikko × Nectar Collective':e.name.includes('Yacht')?'OTT 8 Year Anniversary':e.market==='new'?'New market launch':''}</p><div class="queue-milestone-track"><i class="queue-milestone-base"></i><i class="queue-milestone-fill" style="width:${todayPos}%"></i><i class="queue-today" style="left:${todayPos}%"></i>${markerHtml}</div><div class="queue-sales-meta"><span>Goal <strong>${fmt(e.goal)}</strong></span><span>Capacity <strong>${fmt(e.capacity)}</strong></span>${sold?`<span>Sold <strong>${fmt(sold)}</strong> (${Math.round(pct)}%)</span>`:''}${live?.forecast?`<span>Forecast <strong>${fmt(live.forecast)}</strong></span>`:''}${live?.waitlist?`<span>Waitlist <strong>${fmt(live.waitlist)}</strong></span>`:''}</div></div><button onclick="document.querySelector('#nav button[onclick*=campaign]').click();loadUpcoming(${originalIndex})">Plan</button></article>`;
+      return `<article class="queue-card glass-panel"><div class="queue-date">${safeDate(e.date).toLocaleDateString('en-US',{month:'short'}).toUpperCase()} ${String(safeDate(e.date).getDate()).padStart(2,'0')}<span class="queue-date-count">${days} days away</span></div><div class="queue-main"><h3>${e.name.replace(' with Hennessy + Sightglass Coffee','').replace('OTT 8 Year ','')}</h3><p>${e.name.includes('BlendFest')?'Hennessy × Sightglass Coffee':e.name.includes('Pool Party')?'Hotel Nikko × Nectar Collective':e.name.includes('Yacht')?'OTT 8 Year Anniversary':e.market==='new'?'New market launch':''}</p><div class="queue-milestone-track"><i class="queue-milestone-base"></i><i class="queue-milestone-fill" style="width:${todayPos}%"></i><i class="queue-today" style="left:${todayPos}%"></i>${markerHtml}</div><div class="queue-sales-meta"><span>Goal <strong>${fmt(e.goal)}</strong></span><span>Capacity <strong>${fmt(e.capacity)}</strong></span>${sold?`<span>Sold <strong>${fmt(sold)}</strong> (${Math.round(pct)}%)</span>`:''}${(()=>{const rf=Number(live?.forecast||0),cap=Number(e.capacity||e.goal||0);return rf>=(live?.sold||0)&&(!cap||rf<=Math.max(cap*1.5,cap+500))?`<span>Projected sales <strong>${fmt(rf)}</strong></span>`:''})()}${live?.waitlist?`<span>Waitlist <strong>${fmt(live.waitlist)}</strong></span>`:''}</div></div><button onclick="document.querySelector('#nav button[onclick*=campaign]').click();loadUpcoming(${originalIndex})">Plan</button></article>`;
     }).join('');
   };
 
@@ -6085,13 +6085,15 @@ window.addEventListener('DOMContentLoaded',()=>setTimeout(renderHomeNextEvent,0)
     if(selectedHomeEventIndex>=events.length)selectedHomeEventIndex=0;
     grid.innerHTML=events.map((e,displayIndex)=>{
       const live=matchLive(e),left=days(today,e.date),sold=live?.sold||0,goal=live?.target||e.goal||1,pct=Math.max(0,Math.min(100,sold/goal*100));
-      const forecast=live?.forecast||0,waitlist=live?.waitlist||0,pace=String(live?.pace||'').trim(),paceClass=pace.toLowerCase().includes('ahead')?'ahead':pace.toLowerCase().includes('behind')?'behind':'on-pace';
+      const rawForecast=Number(live?.forecast||0),capForForecast=Number(e.capacity||goal||0),
+forecast=(rawForecast>=sold && (!capForForecast || rawForecast<=Math.max(capForForecast*1.5,capForForecast+500)))?rawForecast:0,
+waitlist=live?.waitlist||0,pace=String(live?.pace||'').trim(),paceClass=pace.toLowerCase().includes('ahead')?'ahead':pace.toLowerCase().includes('behind')?'behind':'on-pace';
       const date=dOnly(e.date).toLocaleDateString('en-US',{month:'short',day:'numeric'});
       return `<article class="live-countdown-card ${live?'':'no-match'} ${displayIndex===selectedHomeEventIndex?'is-selected':''}" data-display-index="${displayIndex}" data-event-index="${e._i}">
         <div class="lcc-top"><span class="lcc-date">${date}</span><div class="lcc-days">${left}<small>days away</small></div></div>
         <h3 class="lcc-name">${e.name.replace(' with Hennessy + Sightglass Coffee','').replace('OTT 8 Year ','')}</h3>
         <p class="lcc-partner">${partnerLine(e)}</p>
-        <div class="lcc-sales"><div class="lcc-sold"><span>${live?'Live sold':'Sales Hub match'}</span><strong>${live?fmt(sold):'—'}${live?` <small style="font-size:.62rem;color:#858b96;font-weight:700">/ ${fmt(goal)}</small>`:''}</strong></div>${forecast||waitlist?`<div class="lcc-forecast">${forecast?'Forecast':''}${forecast?`<strong>${fmt(forecast)}</strong>`:''}${waitlist?`<span style="display:block;margin-top:3px">Waitlist ${fmt(waitlist)}</span>`:''}</div>`:''}</div>
+        <div class="lcc-sales"><div class="lcc-sold"><span>${live?'Live sold':'Sales Hub match'}</span><strong>${live?fmt(sold):'—'}${live?` <small style="font-size:.62rem;color:#858b96;font-weight:700">/ ${fmt(goal)}</small>`:''}</strong></div>${forecast||waitlist?`<div class="lcc-forecast">${forecast?'Projected sales':'Forecast unavailable'}${forecast?`<strong>${fmt(forecast)}</strong>`:''}${waitlist?`<span style="display:block;margin-top:3px">Waitlist ${fmt(waitlist)}</span>`:''}</div>`:''}</div>
         <div class="lcc-progress"><i style="width:${live?pct:0}%"></i></div>
         <div class="lcc-foot"><span>${live?`${Math.round(pct)}% of goal · Cap ${fmt(e.capacity)}`:'Awaiting live event match'}</span>${pace?`<span class="lcc-status ${paceClass}">${pace}</span>`:`<span>Goal ${fmt(e.goal)} · Cap ${fmt(e.capacity)}</span>`}</div>
       </article>`;
@@ -6550,6 +6552,117 @@ document.addEventListener('DOMContentLoaded', function () {
    $('talentSearch')?.addEventListener('input',render);$('talentTypeFilter')?.addEventListener('change',render);$('talentProfileSave')?.addEventListener('click',commit);$('talentProfileDelete')?.addEventListener('click',del);document.querySelectorAll('[data-talent-close]').forEach(x=>x.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('talentProfileModal')?.hidden)close()});render();
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
+
+
+<style id="ott-consistency-pass-20260814">
+#main{max-width:1280px!important;padding:58px 28px 110px!important}
+.tab-panel>section,.tab-panel>.glass-panel{margin-bottom:28px}
+.section-intro,.mos-section-head,.partner-section-heading{gap:24px!important}
+.card,.glass-panel,.mos-card,.live-event-strip,.calendar-automation-center{line-height:1.48}
+input,select,textarea{line-height:1.35}
+button{white-space:nowrap}
+
+/* Home event cards */
+.live-event-countdown-grid{gap:18px!important}
+.live-countdown-card{padding:25px 24px 22px!important;min-height:230px!important}
+.lcc-top{margin-bottom:20px!important}
+.lcc-name{line-height:1.16!important;margin-bottom:5px!important;max-width:88%}
+.lcc-partner{line-height:1.4!important}
+.lcc-sales{margin-top:26px!important;gap:22px!important}
+.lcc-sold strong{font-size:1.45rem!important}
+.lcc-forecast{min-width:118px;line-height:1.35!important}
+.lcc-forecast strong{font-size:.82rem!important;margin-top:4px!important}
+.lcc-progress{margin-top:14px!important}
+.lcc-foot{margin-top:10px!important;line-height:1.35!important}
+@media(max-width:640px){#main{padding-left:16px!important;padding-right:16px!important}.live-countdown-card{padding:22px 20px!important}}
+
+/* Brand card treatment is canonical: venues + vendors match it */
+#venuePartnersSection .relationship-accordion-grid,#vendorPartnersSection .relationship-accordion-grid{
+display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;align-items:start!important;gap:16px 18px!important}
+#venuePartnersSection .relationship-accordion,#vendorPartnersSection .relationship-accordion{border-radius:24px!important;overflow:hidden!important}
+#venuePartnersSection .relationship-accordion-summary,#vendorPartnersSection .relationship-accordion-summary{min-height:76px!important;padding:0 26px!important}
+#venuePartnersSection .relationship-accordion-content,#vendorPartnersSection .relationship-accordion-content{padding:14px!important}
+#venuePartnersSection .relationship-card-grid,#vendorPartnersSection .relationship-card-grid{
+display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:auto!important;align-items:stretch!important;gap:12px!important}
+#venuePartnersSection .relationship-compact-card.partner-logo-card,#vendorPartnersSection .relationship-compact-card.partner-logo-card{
+box-sizing:border-box!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;
+height:250px!important;min-height:250px!important;max-height:250px!important;padding:0!important;border-radius:22px!important;overflow:hidden!important;
+cursor:pointer!important;background:rgba(255,255,255,.62)!important;border:1px solid rgba(255,255,255,.84)!important;
+box-shadow:0 10px 28px rgba(28,34,47,.075),inset 0 1px 0 rgba(255,255,255,.92)!important}
+#venuePartnersSection .relationship-compact-card .partner-logo-wrap,#vendorPartnersSection .relationship-compact-card .partner-logo-wrap{
+box-sizing:border-box!important;width:100%!important;height:142px!important;min-height:142px!important;max-height:142px!important;margin:0!important;
+padding:24px 24px 10px!important;display:flex!important;align-items:center!important;justify-content:center!important;border-right:none!important}
+#venuePartnersSection .relationship-compact-card .partner-logo-wrap img,#vendorPartnersSection .relationship-compact-card .partner-logo-wrap img,
+#venuePartnersSection .relationship-compact-card .partner-logo,#vendorPartnersSection .relationship-compact-card .partner-logo{
+width:auto!important;height:auto!important;max-width:78%!important;max-height:96px!important;object-fit:contain!important;object-position:center!important}
+#venuePartnersSection .relationship-compact-card .partner-wordmark,#vendorPartnersSection .relationship-compact-card .partner-wordmark{
+max-width:88%!important;font-size:clamp(1.1rem,2vw,1.85rem)!important;line-height:1!important;text-align:center!important}
+#venuePartnersSection .relationship-compact-card .partner-meta,#vendorPartnersSection .relationship-compact-card .partner-meta{
+box-sizing:border-box!important;width:100%!important;height:108px!important;min-height:108px!important;padding:10px 20px 18px!important;margin:0!important;
+display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important}
+#venuePartnersSection .relationship-compact-card .partner-name,#vendorPartnersSection .relationship-compact-card .partner-name{display:none!important}
+#venuePartnersSection .relationship-compact-card .partner-role,#vendorPartnersSection .relationship-compact-card .partner-role{
+width:100%!important;margin:0!important;padding:0!important;color:#777d87!important;font-size:.71rem!important;line-height:1.4!important;
+display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
+#venuePartnersSection .relationship-compact-card .partner-city,#vendorPartnersSection .relationship-compact-card .partner-city{
+margin:4px 0 0!important;padding:0!important;font-size:.62rem!important;color:#9297a0!important}
+#brandPartnersSection .relationship-compact-card .partner-kind,#venuePartnersSection .relationship-compact-card .partner-kind,#vendorPartnersSection .relationship-compact-card .partner-kind{
+align-self:center!important;margin:10px auto 0!important;text-align:center!important;display:inline-flex!important;align-items:center!important;justify-content:center!important}
+@media(max-width:900px){#venuePartnersSection .relationship-card-grid,#vendorPartnersSection .relationship-card-grid{grid-template-columns:1fr!important}}
+@media(max-width:700px){#venuePartnersSection .relationship-accordion-grid,#vendorPartnersSection .relationship-accordion-grid{grid-template-columns:1fr!important}}
+
+/* Community cards */
+#communityPartnersSection .relationship-community-grid,#communityPartnersSection .relationship-card-grid{
+display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:16px!important;align-items:stretch!important}
+#communityPartnersSection .relationship-community-card.partner-logo-card{
+min-height:196px!important;padding:22px 20px!important;border-radius:22px!important;background:rgba(255,255,255,.60)!important;
+border:1px solid rgba(255,255,255,.82)!important;box-shadow:0 10px 28px rgba(28,34,47,.065),inset 0 1px 0 rgba(255,255,255,.9)!important}
+#communityPartnersSection .partner-logo-wrap{height:86px!important;margin-bottom:14px!important}
+#communityPartnersSection .partner-role{font-size:.68rem!important;line-height:1.45!important}
+#communityPartnersSection .partner-kind{display:none!important}
+@media(max-width:1050px){#communityPartnersSection .relationship-community-grid,#communityPartnersSection .relationship-card-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:760px){#communityPartnersSection .relationship-community-grid,#communityPartnersSection .relationship-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:480px){#communityPartnersSection .relationship-community-grid,#communityPartnersSection .relationship-card-grid{grid-template-columns:1fr!important}}
+
+/* Calendar integrated into native hub shell */
+#tab-yearcal{width:auto!important;max-width:none!important;margin-left:0!important;margin-right:0!important;background:transparent!important;padding:0!important}
+#tab-yearcal .wrap{max-width:none!important;margin:0!important;padding:0!important}
+#tab-yearcal header{margin:0 0 22px!important;padding:30px 32px!important;background:rgba(255,255,255,.52)!important;border:1px solid rgba(255,255,255,.78)!important;
+border-radius:28px!important;box-shadow:0 18px 60px rgba(20,24,35,.10)!important;backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%)}
+#tab-yearcal .stats-bar{gap:14px!important;margin:0 0 20px!important}
+#tab-yearcal .stat{padding:20px 18px!important;border-radius:22px!important;background:rgba(255,255,255,.50)!important;border:1px solid rgba(255,255,255,.78)!important;
+box-shadow:0 10px 28px rgba(28,34,47,.06)!important}
+#tab-yearcal .legend{margin:0 0 20px!important;padding:18px!important;border-radius:24px!important;background:rgba(255,255,255,.48)!important;
+border:1px solid rgba(255,255,255,.76)!important;box-shadow:0 10px 30px rgba(28,34,47,.055)!important}
+#tab-yearcal #months{gap:20px!important;margin-top:20px!important}
+#tab-yearcal .month{border-radius:28px!important;background:rgba(255,255,255,.50)!important;border:1px solid rgba(255,255,255,.8)!important;
+box-shadow:0 16px 44px rgba(30,36,50,.07),inset 0 1px 0 rgba(255,255,255,.9)!important;backdrop-filter:blur(22px) saturate(150%);
+-webkit-backdrop-filter:blur(22px) saturate(150%)}
+#tab-yearcal .month-head{padding:24px 24px 16px!important}
+#tab-yearcal .grid{gap:6px!important;padding:0 14px 18px!important}
+#tab-yearcal .cell{border-radius:16px!important;min-height:104px!important;background:rgba(255,255,255,.46)!important;border:1px solid rgba(255,255,255,.72)!important}
+#tab-yearcal .cell:hover{background:rgba(255,255,255,.72)!important;box-shadow:0 7px 18px rgba(35,40,55,.06)!important}
+#tab-yearcal .cell.sat{background:rgba(201,135,26,.085)!important}
+#tab-yearcal .cell.sat.has-event{background:rgba(201,135,26,.14)!important}
+#tab-yearcal .print-btn{border-radius:16px!important;border:1px solid rgba(255,255,255,.76)!important;background:rgba(255,255,255,.58)!important;
+box-shadow:0 8px 24px rgba(30,35,50,.07)!important}
+#tab-yearcal footer{margin-top:22px!important;padding:18px 20px!important;border-radius:20px!important;background:rgba(255,255,255,.45)!important;
+border:1px solid rgba(255,255,255,.7)!important;color:#777d87!important}
+</style>
+
+<script id="ott-partner-data-cleanup-20260814">
+(function(){
+function refreshCount(details){if(!details)return;const count=details.querySelectorAll('.partner-logo-card').length;const label=details.querySelector('.relationship-count');if(label)label.textContent=`${count} partner${count===1?'':'s'}`;}
+function vendorBucket(title){const section=document.getElementById('vendorPartnersSection');if(!section)return null;let found=[...section.querySelectorAll('details')].find(d=>d.querySelector('.relationship-category-name')?.textContent.trim()===title);if(found)return found;found=document.createElement('details');found.className='relationship-accordion';found.open=true;found.innerHTML=`<summary class="relationship-accordion-summary"><span class="relationship-category-name">${title}</span><span class="relationship-category-meta"><span class="relationship-count">0 partners</span><span class="relationship-toggle">+</span></span></summary><div class="relationship-accordion-content"><div class="relationship-card-grid"></div></div>`;section.querySelector('.relationship-accordion-grid')?.appendChild(found);return found;}
+function cleanupPartners(){
+ const last=document.querySelector('.partner-logo-card[data-partner-name="The Last Drip"]');
+ if(last){const old=last.closest('details'),bucket=vendorBucket('Food & Beverage');bucket?.querySelector('.relationship-card-grid')?.appendChild(last);last.dataset.partnerCategory='Vendor';const chip=last.querySelector('.partner-kind');if(chip){chip.dataset.category='event-services';chip.textContent='Food & Beverage Vendor'}const role=last.querySelector('.partner-role');if(role)role.textContent='Coffee and beverage vendor · Event service partner';refreshCount(old);refreshCount(bucket);}
+ if(!document.querySelector('.partner-logo-card[data-partner-name="Thrive Concierge"]')){const bucket=vendorBucket('Guest Services'),grid=bucket?.querySelector('.relationship-card-grid');if(grid){const c=document.createElement('article');c.className='relationship-compact-card partner-logo-card';c.setAttribute('data-partner-name','Thrive Concierge');c.setAttribute('data-partner-category','Vendor');c.setAttribute('role','button');c.setAttribute('tabindex','0');c.setAttribute('aria-label','Open Thrive Concierge partner record');c.innerHTML='<div class="partner-logo-wrap"><div class="partner-wordmark partner-wordmark-text">THRIVE<br>CONCIERGE</div></div><div class="partner-meta"><div class="partner-name">Thrive Concierge</div><div class="partner-role">Concierge and guest services · Event vendor</div><span class="partner-kind" data-category="event-services">Guest Services Vendor</span></div>';grid.appendChild(c);refreshCount(bucket);}}
+ document.querySelectorAll('#brandPartnersSection details,#venuePartnersSection details,#vendorPartnersSection details').forEach(refreshCount);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(cleanupPartners,80));else setTimeout(cleanupPartners,80);
 })();
 </script>
 
