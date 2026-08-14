@@ -3167,29 +3167,41 @@ window.OTT_EVENT_TYPES = Object.freeze({
   #tab-yearcal .add-ev:hover, #tab-yearcal .add-ev:focus{opacity:1;border-color:var(--gold);color:var(--gold);background:#fff;}
 
   #tab-yearcal .pill{
-    font-size:13px;line-height:1.3;font-weight:600;color:#14151a;
-    padding:7px 8px 6px;overflow:visible;cursor:grab;touch-action:none;
-    display:flex;flex-direction:column;gap:3px;position:relative;border-radius:0;margin:0 -1px;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
+    font-size:13px;line-height:1.25;font-weight:700;color:#14151a;
+    padding:8px 10px 7px;overflow:visible;cursor:grab;touch-action:none;
+    display:flex;flex-direction:column;gap:3px;position:relative;
+    border-radius:13px;margin:3px 1px;
+    border:1px solid rgba(255,255,255,.56);
+    background-image:linear-gradient(145deg,rgba(255,255,255,.24) 0%,rgba(255,255,255,.05) 42%,rgba(0,0,0,.055) 100%);
+    box-shadow:0 5px 13px rgba(28,31,40,.13),inset 0 1px 0 rgba(255,255,255,.62),inset 0 -1px 0 rgba(0,0,0,.07);
+    transition:transform .16s ease,box-shadow .16s ease,filter .16s ease,opacity .16s ease;
+    isolation:isolate;
   }
-  #tab-yearcal .pill.seg-single{border-radius:10px;margin:0;}
-  #tab-yearcal .pill.seg-start{border-top-left-radius:10px;border-bottom-left-radius:10px;}
-  #tab-yearcal .pill.seg-end{border-top-right-radius:10px;border-bottom-right-radius:10px;}
-  #tab-yearcal .pill.dragging{opacity:.35;}
-  #tab-yearcal .pill.resizing{box-shadow:0 0 0 2px #fff inset;}
-  #tab-yearcal .pill.conflict{box-shadow:0 0 0 2px #d43f3f inset;}
+  /* Every calendar event uses the same pill/card silhouette, including multi-day segments. */
+  #tab-yearcal .pill.seg-single,
+  #tab-yearcal .pill.seg-start,
+  #tab-yearcal .pill.seg-mid,
+  #tab-yearcal .pill.seg-end{border-radius:13px;margin:3px 1px;}
+  #tab-yearcal .pill:hover{
+    transform:translateY(-1px);
+    filter:saturate(1.03);
+    box-shadow:0 8px 18px rgba(28,31,40,.16),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -1px 0 rgba(0,0,0,.07);
+  }
+  #tab-yearcal .pill.dragging{opacity:.38;transform:scale(.98);}
+  #tab-yearcal .pill.resizing{box-shadow:0 0 0 2px rgba(255,255,255,.95) inset,0 7px 16px rgba(28,31,40,.16);}
+  #tab-yearcal .pill.conflict{box-shadow:0 0 0 2px #d43f3f inset,0 7px 16px rgba(28,31,40,.14);}
   #tab-yearcal .pill-top{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:800;margin-bottom:3px;}
   #tab-yearcal .owner-badge{
     width:14px;height:14px;border-radius:50%;background:rgba(0,0,0,.2);
     display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;flex:none;
   }
   #tab-yearcal .pill.flagship .owner-badge{background:rgba(255,255,255,.35);}
-  #tab-yearcal .pill .t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-  #tab-yearcal .pill .c{font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;}
-  #tab-yearcal .pill.notheme .c{font-size:12px;}
-  #tab-yearcal .pill.flagship{color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 4px 14px rgba(0,0,0,.18);}
-  #tab-yearcal .pill.flagship.resizing{box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 0 0 2px #fff;}
-  #tab-yearcal .pill.flagship.conflict{box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 0 0 2px #d43f3f;}
+  #tab-yearcal .pill .t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13px;font-weight:800;letter-spacing:-.01em;}
+  #tab-yearcal .pill .c{font-size:9.5px;font-weight:800;letter-spacing:.075em;text-transform:uppercase;opacity:.88;}
+  #tab-yearcal .pill.notheme .c{font-size:12px;letter-spacing:.035em;opacity:1;}
+  #tab-yearcal .pill.flagship{box-shadow:0 5px 13px rgba(28,31,40,.15),inset 0 1px 0 rgba(255,255,255,.62),inset 0 -1px 0 rgba(0,0,0,.07);}
+  #tab-yearcal .pill.flagship.resizing{box-shadow:0 0 0 2px rgba(255,255,255,.95) inset,0 7px 16px rgba(28,31,40,.17);}
+  #tab-yearcal .pill.flagship.conflict{box-shadow:0 0 0 2px #d43f3f inset,0 7px 16px rgba(28,31,40,.15);}
 
   #tab-yearcal .handle{position:absolute;top:0;bottom:0;width:12px;cursor:ew-resize;display:flex;align-items:center;justify-content:center;z-index:2;touch-action:none;}
   #tab-yearcal .handle.left{left:-2px;}
@@ -6378,7 +6390,7 @@ document.addEventListener('DOMContentLoaded', function () {
 #campaignAdvanced>summary::-webkit-details-marker{display:none}#campaignAdvanced>summary:after{content:'+';font-size:1rem}#campaignAdvanced[open]>summary:after{content:'−'}
 #campaignAdvancedBody{padding:0 18px 4px}
 #tab-yearcal .conflict-suggest{margin-left:8px;padding:4px 8px!important;font-size:10px!important;cursor:pointer;pointer-events:auto}
-#tab-yearcal .pill{touch-action:none;transition:box-shadow .12s ease,transform .12s ease}#tab-yearcal .pill:hover{transform:translateY(-1px)}
+#tab-yearcal .pill{touch-action:none}
 #tab-yearcal .cell-drag-over:after{content:attr(data-date);position:absolute;left:50%;bottom:4px;transform:translateX(-50%);font-size:8px;font-weight:800;color:var(--gold);background:rgba(255,255,255,.9);padding:2px 5px;border-radius:999px;z-index:5;pointer-events:none}
 .event-data-note{font-size:.64rem;color:#747b86;margin-top:7px;line-height:1.5}
 </style>
