@@ -6478,5 +6478,80 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 </script>
 
+
+<style id="ott-talent-profile-system-css">
+#tab-talent .talent-hero{align-items:center}
+#tab-talent .talent-grid{grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
+#tab-talent .talent-profile-card{position:relative;padding:20px;border-radius:26px;background:rgba(255,255,255,.52);border:1px solid rgba(255,255,255,.84);box-shadow:0 16px 44px rgba(32,42,62,.08);backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);transition:.2s}
+#tab-talent .talent-profile-card:hover{transform:translateY(-2px);box-shadow:0 22px 54px rgba(32,42,62,.12)}
+.talent-profile-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}.talent-avatar{width:68px;height:68px;flex:0 0 68px;border-radius:22px;overflow:hidden;background:linear-gradient(145deg,rgba(255,214,10,.8),rgba(255,255,255,.9));display:grid;place-items:center;border:1px solid rgba(255,255,255,.9);box-shadow:0 8px 24px rgba(40,45,60,.09)}.talent-avatar img{width:100%;height:100%;object-fit:cover}.talent-avatar-fallback{font-size:1.25rem;font-weight:900;color:#34363d}.talent-profile-title{min-width:0;flex:1}.talent-profile-title small{display:block;color:#848a95;font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.11em}.talent-profile-title h3{font-size:1.12rem!important;line-height:1.1;margin:4px 0 5px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.talent-social-links{display:flex;gap:6px;flex-wrap:wrap}.talent-social-link{display:inline-flex;align-items:center;gap:4px;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.72);font-size:.56rem;font-weight:800;color:#484d56;text-decoration:none}.talent-social-link:hover{background:#fff}
+.talent-audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:13px}.talent-metric{padding:11px 9px;border-radius:16px;background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.76)}.talent-metric span{display:block;font-size:.48rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#8a9099}.talent-metric strong{display:block;font-size:.92rem;margin-top:4px;letter-spacing:-.03em}.talent-metric.combined{background:rgba(255,214,10,.16)}
+.talent-rate-row{display:flex;align-items:end;justify-content:space-between;gap:10px;padding:13px 14px;border-radius:17px;background:rgba(18,19,23,.92);color:#fff;margin-bottom:12px}.talent-rate-row span{display:block;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;color:#979ba5;font-weight:800}.talent-rate-row strong{display:block;font-size:1.25rem;color:#ffd60a;margin-top:2px}.talent-rate-row em{font-style:normal;font-size:.58rem;color:#aeb2bb}
+.talent-detail-stack{display:grid;gap:8px}.talent-detail{padding:10px 12px;border-radius:15px;background:rgba(255,255,255,.38);border:1px solid rgba(255,255,255,.7)}.talent-detail span{display:block;font-size:.49rem;font-weight:850;letter-spacing:.09em;text-transform:uppercase;color:#8a9099;margin-bottom:3px}.talent-detail strong{display:block;font-size:.68rem;line-height:1.45;color:#3a3d44}.talent-card-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:14px}.talent-chip-type{display:inline-flex;padding:6px 9px;border-radius:999px;background:rgba(116,96,210,.13);color:#5c459d;font-size:.5rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.talent-edit-action{border:0;border-radius:999px;background:rgba(255,255,255,.82);padding:8px 12px;font-size:.55rem;font-weight:850;cursor:pointer}
+#talentProfileModal[hidden]{display:none!important}#talentProfileModal{position:fixed;inset:0;z-index:15000;display:grid;place-items:center;padding:20px}.talent-profile-backdrop{position:absolute;inset:0;background:rgba(19,22,30,.35);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}.talent-profile-panel{position:relative;width:min(760px,100%);max-height:92vh;overflow:auto;padding:30px;border-radius:30px;background:rgba(248,249,252,.92);border:1px solid rgba(255,255,255,.9);box-shadow:0 30px 90px rgba(20,24,36,.28);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px)}.talent-profile-panel h2{font-size:2rem;letter-spacing:-.05em;margin:5px 0 20px}.talent-profile-close{position:absolute;right:16px;top:16px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.78);font-size:1.35rem;cursor:pointer}.talent-profile-form{display:grid;grid-template-columns:1fr 1fr;gap:13px}.talent-profile-form label{font-size:.59rem;font-weight:800;color:#626873}.talent-profile-form input,.talent-profile-form select,.talent-profile-form textarea{margin-top:6px;width:100%;border:1px solid rgba(255,255,255,.92);background:rgba(255,255,255,.67);border-radius:15px;padding:12px 13px;font:500 .82rem -apple-system,BlinkMacSystemFont,sans-serif;color:#191a1e;outline:none}.talent-profile-form textarea{min-height:84px}.talent-span-2{grid-column:1/-1}.talent-form-help{grid-column:1/-1;padding:11px 13px;border-radius:15px;background:rgba(255,214,10,.12);font-size:.65rem;line-height:1.55;color:#666b75}.talent-modal-actions{display:flex;justify-content:space-between;gap:10px;margin-top:20px}.talent-empty-state{grid-column:1/-1;padding:70px 24px;text-align:center;border-radius:26px;background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.75)}.talent-empty-state strong{display:block;font-size:1.2rem}.talent-empty-state span{display:block;max-width:470px;margin:7px auto 16px;color:#7b808a;font-size:.72rem}.talent-kpi strong{font-variant-numeric:tabular-nums}
+@media(max-width:700px){.talent-profile-form{grid-template-columns:1fr}.talent-span-2{grid-column:auto}.talent-audience-grid{grid-template-columns:1fr 1fr}.talent-metric.combined{grid-column:1/-1}}
+</style>
+
+<div id="talentProfileModal" hidden>
+  <div class="talent-profile-backdrop" data-talent-close></div>
+  <section class="talent-profile-panel" role="dialog" aria-modal="true" aria-labelledby="talentProfileModalTitle">
+    <button class="talent-profile-close" type="button" data-talent-close>×</button>
+    <span class="eyebrow">Talent profile</span>
+    <h2 id="talentProfileModalTitle">Add talent</h2>
+    <input id="talentProfileId" type="hidden">
+    <div class="talent-profile-form">
+      <label>Name<input id="talentProfileName" placeholder="DJ / creator name"></label>
+      <label>Type<select id="talentProfileType"><option>DJ</option><option>Creator</option><option>Brand Face</option></select></label>
+      <label>City / market<input id="talentProfileCity" placeholder="Bay Area"></label>
+      <label>Hourly rate<input id="talentProfileRate" type="number" min="0" step="1" placeholder="250"></label>
+      <label>Instagram profile<input id="talentProfileInstagram" placeholder="@handle or instagram.com/handle"></label>
+      <label>Instagram followers<input id="talentProfileIGFollowers" type="number" min="0" placeholder="18200"></label>
+      <label>TikTok profile<input id="talentProfileTikTok" placeholder="@handle or tiktok.com/@handle"></label>
+      <label>TikTok followers<input id="talentProfileTikTokFollowers" type="number" min="0" placeholder="9100"></label>
+      <label class="talent-span-2">Instagram / profile photo URL<input id="talentProfileImage" placeholder="Paste a direct image URL"></label>
+      <label class="talent-span-2">Music style / genre<input id="talentProfileMusic" placeholder="R&B · Hip-Hop · Afrobeats · Dancehall"></label>
+      <label class="talent-span-2">Audience demographic<textarea id="talentProfileDemo" placeholder="Example: 25–34, Bay Area-heavy, 65% women, nightlife + culture audience"></textarea></label>
+      <div class="talent-form-help">Instagram and TikTok do not allow this static GitHub page to reliably scrape profile photos or follower counts without an authenticated data source. Enter the social profile plus follower counts manually for now; this record is structured so a social API/feed can populate those fields later.</div>
+    </div>
+    <div class="talent-modal-actions">
+      <button class="glass-button" id="talentProfileDelete" type="button">Delete</button>
+      <button class="glass-button primary" id="talentProfileSave" type="button">Save talent profile</button>
+    </div>
+  </section>
+</div>
+
+<script id="ott-talent-profile-system-js">
+(function(){
+ const KEY='ott_talent_profiles_v2';
+ const $=id=>document.getElementById(id);
+ const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+ const num=v=>Math.max(0,Number(v)||0);
+ const fmt=n=>{n=num(n);if(n>=1e6)return (n/1e6).toFixed(n>=1e7?0:1).replace('.0','')+'M';if(n>=1e3)return (n/1e3).toFixed(n>=1e4?0:1).replace('.0','')+'K';return n.toLocaleString()};
+ function normalizeSocial(v,platform){v=String(v||'').trim();if(!v)return {label:'',url:''};if(/^https?:\/\//i.test(v)){let label=v;try{const u=new URL(v);label=u.pathname.split('/').filter(Boolean).pop()||u.hostname}catch(e){}return{label:label.startsWith('@')?label:'@'+label,url:v}}const h=v.replace(/^@/,'').replace(/^.*instagram\.com\//i,'').replace(/^.*tiktok\.com\/@?/i,'').replace(/\/?$/,'');return{label:'@'+h,url:platform==='ig'?'https://www.instagram.com/'+h+'/':'https://www.tiktok.com/@'+h}};
+ function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return[]}}
+ function save(rows){localStorage.setItem(KEY,JSON.stringify(rows))}
+ function initials(name){return String(name||'?').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'?'}
+ function render(){
+   const grid=$('talentGrid'),kpis=$('talentKpis');if(!grid||!kpis)return;
+   const q=($('talentSearch')?.value||'').toLowerCase().trim(),filter=$('talentTypeFilter')?.value||'';
+   const all=load();const rows=all.filter(t=>(!filter||t.type===filter)&&(!q||[t.name,t.city,t.music,t.demographic,t.instagram,t.tiktok,t.type].join(' ').toLowerCase().includes(q)));
+   const totalAudience=all.reduce((s,t)=>s+num(t.igFollowers)+num(t.tiktokFollowers),0);const avgRate=all.length?all.reduce((s,t)=>s+num(t.rate),0)/all.length:0;const djs=all.filter(t=>t.type==='DJ').length;
+   kpis.innerHTML=`<div class="talent-kpi"><small>Talent profiles</small><strong>${all.length}</strong></div><div class="talent-kpi"><small>Combined audience</small><strong>${fmt(totalAudience)}</strong></div><div class="talent-kpi"><small>DJs</small><strong>${djs}</strong></div><div class="talent-kpi"><small>Avg hourly rate</small><strong>${all.length?'$'+Math.round(avgRate).toLocaleString():'—'}</strong></div>`;
+   if(!rows.length){grid.innerHTML=`<div class="talent-empty-state"><strong>${all.length?'No matching talent':'Build your talent library'}</strong><span>${all.length?'Try another search or filter.':'Add DJs, creators and brand faces once, then reuse their social audience, rate and profile data across campaigns.'}</span>${all.length?'':`<button class="glass-button primary" type="button" id="talentEmptyAdd">+ Add first talent</button>`}</div>`;$('talentEmptyAdd')?.addEventListener('click',()=>open());return}
+   grid.innerHTML=rows.map(t=>{const ig=normalizeSocial(t.instagram,'ig'),tt=normalizeSocial(t.tiktok,'tt'),combined=num(t.igFollowers)+num(t.tiktokFollowers);return `<article class="talent-profile-card" data-talent-id="${esc(t.id)}"><div class="talent-profile-head"><div class="talent-avatar">${t.image?`<img src="${esc(t.image)}" alt="${esc(t.name)} profile photo" onerror="this.remove();this.parentElement.innerHTML='<span class=talent-avatar-fallback>${esc(initials(t.name))}</span>'">`:`<span class="talent-avatar-fallback">${esc(initials(t.name))}</span>`}</div><div class="talent-profile-title"><small>${esc(t.type||'Talent')} · ${esc(t.city||'Market TBD')}</small><h3>${esc(t.name||'Untitled talent')}</h3><div class="talent-social-links">${ig.url?`<a class="talent-social-link" href="${esc(ig.url)}" target="_blank" rel="noopener">IG ${esc(ig.label)}</a>`:''}${tt.url?`<a class="talent-social-link" href="${esc(tt.url)}" target="_blank" rel="noopener">TikTok ${esc(tt.label)}</a>`:''}</div></div></div><div class="talent-audience-grid"><div class="talent-metric"><span>IG followers</span><strong>${fmt(t.igFollowers)}</strong></div><div class="talent-metric"><span>TikTok followers</span><strong>${fmt(t.tiktokFollowers)}</strong></div><div class="talent-metric combined"><span>Combined</span><strong>${fmt(combined)}</strong></div></div><div class="talent-rate-row"><div><span>Hourly rate</span><strong>${num(t.rate)?'$'+num(t.rate).toLocaleString():'—'}</strong></div><em>${num(t.rate)?'Manual rate':'Rate not entered'}</em></div><div class="talent-detail-stack"><div class="talent-detail"><span>Music style / lane</span><strong>${esc(t.music||'Not entered')}</strong></div><div class="talent-detail"><span>Audience demographic</span><strong>${esc(t.demographic||'Not entered')}</strong></div></div><div class="talent-card-footer"><span class="talent-chip-type">${esc(t.type||'Talent')}</span><button class="talent-edit-action" type="button" data-edit-talent="${esc(t.id)}">Edit profile</button></div></article>`}).join('');
+   grid.querySelectorAll('[data-edit-talent]').forEach(b=>b.onclick=()=>open(b.dataset.editTalent));
+ }
+ function open(id){const rows=load(),t=rows.find(x=>String(x.id)===String(id))||{};$('talentProfileId').value=t.id||'';$('talentProfileName').value=t.name||'';$('talentProfileType').value=t.type||'DJ';$('talentProfileCity').value=t.city||'';$('talentProfileRate').value=t.rate||'';$('talentProfileInstagram').value=t.instagram||'';$('talentProfileIGFollowers').value=t.igFollowers||'';$('talentProfileTikTok').value=t.tiktok||'';$('talentProfileTikTokFollowers').value=t.tiktokFollowers||'';$('talentProfileImage').value=t.image||'';$('talentProfileMusic').value=t.music||'';$('talentProfileDemo').value=t.demographic||'';$('talentProfileModalTitle').textContent=t.id?'Edit talent profile':'Add talent';$('talentProfileDelete').style.visibility=t.id?'visible':'hidden';$('talentProfileModal').hidden=false;setTimeout(()=>$('talentProfileName').focus(),30)}
+ function close(){$('talentProfileModal').hidden=true}
+ function commit(){const name=$('talentProfileName').value.trim();if(!name){alert('Add a talent name first.');$('talentProfileName').focus();return}let rows=load(),id=$('talentProfileId').value||('talent-'+Date.now());const record={id,name,type:$('talentProfileType').value,city:$('talentProfileCity').value.trim(),rate:num($('talentProfileRate').value),instagram:$('talentProfileInstagram').value.trim(),igFollowers:num($('talentProfileIGFollowers').value),tiktok:$('talentProfileTikTok').value.trim(),tiktokFollowers:num($('talentProfileTikTokFollowers').value),image:$('talentProfileImage').value.trim(),music:$('talentProfileMusic').value.trim(),demographic:$('talentProfileDemo').value.trim(),updated:new Date().toISOString()};const i=rows.findIndex(x=>String(x.id)===String(id));if(i>=0)rows[i]=record;else rows.unshift(record);save(rows);close();render()}
+ function del(){const id=$('talentProfileId').value;if(!id)return;if(!confirm('Delete this talent profile?'))return;save(load().filter(x=>String(x.id)!==String(id)));close();render()}
+ function boot(){
+   const add=$('addTalentBtn');if(add){const clone=add.cloneNode(true);add.replaceWith(clone);clone.onclick=()=>open()}
+   $('talentSearch')?.addEventListener('input',render);$('talentTypeFilter')?.addEventListener('change',render);$('talentProfileSave')?.addEventListener('click',commit);$('talentProfileDelete')?.addEventListener('click',del);document.querySelectorAll('[data-talent-close]').forEach(x=>x.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('talentProfileModal')?.hidden)close()});render();
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
+
 </body>
 </html>
