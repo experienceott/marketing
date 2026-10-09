@@ -52,6 +52,52 @@ h1{font-weight:800;letter-spacing:-.045em}h2,h3{font-weight:700}
 .perfbox{border-color:var(--line)}
 .velocity i{background:#0f0f10}
 
+/* refresh v2: quieter chrome, tighter type, black primary actions, yellow as accent only */
+:root{--radius:16px}
+body{font-size:14px;line-height:1.5;color:var(--ink)}
+.top{height:64px;gap:20px;padding:0 max(4%,20px)}
+.brand{font-size:20px;letter-spacing:-1px;padding:3px 8px;border-radius:4px}
+.nav{gap:2px}.nav button{padding:8px 12px;font-size:13px;font-weight:500;color:#6b6b70;border-radius:10px}.nav button:hover:not(.on){color:var(--ink);background:transparent}.nav button.on{background:transparent;color:var(--ink);font-weight:600;box-shadow:inset 0 -2px 0 var(--ink);border-radius:0}
+.btn{border-radius:10px;padding:9px 14px;font-size:13px;font-weight:500;background:#fff;box-shadow:0 1px 1px rgba(16,16,20,.04)}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}.btn.primary:hover{background:#2a2a2e;filter:none}
+.btn.black{background:var(--ink);border-color:var(--ink)}
+.iconbtn{width:36px;height:36px;padding:0;display:inline-grid;place-items:center}.iconbtn svg{width:16px;height:16px}
+.right .chip{background:transparent;color:#6b6b70;font-weight:500;padding:6px 4px}
+.wrap{padding-top:36px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.08em;color:#8a8a90}
+h1{font-size:clamp(34px,3.6vw,52px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:6px 0 8px}
+h2{font-size:22px;letter-spacing:-.02em;font-weight:650}h3{font-size:15px;letter-spacing:-.01em;font-weight:600}
+.sub{color:#6b6b70}
+.panel{border:1px solid #ececef;border-radius:var(--radius);box-shadow:none;padding:22px}
+.section{margin-top:28px}
+.hero{gap:14px}.event{min-height:300px;padding:22px;border-radius:var(--radius)}.event.big{min-height:380px}
+.event h2{font-size:clamp(26px,2.6vw,40px);letter-spacing:-.03em;font-weight:700;line-height:1.02;margin:8px 0 12px}.event:not(.big) h2{font-size:26px;letter-spacing:-.025em}
+.event .small{font-size:10.5px;font-weight:600;letter-spacing:.08em;opacity:.85}
+.event:before{background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.65) 100%),var(--photo,radial-gradient(120% 90% at 85% 0%,#3a3a40 0%,#18181b 55%,#0e0e10 100%))}
+.light{background:rgba(255,255,255,.14);color:#fff;font-weight:500;backdrop-filter:blur(8px);padding:4px 9px}
+.badge{background:rgba(255,255,255,.92);color:#111;font-weight:600;font-size:10.5px}
+.chip{font-weight:500;font-size:11.5px;padding:5px 10px}
+.tabs{gap:2px;border-bottom:1px solid var(--line);padding:0;margin-bottom:18px}.tabs button{border:0;border-radius:0;background:transparent;color:#6b6b70;font-weight:500;padding:12px 12px}.tabs button:hover:not(.on){background:transparent;color:var(--ink)}.tabs button.on{background:transparent;color:var(--ink);font-weight:600;box-shadow:inset 0 -2px 0 var(--ink)}
+.statusrail{gap:10px}.statusitem{border:1px solid #ececef;box-shadow:none;border-radius:14px;padding:14px}.statusitem b{font-size:17px;font-weight:600;letter-spacing:-.02em}.statusitem:hover{transform:none;border-color:#c9c9ce}
+.todaycard{border:1px solid #ececef;border-radius:14px}.todaycard b{font-weight:600}
+.listrow{grid-template-columns:52px minmax(0,1fr) auto;padding:12px 0}.thumb{width:52px;height:52px;border-radius:10px}
+.listrow b,.activity b{font-weight:600}
+.activity{padding:12px 0}.dot{width:6px;height:6px;background:var(--ink)}
+.empty{background:#fafafb;border:1px dashed #dcdce0;border-radius:12px}
+.calendar{gap:6px}.day{border-radius:10px;min-height:112px;padding:8px}.day .num{font-weight:600;color:#6b6b70;font-size:11.5px}.day.today{box-shadow:none;border-color:var(--ink)}.day.today .num{color:#111}
+.day .post{border-radius:6px;font-weight:500;padding:4px 6px}
+.platform{border-radius:5px;font-weight:700}
+.modal{border-radius:18px;padding:28px}.modal header h2{font-size:22px}
+.field{border-radius:10px;padding:10px 12px}
+.integration{padding:13px 0}
+.person h3{font-size:17px;font-weight:600}.visual{border-radius:12px}
+.statusitem .eyebrow,.fact .eyebrow{font-size:10px}
+.fact{border-radius:10px}.fact b{font-weight:600}
+@media(max-width:650px){.top{height:auto;padding:10px 16px}.nav button.on{box-shadow:none;background:var(--soft);border-radius:8px}}
+.event{background:#111113}
+.velocity{height:44px;gap:3px}.velocity i{background:#d6d6db;border-radius:3px 3px 0 0}.velocity i:hover{background:var(--ink)}
+.panel>.row:first-child{row-gap:10px}
+
 </style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></head><body><div id="root"></div><script type="module">
 let createClient=null;try{({createClient}=await import('https://esm.sh/@supabase/supabase-js@2.45.4'))}catch(e){console.warn('Supabase library unavailable; local preview only',e)}
 const K='ott_studio_v1';const defaultData={campaigns:[{id:'gala',name:'THE GALA · FIRE + ICE',date:'2026-10-17',market:'SAN FRANCISCO',venue:'W San Francisco',status:'Planning',photo:'',archive:'The Affair Gala 2022'},{id:'vegas',name:'THE BLEND · VEGAS',date:'2026-11-14',market:'LAS VEGAS',status:'Planning',photo:'',archive:'The Blend LA 2026'},{id:'miami',name:'THE BLEND · MIAMI',date:'2026-12-05',market:'MIAMI',status:'Planning',photo:'',archive:'The Blend LA 2026'}],people:[{id:'jaymee',name:'JaymeeBaaby',role:'Talent',market:'Bay Area',genre:'Open format',handle:'',photo:'',status:'Active',notes:'',manager:'',fee:''}],content:[],tasks:[],bookings:[],partners:[],assets:[],tickets:[],activity:[],social:[]};
@@ -75,7 +121,7 @@ async function boot(){
  if(!authListener){authListener=true;client.auth.onAuthStateChange((event,s)=>{if((s?.user?.id||null)!==(user?.id||null)){user=s?.user||null;boot()}})}
  }render()
 }
-function top(){let nav=['Home','Campaigns','Content','Creator House','Talent','Partners','Assets','Insights'];return `<div class="top"><div class="brand">OTT</div><div class="nav">${nav.map(n=>`<button class="${page===n?'on':''}" data-nav="${n}">${n}</button>`).join('')}</div><div class="right"><span class="chip ${mode==='sync-error'?'warn':''}">${mode==='cloud'?'● Team synced':mode==='sync-error'?'! Sync paused':'○ Local preview'}</span>${client&&!user?'<button class="btn" data-action="signin">Sign in</button>':''}<button class="btn" data-action="settings" aria-label="Team setup">⚙</button><button class="btn primary" data-action="create">+ Create</button></div></div>`}
+function top(){let nav=['Home','Campaigns','Content','Creator House','Talent','Partners','Assets','Insights'];return `<div class="top"><div class="brand">OTT</div><div class="nav">${nav.map(n=>`<button class="${page===n?'on':''}" data-nav="${n}">${n}</button>`).join('')}</div><div class="right"><span class="chip ${mode==='sync-error'?'warn':''}">${mode==='cloud'?'● Team synced':mode==='sync-error'?'! Sync paused':'○ Local preview'}</span>${client&&!user?'<button class="btn" data-action="signin">Sign in</button>':''}<button class="btn iconbtn" data-action="settings" aria-label="Team setup" title="Team setup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button><button class="btn primary" data-action="create">+ Create</button></div></div>`}
 function title(a,b='',button=''){return `<div class="row"><div><div class="eyebrow">OTT / STUDIO</div><h1>${a}</h1><div class="sub">${b}</div></div>${button}</div>`}
 function event(c,big=false){let booked=role=>state.people.filter(p=>p.role===role&&state.bookings.some(b=>b.person_id===p.id&&b.campaign_id===c.id)).length;let counts=[state.content.filter(x=>x.campaign_id===c.id).length,booked('Talent'),state.tasks.filter(t=>t.campaign_id===c.id&&t.status!=='Done').length,booked('Creator')];return `<div class="event ${big?'big':''}" style="--photo:${photo(c.photo)}" data-open="campaign:${c.id}"><div class="row"><span class="small">${esc(c.market)}${c.venue?' · '+esc(c.venue):''} · ${fmt(c.date)}</span><span class="badge">${esc(c.status)}</span></div><div><span class="small">OTT / EVENTS</span><h2>${esc(c.name)}</h2><div class="chips"><span class="light">${counts[0]} content</span><span class="light">${counts[1]} talent</span>${counts[3]?`<span class="light">${counts[3]} creators</span>`:''}<span class="light">${counts[2]} open tasks</span></div></div></div>`}
 function activityList(){let a=state.activity.slice(0,7);return a.length?a.map(x=>`<div class="activity"><span class="dot"></span><div class="desc"><b>${esc(x.text)}</b><div class="sub">${esc(x.record)}${x.by?' · '+esc(x.by.split('@')[0]):''}</div></div><small>${new Date(x.date).toLocaleDateString()}</small></div>`).join(''):'<div class="empty">Activity appears as your team works. Create content, assign talent or update a campaign to start.</div>'}
