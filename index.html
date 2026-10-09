@@ -21,7 +21,38 @@
 @media(max-width:900px){.profilefacts.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.nav{flex:1 1 100%}.right{margin-left:auto}.right .chip{display:none}.urlrow{flex-wrap:wrap}.urlrow .btn{width:100%}.day .postwrap small{display:none}.pthumb{display:none}}
 
-</style></head><body><div id="root"></div><script type="module">
+/* 2026-10 visual refresh: neutral, crisp, modern. OTT yellow kept as the accent only. */
+:root{--bg:#f5f5f6;--ink:#0f0f10;--muted:#6b6b70;--line:#e6e6e9;--paper:#fff;--radius:18px;--soft:#f0f0f2}
+body{font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11"}
+.top{background:rgba(255,255,255,.82);border-bottom:1px solid var(--line);backdrop-filter:saturate(180%) blur(20px)}
+.nav button{font-weight:600;color:#3a3a3d}.nav button:hover:not(.on){background:var(--soft)}.nav button.on{background:var(--ink);color:#fff}
+.btn{font-weight:600;border-color:var(--line);transition:background .15s,border-color .15s,transform .15s}.btn:hover{border-color:#cfcfd4}.btn.primary:hover{filter:brightness(.97)}
+.panel{border-color:var(--line);box-shadow:0 1px 2px rgba(16,16,20,.04)}
+.eyebrow{font-weight:700;letter-spacing:1.4px;color:var(--muted)}
+h1{font-weight:800;letter-spacing:-.045em}h2,h3{font-weight:700}
+.chip{background:var(--soft);font-weight:600;color:#2c2c30}.chip.sourcegood,.sourcegood{background:#e6f4ea!important;color:#1d6b35}.chip.warn{background:#fdecd2;color:#8a4b00}
+.badge{font-weight:700}
+.light{font-weight:700}
+.event:before{background:linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,.72) 100%),var(--photo,linear-gradient(140deg,#2b2b2f,#0e0e10))}
+.visual{background-color:#ececef}.visual .initial{background:linear-gradient(140deg,#2b2b2f,#55555c);font-weight:800;letter-spacing:-2px}
+.thumb{background-color:var(--soft)}
+.field{border-color:var(--line);border-radius:12px}.field:focus{outline:none;border-color:#0f0f10;box-shadow:0 0 0 3px rgba(242,214,10,.45)}
+.modal{background:#fff}.modalbg{background:rgba(10,10,12,.45);backdrop-filter:blur(6px)}
+.form label{font-weight:600;color:#3a3a3d}
+.day{border-color:var(--line);border-radius:12px;background:#fff}.day:hover{border-color:#cfcfd4}
+.day .post{background:#fff5b8;font-weight:600}.day .post[data-status="Published"]{background:#e6f4ea}.day .post[data-status="Needs approval"]{background:#fdecd2}.day .post[data-status="Idea"],.day .post[data-status="Draft"]{background:var(--soft)}.day .post[data-status="Approved"],.day .post[data-status="Scheduled"]{background:#fff5b8}
+.st-approval{background:#fdecd2}.st-published{background:#e6f4ea}
+.fact{background:var(--soft)}.stage span,.lifecycle button{border-color:var(--line)}.lifecycle button:hover:not(.on){background:var(--soft)}
+.statusitem{border-color:var(--line);box-shadow:0 1px 2px rgba(16,16,20,.04);transition:transform .15s,border-color .15s}.statusitem:hover{border-color:#cfcfd4}
+.todaycard{border-color:var(--line)}
+.tabs button{border-color:var(--line);font-weight:600}.tabs button:hover:not(.on){background:#fff}
+.activity,.listrow,.integration{border-color:#efeff1}
+.empty{border-color:#dcdce0;background:#fafafa}
+.toast{background:#0f0f10;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.perfbox{border-color:var(--line)}
+.velocity i{background:#0f0f10}
+
+</style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></head><body><div id="root"></div><script type="module">
 let createClient=null;try{({createClient}=await import('https://esm.sh/@supabase/supabase-js@2.45.4'))}catch(e){console.warn('Supabase library unavailable; local preview only',e)}
 const K='ott_studio_v1';const defaultData={campaigns:[{id:'gala',name:'THE GALA · FIRE + ICE',date:'2026-10-17',market:'SAN FRANCISCO',venue:'W San Francisco',status:'Planning',photo:'',archive:'The Affair Gala 2022'},{id:'vegas',name:'THE BLEND · VEGAS',date:'2026-11-14',market:'LAS VEGAS',status:'Planning',photo:'',archive:'The Blend LA 2026'},{id:'miami',name:'THE BLEND · MIAMI',date:'2026-12-05',market:'MIAMI',status:'Planning',photo:'',archive:'The Blend LA 2026'}],people:[{id:'jaymee',name:'JaymeeBaaby',role:'Talent',market:'Bay Area',genre:'Open format',handle:'',photo:'',status:'Active',notes:'',manager:'',fee:''}],content:[],tasks:[],bookings:[],partners:[],assets:[],tickets:[],activity:[],social:[]};
 let state=normalizeState(readLocal(K));let page='Home',selected=null,view='Calendar',month='2026-10',filter='',client=null,user=null,mode='local',cloudRevision=0,cloudReady=false;const cfg={url:'https://mqybmdqcixfhtbddmaof.supabase.co',key:'sb_publishable_qLTEpz0NXGoVihFFFQkflw_h3pXtozu'};const IS_LOCAL_HOST=location.protocol==='file:'||['localhost','127.0.0.1','','[::1]'].includes(location.hostname);const AUTH_DISABLED=IS_LOCAL_HOST; // local files/dev servers stay in local preview; the production URL uses team auth
