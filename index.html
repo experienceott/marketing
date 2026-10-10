@@ -168,8 +168,7 @@ function readLocal(key){try{return JSON.parse(localStorage.getItem(key)||'null')
 function writeLocal(key,val){try{localStorage.setItem(key,JSON.stringify(val))}catch(e){console.warn('Local save failed',e)}}
 function readPreview(){try{return sessionStorage.getItem('ott_local_preview')==='1'}catch(e){return false}}
 function setPreview(on){try{on?sessionStorage.setItem('ott_local_preview','1'):sessionStorage.removeItem('ott_local_preview')}catch(e){}}
-const DEFAULT_PHOTOS={vegas:'media/blend-vegas.jpg',miami:'media/blend-miami.jpg'};
-function normalizeState(s){if(!s||typeof s!=='object'||Array.isArray(s))s=structuredClone(defaultData);for(let k of Object.keys(defaultData)){if(!Array.isArray(s[k]))s[k]=structuredClone(defaultData[k])}for(let c of s.campaigns){if(!c.photo&&DEFAULT_PHOTOS[c.id])c.photo=DEFAULT_PHOTOS[c.id]}return s}
+function normalizeState(s){if(!s||typeof s!=='object'||Array.isArray(s))s=structuredClone(defaultData);for(let k of Object.keys(defaultData)){if(!Array.isArray(s[k]))s[k]=structuredClone(defaultData[k])}const DP={vegas:'media/blend-vegas.jpg',miami:'media/blend-miami.jpg'};for(let c of s.campaigns){if(!c.photo&&DP[c.id])c.photo=DP[c.id]}return s}
 function localHasData(){let l=readLocal(K);if(!l)return false;l=normalizeState(l);return ['content','tasks','bookings','partners','assets','tickets'].some(k=>l[k].length)||l.people.length>defaultData.people.length||l.campaigns.length!==defaultData.campaigns.length}
 function localISO(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 function addDays(n,from=new Date()){let d=new Date(from);d.setDate(d.getDate()+n);return localISO(d)}
