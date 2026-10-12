@@ -101,7 +101,7 @@ h2{font-size:22px;letter-spacing:-.02em;font-weight:650}h3{font-size:15px;letter
 .countdown .cdlabel{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
 .countdown b{font-size:22px;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums}.countdown b i{font-style:normal;font-size:12px;font-weight:500;opacity:.6;margin-left:1px}
 .event:not(.big) .countdown b{font-size:18px}.event{justify-content:space-between}
-.event:before{background-size:cover!important;background-position:center 58%!important}
+.event:before{background-size:cover!important;background-position:center 45%!important}
 
 </style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></head><body><div id="root"></div><script type="module">
 let createClient=null;try{({createClient}=await import('https://esm.sh/@supabase/supabase-js@2.45.4'))}catch(e){console.warn('Supabase library unavailable; local preview only',e)}
@@ -168,7 +168,7 @@ function readLocal(key){try{return JSON.parse(localStorage.getItem(key)||'null')
 function writeLocal(key,val){try{localStorage.setItem(key,JSON.stringify(val))}catch(e){console.warn('Local save failed',e)}}
 function readPreview(){try{return sessionStorage.getItem('ott_local_preview')==='1'}catch(e){return false}}
 function setPreview(on){try{on?sessionStorage.setItem('ott_local_preview','1'):sessionStorage.removeItem('ott_local_preview')}catch(e){}}
-function normalizeState(s){if(!s||typeof s!=='object'||Array.isArray(s))s=structuredClone(defaultData);for(let k of Object.keys(defaultData)){if(!Array.isArray(s[k]))s[k]=structuredClone(defaultData[k])}const DP={vegas:'media/blend-vegas.jpg',miami:'media/blend-miami.jpg'};for(let c of s.campaigns){if(!c.photo&&DP[c.id])c.photo=DP[c.id]}return s}
+function normalizeState(s){if(!s||typeof s!=='object'||Array.isArray(s))s=structuredClone(defaultData);for(let k of Object.keys(defaultData)){if(!Array.isArray(s[k]))s[k]=structuredClone(defaultData[k])}const DP={gala:'media/gala-affair-2022.jpg',vegas:'media/blend-vegas-crowd.jpg',miami:'media/blend-miami-friends.jpg'},OLD=['media/blend-vegas.jpg','media/blend-miami.jpg'];for(let c of s.campaigns){if((!c.photo||OLD.includes(c.photo))&&DP[c.id])c.photo=DP[c.id]}return s}
 function localHasData(){let l=readLocal(K);if(!l)return false;l=normalizeState(l);return ['content','tasks','bookings','partners','assets','tickets'].some(k=>l[k].length)||l.people.length>defaultData.people.length||l.campaigns.length!==defaultData.campaigns.length}
 function localISO(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 function addDays(n,from=new Date()){let d=new Date(from);d.setDate(d.getDate()+n);return localISO(d)}
