@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-10-12T06:15:40.000Z",
+ "updated_at": "2026-10-12T07:34:00.000Z",
  "profiles": {
   "instagram:overthetopxp": {
    "platform": "instagram",
@@ -110,6 +110,48 @@
    "following": 854,
    "posts": 37,
    "link": "https://linktr.ee/curatedbylxxi"
+  },
+  "tiktok:jaymeebaaby": {
+   "platform": "tiktok",
+   "handle": "jaymeebaaby",
+   "name": "Jaymee G",
+   "bio": "📍Bay Area, CA | IG: @jaymeebaaby\n📧 Bookings: Book@jaymeebaaby.com",
+   "followers": 7649,
+   "posts": 84,
+   "likes": 50500,
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@jaymeebaaby",
+   "photo": "media/profiles/tiktok-jaymeebaaby.jpg",
+   "history": [
+    {
+     "d": "2026-10-12",
+     "f": 7649
+    }
+   ],
+   "fetched_at": "2026-10-12T07:34:00.000Z",
+   "error": null
+  },
+  "tiktok:curatedbylxxi": {
+   "platform": "tiktok",
+   "handle": "curatedbylxxi",
+   "name": "Curated by lxxi",
+   "bio": "Production ✶ Selector ✶ Artist Relations \n\nOakland / Los Angeles \n\n🔗 https://linktr.ee/curatedbylxxi",
+   "followers": 1015,
+   "posts": 11,
+   "likes": 1840,
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@curatedbylxxi",
+   "photo": "media/profiles/tiktok-curatedbylxxi.jpg",
+   "history": [
+    {
+     "d": "2026-10-12",
+     "f": 1015
+    }
+   ],
+   "fetched_at": "2026-10-12T07:34:00.000Z",
+   "error": null
   }
  }
 }
