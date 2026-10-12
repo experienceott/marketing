@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-10-12T05:59:00.000Z",
+ "updated_at": "2026-10-12T06:15:40.000Z",
  "profiles": {
   "instagram:overthetopxp": {
    "platform": "instagram",
@@ -44,6 +44,72 @@
    ],
    "fetched_at": "2026-10-12T05:59:00.000Z",
    "error": null
+  },
+  "instagram:dellthedirty": {
+   "platform": "instagram",
+   "handle": "dellthedirty",
+   "verified": false,
+   "private": false,
+   "url": "https://www.instagram.com/dellthedirty/",
+   "photo": "media/profiles/instagram-dellthedirty.jpg",
+   "history": [
+    {
+     "d": "2026-10-12",
+     "f": 22539
+    }
+   ],
+   "fetched_at": "2026-10-12T06:15:40.000Z",
+   "error": null,
+   "name": "Dirty Dell.",
+   "bio": "inquiries/bookings:\ninfo@seventeenseventeen.xyz",
+   "followers": 22539,
+   "following": 4236,
+   "posts": 270,
+   "link": "http://seventeenseventeen.xyz/"
+  },
+  "instagram:jaymeebaaby": {
+   "platform": "instagram",
+   "handle": "jaymeebaaby",
+   "verified": false,
+   "private": false,
+   "url": "https://www.instagram.com/jaymeebaaby/",
+   "photo": "media/profiles/instagram-jaymeebaaby.jpg",
+   "history": [
+    {
+     "d": "2026-10-12",
+     "f": 17197
+    }
+   ],
+   "fetched_at": "2026-10-12T06:15:40.000Z",
+   "error": null,
+   "name": "cry baby",
+   "bio": "📍Bay Area, CA | Events • Weddings • Clubs • Corporate\n🎶 Mixshow DJ @997now Saturdays\n💍Private Events: @jaybydayevents\n📧 book@jaymeebaaby.com",
+   "followers": 17197,
+   "following": 4568,
+   "posts": 223,
+   "link": "http://www.jaymeebaaby.com"
+  },
+  "instagram:curatedbylxxi": {
+   "platform": "instagram",
+   "handle": "curatedbylxxi",
+   "verified": false,
+   "private": false,
+   "url": "https://www.instagram.com/curatedbylxxi/",
+   "photo": "media/profiles/instagram-curatedbylxxi.jpg",
+   "history": [
+    {
+     "d": "2026-10-12",
+     "f": 2054
+    }
+   ],
+   "fetched_at": "2026-10-12T06:15:40.000Z",
+   "error": null,
+   "name": "lxxi",
+   "bio": "Production ✶ Selector ✶ Artist Relations\nOakland ⇄ Los Angeles",
+   "followers": 2054,
+   "following": 854,
+   "posts": 37,
+   "link": "https://linktr.ee/curatedbylxxi"
   }
  }
 }
