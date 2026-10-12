@@ -849,7 +849,7 @@ function extraClick8(e){let cm=e.target.closest('.campbg');if(cm){if(e.target===
  let oc=e.target.closest('[data-open^="campaign:"]');if(oc&&!selected){openCampaign(oc.dataset.open.split(':')[1]);document.getElementById('gsres')?.classList.remove('open');return true}return false}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.querySelector('.modalbg:not(.campbg)'))document.querySelectorAll('.campbg').forEach(m=>m.remove())});
 // ===================== round 10: profile engine (Apps Script) + calculator page + CSV/Zapier-only tickets =====================
-const ENGINE_URL='';
+const ENGINE_URL='https://script.google.com/macros/s/AKfycbw4jQuOGhP5kz2eDYBK0ld4ei33R1FPV-GnyDjblCKT_KyhI7VtMcqpbnNlX3Tio153/exec';
 const PROFILE_SHEET='https://docs.google.com/spreadsheets/d/1Jib-6hd3ka82ivMrxnrpTP65eyDiOrdJ4str-rcGpMg/gviz/tq?tqx=out:csv&sheet=Profiles';
 let profilePending={},engineAsked=false;
 function sheetRowToProfile(o){let ph=o.photo?`https://drive.google.com/thumbnail?id=${encodeURIComponent(o.photo)}&sz=w400`:'';const n=v=>v===''||v==null?null:Number(v);return {platform:o.platform,handle:o.handle,name:o.name||'',bio:o.bio||'',followers:n(o.followers),following:n(o.following),posts:n(o.posts),likes:n(o.likes),verified:String(o.verified).toUpperCase()==='TRUE'||o.verified===true,photo:ph,fetched_at:o.fetched_at||null,error:o.error||null,history:[]}}
