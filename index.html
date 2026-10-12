@@ -435,6 +435,16 @@ a.nrow{text-decoration:none;color:inherit}
 @media(max-width:900px){.chflow{grid-template-columns:repeat(2,minmax(0,1fr))}.chkpi{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.pipe{grid-template-columns:repeat(8,150px)}.chgets,.vetgrid,.oblist{grid-template-columns:1fr}.ltable th:nth-child(n+5),.ltable td:nth-child(n+5){display:none}}
 @media(min-width:901px) and (max-width:1560px){.nav button{padding:8px 9px}.gsearch input{width:120px}.gsearch input:focus{width:180px}.top .right>.chip{display:none}}
+/* partners: centered tiles, no gradient */
+.pcard2:before{display:none}
+.pcard2{align-items:center;text-align:center;background:#fff}.pc2foot{justify-content:center}.plogo2{width:100%}
+.ptgroups{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.ptgroup{border-radius:18px}.ptgroup.open{grid-column:1/-1}
+.ptghead{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;padding:18px 14px;min-height:138px}
+.ptgroup.open .ptghead{min-height:0;flex-direction:row;flex-wrap:wrap;gap:12px;padding:14px 18px}
+.ptgpeek{justify-content:center;flex-wrap:wrap;min-height:34px}.ptgpeek img{width:40px;height:34px}
+.ptgname{justify-content:center;font-size:15px}.ptgcount{font-size:12px}
+@media(max-width:640px){.ptgroups{grid-template-columns:repeat(2,minmax(0,1fr))}.ptghead{min-height:120px;padding:14px 8px}.ptgpeek{display:flex}.ptgpeek img{width:32px;height:28px}}
 
 </style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></head><body><div id="root"></div><script type="module">
 let createClient=null;try{({createClient}=await import('https://esm.sh/@supabase/supabase-js@2.45.4'))}catch(e){console.warn('Supabase library unavailable; local preview only',e)}
@@ -958,7 +968,7 @@ function partners(){let all=state.partners.slice(),q=ptSearch.trim().toLowerCase
   if(t==='Community')return `<section class="ptsec">${head}<div class="pgrid2">${items.map(partnerCard).join('')||'<div class="quiet">None yet.</div>'}</div></section>`;
   let cats={};for(const x of items)(cats[x.category||'Other']=cats[x.category||'Other']||[]).push(x);
   let groups=Object.entries(cats).sort((a,b)=>b[1].length-a[1].length||a[0].localeCompare(b[0]));
-  return `<section class="ptsec">${head}<div class="ptgroups">${groups.map(([c,xs])=>{let key=t+':'+c,open=!!q||ptOpen[key];return `<div class="ptgroup ${open?'open':''}"><button class="ptghead" data-ptg="${esc(key)}"><span class="ptgname"><span class="catdot" style="background:${catColor(c)}"></span>${esc(c)}</span><span class="ptgpeek">${xs.slice(0,6).map(x=>partnerPhoto(x)?`<img src="${esc(partnerPhoto(x))}" alt="">`:'').join('')}</span><span class="ptgcount">${xs.length} partner${xs.length===1?'':'s'}</span><span class="ptgtoggle">${open?'−':'+'}</span></button>${open?`<div class="pgrid2">${xs.map(partnerCard).join('')}</div>`:''}</div>`}).join('')||'<div class="quiet">None yet.</div>'}</div></section>`}).join('');
+  return `<section class="ptsec">${head}<div class="ptgroups">${groups.map(([c,xs])=>{let key=t+':'+c,open=!!q||ptOpen[key];return `<div class="ptgroup ${open?'open':''}"><button class="ptghead" data-ptg="${esc(key)}" aria-expanded="${open}"><span class="ptgpeek">${xs.filter(x=>partnerPhoto(x)).slice(0,open?8:4).map(x=>`<img src="${esc(partnerPhoto(x))}" alt="">`).join('')}</span><span class="ptgname"><span class="catdot" style="background:${catColor(c)}"></span>${esc(c)}</span><span class="ptgcount">${xs.length} partner${xs.length===1?'':'s'} · ${open?'Hide':'View'}</span></button>${open?`<div class="pgrid2">${xs.map(partnerCard).join('')}</div>`:''}</div>`}).join('')||'<div class="quiet">None yet.</div>'}</div></section>`}).join('');
  return title('Partners','Brands and communities we build with.')+chips+secs}
 function extraClick9(e){let t=e.target.closest('[data-ptf],[data-ptg],[data-ptadd]');if(!t)return false;
  if(t.dataset.ptf!==undefined&&t.hasAttribute('data-ptf')){ptFilter=t.dataset.ptf;render();return true}
