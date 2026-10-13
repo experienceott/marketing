@@ -892,6 +892,11 @@ a.nrow{text-decoration:none;color:inherit}
 .homehero .event,.homehero .event.big{height:268px}
 .tboard:has(.tbcol.late .tbempty){grid-template-columns:repeat(3,minmax(0,1fr))}.tbcol.late:has(.tbempty){display:none}
 a.citem{display:block;text-decoration:none}
+.cthumbs{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.cthumb{position:relative;width:38px;height:38px;border-radius:7px;background:#ececee center/cover no-repeat;box-shadow:0 0 0 1px rgba(0,0,0,.06);transition:transform .15s}
+.cthumb:hover{transform:scale(1.08);box-shadow:0 0 0 2px #ff4fa3}
+.cthumb em{position:absolute;right:3px;bottom:2px;font-style:normal;font-size:8px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+@media(max-width:900px){.cthumb{width:22px;height:22px;border-radius:5px}.cthumb em{display:none}}
 
 </style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></head><body><div id="root"></div><script type="module">
 let createClient=null;try{({createClient}=await import('https://esm.sh/@supabase/supabase-js@2.45.4'))}catch(e){console.warn('Supabase library unavailable; local preview only',e)}
@@ -2357,10 +2362,10 @@ function calendarPage(){let t=new Date();if(!calMonth)calMonth=[t.getFullYear(),
  if(calShow.ms)for(const x of allMilestones())add(x.date,{k:'ms',t:x.name+' · '+shortName(x.c.name),o:'campaign:'+x.c.id});
  if(calShow.rm&&typeof rmSlots==='function')for(const s of rmSlots())if(!s.c)add(s.date,{k:'rm',t:s.name+(s.exact?'':' (date TBD)'),rm:s.key});
  if(calShow.po)for(const x of state.content)if(x.date)add(x.date,{k:'po',t:(x.status==='Published'?'✓ ':'')+(x.title||'Post'),o:'content:'+x.id});
- if(calShow.po)for(const p of igPosts||[]){let d=postDay(p);if(d)add(d,{k:'po',t:'IG · '+((p.caption||'').split('\n')[0].slice(0,50)||'Post'),href:p.url,tip:(p.caption||'').split('\n')[0].slice(0,120)+' · '+num(p.likes||0)+' likes'})}
+ let thumbs={};if(calShow.po)for(const p of igPosts||[]){let d=postDay(p);if(d)(thumbs[d]=thumbs[d]||[]).push(p)}
  if(calShow.mt){let nd=nextMeetDate?.();if(nd)add(nd,{k:'mt',t:'OTT Monday Meeting'});for(const mt of meetings())add(mt.date,{k:'mt',t:mt.title||'Meeting',mo:mt.id})}
  let cells=[];for(let i=0;i<42;i++){let d=new Date(start);d.setDate(start.getDate()+i);let iso=localISO(d),its=(items[iso]||[]).sort((a,b)=>'evmspomtrm'.indexOf(a.k)-'evmspomtrm'.indexOf(b.k));
-  cells.push(`<div class="cday ${d.getMonth()!==m?'out':''} ${iso===localISO()?'today':''}"><span class="cdn">${d.getDate()}</span>${its.slice(0,4).map(x=>x.href?`<a class="citem ${x.k}" href="${esc(x.href)}" target="_blank" rel="noopener" title="${esc(x.tip||x.t)}">${esc(x.t)}</a>`:`<button class="citem ${x.k}" ${x.o?`data-open="${x.o}"`:x.rm?`data-rmslot="${x.rm}"`:x.mo!==undefined?`data-quicknotes`:''} title="${esc(x.t)}">${esc(x.t)}</button>`).join('')}${its.length>4?`<span class="cmore">+${its.length-4} more</span>`:''}</div>`)}
+  cells.push(`<div class="cday ${d.getMonth()!==m?'out':''} ${iso===localISO()?'today':''}"><span class="cdn">${d.getDate()}</span>${its.slice(0,4).map(x=>x.href?`<a class="citem ${x.k}" href="${esc(x.href)}" target="_blank" rel="noopener" title="${esc(x.tip||x.t)}">${esc(x.t)}</a>`:`<button class="citem ${x.k}" ${x.o?`data-open="${x.o}"`:x.rm?`data-rmslot="${x.rm}"`:x.mo!==undefined?`data-quicknotes`:''} title="${esc(x.t)}">${esc(x.t)}</button>`).join('')}${its.length>4?`<span class="cmore">+${its.length-4} more</span>`:''}${(thumbs[iso]||[]).length?`<div class="cthumbs">${thumbs[iso].map(p=>`<a class="cthumb" href="${esc(p.url)}" target="_blank" rel="noopener" title="${esc((p.caption||'').split('\n')[0].slice(0,120)+' · '+num(p.likes||0)+' likes')}" style="background-image:${photo(p.thumbUrl)}">${p.type==='Reel'?'<em>▶</em>':''}</a>`).join('')}</div>`:''}</div>`)}
  let label=first.toLocaleDateString('en-US',{month:'long',year:'numeric'});
  return title('Calendar','Events, campaign pushes, roadmap dates and team meetings in one view.')+`<div class="row calbar"><div class="row" style="gap:8px"><button class="btn sm" data-calnav="-1" aria-label="Previous month">‹</button><h2 style="margin:0;min-width:190px;text-align:center">${label}</h2><button class="btn sm" data-calnav="1" aria-label="Next month">›</button><button class="linkbtn" data-calnav="0">Today</button></div><span class="ptchips sm">${[['ev','Events'],['ms','Campaign pushes'],['po','Posts'],['rm','Roadmap'],['mt','Meetings']].map(([k,l])=>`<button class="${calShow[k]?'on':''}" data-calshow="${k}"><i class="cdot2 ${k}"></i>${l}</button>`).join('')}</span></div>
  <div class="bigcal"><div class="cwk">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(x=>`<span>${x}</span>`).join('')}</div><div class="cgrid">${cells.join('')}</div></div>`}
