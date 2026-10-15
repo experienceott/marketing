@@ -29,7 +29,7 @@
 .done{display:none;margin-top:26px;font-size:18px}.done.on{display:block}
 @media(max-width:640px){.ex{grid-template-columns:1fr}}
 </style></head><body>
-<section class="hero"><img class="logo" src="media/logos/ott-wordmark-white.png" alt="Over The Top"><div><div class="eye">OTT FY27 · PRIVATE INVITATION</div><h1 class="big">You're invited.</h1><h2 class="big pk">Welcome to Creator House.</h2><p class="name" id="nm"></p><p class="lede">We're building something new for OTT FY27, and we think you belong in it. A curated community connecting creators to OTT experiences, brands, partners and opportunities.</p></div></section>
+<section class="hero"><img class="logo" src="media/logos/ott-wordmark-white.png" alt="Over The Top"><div><div class="eye">OTT FY27 · PRIVATE INVITATION</div><h1 class="big">You're invited.</h1><h2 class="big pk">Welcome to OTT Creator House.</h2><p class="name" id="nm"></p><p class="lede">We're building something new for OTT FY27, and we think you belong in it. A curated community connecting creators to OTT experiences, brands, partners and opportunities.</p></div></section>
 <section class="wrap"><div class="h">WHAT'S INSIDE</div><div class="inside"><div><b>Access</b><span>Select OTT events + experiences</span></div><div><b>Opportunity</b><span>Paid content, UGC + campaigns</span></div><div><b>Brands</b><span>Dinners, launches + partner experiences</span></div><div><b>Community</b><span>Creators, talent + industry connections</span></div><div><b>Earn</b><span>Ticket commissions + paid opportunities</span></div></div></section>
 <div class="photo"></div>
 <section class="wrap"><div class="h">HOW IT WORKS</div><p class="big" style="font-size:clamp(34px,5vw,58px)">We match the right creator<br><span class="yl">to the right opportunity.</span></p><div class="crit"><span>Content</span><span>Audience</span><span>Niche</span><span>Location</span><span>Engagement</span><span>Reliability</span></div><p class="note">Not everyone gets everything. Better opportunities. Better fit.</p></section>
@@ -37,7 +37,7 @@
 <section class="close"><h3 class="big">Welcome to<br><span class="pk">the House.</span></h3><div class="eye" style="margin-top:14px">OTT FY27</div><button class="btn" id="acc">Accept your invitation</button><p class="done" id="done"></p></section>
 <script>
 (function(){var q=new URLSearchParams(location.search),n=(q.get('n')||'').replace(/[<>&"]/g,'').slice(0,40),id=(q.get('i')||'').replace(/[^\w-]/g,'').slice(0,60);
-if(n)document.getElementById('nm').textContent=n+', you’re invited to Creator House.';
+if(n)document.getElementById('nm').textContent=n+', you’re invited to OTT Creator House.';
 var b=document.getElementById('acc'),d=document.getElementById('done');
 b.onclick=function(){b.disabled=true;b.textContent='One moment…';fetch('https://script.google.com/macros/s/AKfycbw4jQuOGhP5kz2eDYBK0ld4ei33R1FPV-GnyDjblCKT_KyhI7VtMcqpbnNlX3Tio153/exec',{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({house_accept:{name:n,id:id}})}).catch(function(){}).then(function(){b.style.display='none';d.textContent=(n?n+', welcome':'Welcome')+' to the House. We’ll be in touch with your onboarding call.';d.classList.add('on')})}})();
 </script></body></html>
