@@ -31,6 +31,16 @@ body{font-family:Inter,Helvetica,Arial,sans-serif;color:#fff}
 .step i{font-style:normal;font-family:Anton,Impact,sans-serif;font-size:58px;color:#ffd200;display:block}
 .step b{display:block;font-size:30px;font-weight:800;letter-spacing:.08em;margin:12px 0 10px}
 .step span{display:block;font-size:22px;line-height:1.35;color:#c9c9ce}
+.step.dim{opacity:.25}
+.step.here{background:#ffd200;border-color:#ffd200;color:#0f0f10;border-radius:0 0 22px 22px;padding:34px 22px 26px;margin:0 -10px}
+.step.here i,.step.here span{color:#0f0f10}
+.step.next{border-top-style:dashed;outline:3px dashed rgba(255,210,0,.6);outline-offset:-3px;border-radius:0 0 22px 22px;padding:34px 22px 26px;margin:0 -10px}
+.tag{position:absolute;top:-62px;left:0;font-weight:800;letter-spacing:.18em;font-size:18px;white-space:nowrap}
+.lc{position:absolute;width:330px;height:180px;background:#1b1b1d;border-radius:24px;padding:26px 28px;border-top:6px solid #ffd200}
+.lc i{font-style:normal;font-family:Anton,Impact,sans-serif;font-size:44px;color:#ffd200}
+.lc b{font-size:28px;font-weight:800;letter-spacing:.08em;margin-left:14px}
+.lc span{display:block;font-size:21px;line-height:1.35;color:#c9c9ce;margin-top:10px}
+
 .node{border-radius:999px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 </style></head><body><div class="deck">
 
@@ -127,6 +137,35 @@ body{font-family:Inter,Helvetica,Arial,sans-serif;color:#fff}
   <div class="step"><i>07</i><b>TRACK</b><span>Content · Sales · Performance · Reliability</span></div>
   <div class="step" style="border-color:#fff"><i style="color:#fff">08</i><b>GROW</b><span>Strong performance = more opportunities.</span></div></div>
  <div class="pad" style="bottom:90px"><div class="big yl" style="font-size:72px">Right creator. Right opportunity. Right time.</div></div></section>
+
+<!-- 10 · 07b You are here -->
+<section class="s"><div class="n">07</div>
+ <div class="pad" style="top:110px"><div class="eye">Where you are</div><div class="big" style="font-size:110px;margin-top:16px">You're already at step <span class="yl">02.</span></div></div>
+ <div class="pad" style="top:420px;display:flex;gap:26px"><div class="step dim"><i>01</i><b>VET</b><span>We identify creators who belong in the House.</span></div><div class="step here"><span class="tag" style="color:#ffd200">YOU ARE HERE</span><i>02</i><b>INVITE</b><span>You receive a personal invitation.</span></div><div class="step next"><span class="tag yl" style="top:auto;bottom:-50px">NEXT, IF YOU OPT IN</span><i>03</i><b>ONBOARD</b><span>Membership, profile, commission link + welcome.</span></div><div class="step dim"><i>04</i><b>OPPORTUNITY</b><span>An OTT or brand opportunity becomes available.</span></div><div class="step dim"><i>05</i><b>MATCH</b><span>Selected on fit, audience, location, brand + performance.</span></div><div class="step dim"><i>06</i><b>ACTIVATE</b><span>Attend · Create · Post · Sell</span></div><div class="step dim"><i>07</i><b>TRACK</b><span>Content · Sales · Performance · Reliability</span></div><div class="step dim"><i>08</i><b>GROW</b><span>Strong performance = more opportunities.</span></div></div>
+ <div class="pad" style="bottom:90px"><div class="big" style="font-size:72px">Say yes, and <span class="yl">you're onboarded.</span></div></div></section>
+
+<!-- 11 · 07c The real work -->
+<section class="s"><div class="n">07</div>
+ <div class="pad" style="top:110px"><div class="eye">On repeat</div><div class="big" style="font-size:110px;margin-top:16px">This is the <span class="yl">real work.</span></div></div>
+ <div style="position:absolute;left:96px;top:440px;width:300px;opacity:.3">
+  <div class="eye" style="color:#fff;font-size:18px;margin-bottom:22px">ONCE</div>
+  <div style="font-size:28px;font-weight:800;letter-spacing:.08em;line-height:2.1"><span class="yl" style="font-family:Anton;font-size:34px">01</span> VET<br><span class="yl" style="font-family:Anton;font-size:34px">02</span> INVITE<br><span class="yl" style="font-family:Anton;font-size:34px">03</span> ONBOARD</div></div>
+ <div style="position:absolute;left:470px;top:340px;width:960px;height:640px">
+  <svg style="position:absolute;inset:0" viewBox="0 0 960 640" fill="none" overflow="visible">
+   <defs><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffd200"/></marker></defs>
+   <g stroke="#ffd200" stroke-width="10" stroke-linecap="round">
+    <path d="M862 140 C 975 210, 975 430, 872 490" marker-end="url(#ah)"/>
+    <path d="M98 500 C -15 430, -15 210, 88 150" marker-end="url(#ah)"/>
+    <path d="M455 115 L 500 115" marker-end="url(#ah)" stroke-width="7"/>
+    <path d="M505 525 L 460 525" marker-end="url(#ah)" stroke-width="7"/></g></svg>
+  <div class="lc" style="left:110px;top:25px"><i>04</i><b>OPPORTUNITY</b><span>An OTT or brand opportunity comes in.</span></div>
+  <div class="lc" style="left:520px;top:25px"><i>05</i><b>MATCH</b><span>We find the creators who fit.</span></div>
+  <div class="lc" style="left:520px;top:435px"><i>06</i><b>ACTIVATE</b><span>Attend · Create · Post · Sell</span></div>
+  <div class="lc" style="left:110px;top:435px"><i>07</i><b>TRACK</b><span>Content · Sales · Performance · Reliability</span></div>
+  <div style="position:absolute;left:0;right:0;top:268px;text-align:center"><div class="big" style="font-size:60px">On repeat.</div></div></div>
+ <div class="big yl" style="position:absolute;left:1440px;top:590px;font-size:90px">→</div>
+ <div style="position:absolute;right:96px;top:470px;width:300px;background:#fff;color:#0f0f10;border-radius:28px;padding:36px 32px">
+  <div style="font-family:Anton;font-size:64px">08</div><div style="font-size:34px;font-weight:800;letter-spacing:.08em;margin-top:8px">GROW</div><div style="font-size:23px;line-height:1.35;margin-top:12px">Real growth. Strong performance = more opportunities.</div></div></section>
 
 <!-- 10 · 08 What we ask -->
 <section class="s"><div class="bg" style="background-image:url(media/blend-vegas-crowd.jpg)"></div><div class="shade" style="background:rgba(15,15,16,.8)"></div>
