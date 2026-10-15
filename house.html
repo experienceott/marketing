@@ -1,0 +1,43 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>You're invited · OTT Creator House</title><meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}body{font-family:Inter,Helvetica,Arial,sans-serif;background:#0f0f10;color:#fff;-webkit-font-smoothing:antialiased}
+.big{font-family:Anton,Impact,sans-serif;text-transform:uppercase;line-height:.95}
+.pk{color:#ffd200}.yl{color:#ffd200}
+.hero{min-height:92vh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:40px 24px 56px;background:url(media/blend-miami-friends.jpg) center/cover}
+.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,15,16,.2) 0%,rgba(15,15,16,.92) 85%)}
+.hero>*{position:relative;max-width:900px;width:100%;margin:0 auto}
+.logo{position:absolute;top:32px;left:24px;width:170px}
+.eye{font-weight:800;letter-spacing:.2em;font-size:13px;color:#ffd200}
+.hero h1{font-size:clamp(64px,12vw,150px);margin-top:12px}
+.hero h2{font-size:clamp(26px,4vw,44px);margin-top:10px}
+.name{font-size:clamp(18px,2.4vw,24px);font-weight:600;margin-top:22px}
+.lede{color:#d4d4d8;font-size:17px;max-width:620px;margin-top:8px;line-height:1.55}
+.wrap{max-width:900px;margin:0 auto;padding:72px 24px}
+.h{font-weight:800;letter-spacing:.2em;font-size:13px;color:#ffd200;margin-bottom:22px}
+.inside{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inside div{border:1px solid #2a2a2e;border-top:3px solid #ffd200;border-radius:16px;padding:18px}
+.inside b{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:26px;letter-spacing:.01em;text-transform:uppercase;display:block}.inside span{color:#b8b8bf;font-size:14px}
+.crit{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.crit span{border:1px solid rgba(255,210,0,.6);color:#fff4c2;border-radius:999px;padding:6px 14px;font-weight:600;font-size:14px}
+.ex{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ex div{background:#18181b;border-radius:18px;padding:24px}.ex small{font-weight:800;letter-spacing:.18em;font-size:12px;color:#ffd200}.ex p{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-size:28px;line-height:1.1;margin-top:10px}
+.note{color:#b8b8bf;margin-top:18px;font-size:15px}
+.photo{height:52vh;background:url(media/gala-affair-2022.jpg) center/cover}
+.close{text-align:center;padding:84px 24px 96px}
+.close h3{font-size:clamp(48px,9vw,110px)}
+.btn{display:inline-block;margin-top:30px;background:#ffd200;color:#0f0f10;border:0;border-radius:999px;padding:18px 34px;font:800 16px Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-decoration:none}
+.btn[disabled]{opacity:.6}
+.done{display:none;margin-top:26px;font-size:18px}.done.on{display:block}
+@media(max-width:640px){.ex{grid-template-columns:1fr}}
+</style></head><body>
+<section class="hero"><img class="logo" src="media/logos/ott-wordmark-white.png" alt="Over The Top"><div><div class="eye">OTT FY27 · PRIVATE INVITATION</div><h1 class="big">You're invited.</h1><h2 class="big pk">Welcome to Creator House.</h2><p class="name" id="nm"></p><p class="lede">We're building something new for OTT FY27, and we think you belong in it. A curated community connecting creators to OTT experiences, brands, partners and opportunities.</p></div></section>
+<section class="wrap"><div class="h">WHAT'S INSIDE</div><div class="inside"><div><b>Access</b><span>Select OTT events + experiences</span></div><div><b>Opportunity</b><span>Paid content, UGC + campaigns</span></div><div><b>Brands</b><span>Dinners, launches + partner experiences</span></div><div><b>Community</b><span>Creators, talent + industry connections</span></div><div><b>Earn</b><span>Ticket commissions + paid opportunities</span></div></div></section>
+<div class="photo"></div>
+<section class="wrap"><div class="h">HOW IT WORKS</div><p class="big" style="font-size:clamp(34px,5vw,58px)">We match the right creator<br><span class="yl">to the right opportunity.</span></p><div class="crit"><span>Content</span><span>Audience</span><span>Niche</span><span>Location</span><span>Engagement</span><span>Reliability</span></div><p class="note">Not everyone gets everything. Better opportunities. Better fit.</p></section>
+<section class="wrap" style="padding-top:0"><div class="h">THE EXCHANGE</div><div class="ex"><div><small>YOU BRING</small><p>Your voice · creativity · audience</p></div><div><small>OTT BRINGS</small><p class="yl">Experiences · community · brands · opportunities</p></div></div><p class="note">No management. No exclusivity. Just a closer connection to the OTT ecosystem.</p></section>
+<section class="close"><h3 class="big">Welcome to<br><span class="pk">the House.</span></h3><div class="eye" style="margin-top:14px">OTT FY27</div><button class="btn" id="acc">Accept your invitation</button><p class="done" id="done"></p></section>
+<script>
+(function(){var q=new URLSearchParams(location.search),n=(q.get('n')||'').replace(/[<>&"]/g,'').slice(0,40),id=(q.get('i')||'').replace(/[^\w-]/g,'').slice(0,60);
+if(n)document.getElementById('nm').textContent=n+', you’re invited to Creator House.';
+var b=document.getElementById('acc'),d=document.getElementById('done');
+b.onclick=function(){b.disabled=true;b.textContent='One moment…';fetch('https://script.google.com/macros/s/AKfycbw4jQuOGhP5kz2eDYBK0ld4ei33R1FPV-GnyDjblCKT_KyhI7VtMcqpbnNlX3Tio153/exec',{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({house_accept:{name:n,id:id}})}).catch(function(){}).then(function(){b.style.display='none';d.textContent=(n?n+', welcome':'Welcome')+' to the House. We’ll be in touch with your onboarding call.';d.classList.add('on')})}})();
+</script></body></html>
