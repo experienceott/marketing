@@ -1,0 +1,54 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Proposal · Over The Top Experiences</title><meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}body{font-family:Inter,Helvetica,Arial,sans-serif;background:#f4f4f2;color:#0f0f10;-webkit-font-smoothing:antialiased}
+.top{background:#0f0f10;color:#fff;padding:36px 20px 44px}.in{max-width:820px;margin:0 auto}
+.logo{width:140px;display:block}
+.eye{font-weight:800;letter-spacing:.2em;font-size:12px;color:#ffd200;margin-top:36px}
+h1{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-weight:400;font-size:clamp(40px,7vw,72px);line-height:.95;margin-top:10px}
+.meta{color:#c9c9ce;margin-top:14px;font-size:15px;line-height:1.6}
+.card{background:#fff;border-radius:20px;padding:24px;margin:-24px auto 0;max-width:820px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+.note{font-size:16px;line-height:1.6;color:#333;white-space:pre-line}
+table{width:100%;border-collapse:collapse;margin-top:18px}
+th{text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#77777e;padding:8px 6px;border-bottom:1px solid #eee}
+td{padding:12px 6px;border-bottom:1px solid #f0f0f0;font-size:15px}td.n{text-align:right;white-space:nowrap}th.n{text-align:right}
+.tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px;font-size:15px;color:#55555c}
+.tot.big{font-size:22px;font-weight:800;color:#0f0f10}
+.act{margin:20px auto 60px;max-width:820px;padding:0 20px}
+.btn{display:inline-block;background:#ffd200;color:#0f0f10;border:0;border-radius:99px;padding:16px 28px;font:inherit;font-weight:800;font-size:15px;cursor:pointer;text-decoration:none}
+.btn.dark{background:#0f0f10;color:#fff}
+.acc{display:none;background:#fff;border-radius:20px;padding:20px;margin-top:14px}.acc.show{display:block}
+.acc input{width:100%;margin-top:8px;border:1.5px solid #e2e2e6;border-radius:12px;padding:12px;font:inherit}
+.small{font-size:13px;color:#77777e;margin-top:10px}
+.ok{display:none;background:#0f0f10;color:#fff;border-radius:20px;padding:24px;margin-top:14px}.ok.show{display:block}.ok h2{font-family:Anton;font-weight:400;text-transform:uppercase;font-size:38px;color:#ffd200}
+</style></head><body>
+<div class="top"><div class="in"><img class="logo" src="media/logos/ott-wordmark-white.png" alt="Over The Top"><div class="eye">PROPOSAL</div><h1 id="t"></h1><div class="meta" id="m"></div></div></div>
+<div class="card"><div class="note" id="note"></div><table id="lines"></table><div id="tots"></div></div>
+<div class="act"><div id="actions"></div>
+ <div class="acc" id="acc"><b>Accept this proposal</b><input id="an" placeholder="Your full name"><input id="ae" type="email" placeholder="Email"><div style="margin-top:12px"><button class="btn" id="go">Accept</button></div><div class="small">By accepting you confirm the scope and pricing above. The deposit holds your date.</div><div class="small" id="err" style="color:#c62828"></div></div>
+ <div class="ok" id="ok"><h2>You're booked in.</h2><p style="margin-top:8px;color:#c9c9ce" id="okp">We've let the team know. Next step is the deposit to hold your date.</p><div id="pay2" style="margin-top:14px"></div></div>
+</div>
+<script>
+const ENGINE='https://script.google.com/macros/s/AKfycbw4jQuOGhP5kz2eDYBK0ld4ei33R1FPV-GnyDjblCKT_KyhI7VtMcqpbnNlX3Tio153/exec';
+const money=n=>'$'+Number(n||0).toLocaleString('en-US',{maximumFractionDigits:2});
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let P=null;try{let s=new URLSearchParams(location.search).get('p')||'';s=s.replace(/-/g,'+').replace(/_/g,'/');P=JSON.parse(decodeURIComponent(escape(atob(s))))}catch(e){}
+if(!P){document.getElementById('t').textContent='Proposal not found';}else{
+ document.title=(P.title||'Proposal')+' · OTT';
+ document.getElementById('t').textContent=P.title||'Your event';
+ document.getElementById('m').innerHTML=[P.client&&'For '+esc(P.client),P.date&&esc(P.date),P.guests&&esc(P.guests)+' guests',P.city&&esc(P.city),P.venue&&esc(P.venue)].filter(Boolean).join(' · ')+(P.expires?`<br>Valid until ${esc(P.expires)}`:'');
+ document.getElementById('note').textContent=P.message||'';
+ document.getElementById('lines').innerHTML='<tr><th>Item</th><th class="n">Qty</th><th class="n">Price</th><th class="n">Total</th></tr>'+(P.lines||[]).map(l=>`<tr><td>${esc(l.name)}${l.note?`<div class="small" style="margin-top:2px">${esc(l.note)}</div>`:''}</td><td class="n">${esc(l.qty)}</td><td class="n">${money(l.unit)}</td><td class="n">${money(l.total)}</td></tr>`).join('');
+ document.getElementById('tots').innerHTML=(P.fees?`<div class="tot"><span>${esc(P.fee_label||'Service fee')}</span><span>${money(P.fees)}</span></div>`:'')+(P.tax?`<div class="tot"><span>Tax</span><span>${money(P.tax)}</span></div>`:'')+`<div class="tot big"><span>Total</span><span>${money(P.total)}</span></div>`+(P.deposit?`<div class="tot"><span>Deposit to hold the date (${esc(P.deposit_pct)}%)</span><span><b>${money(P.deposit)}</b></span></div>`:'');
+ let expired=P.expires_iso&&P.expires_iso<new Date().toISOString().slice(0,10);
+ let pay=P.pay_link&&/^https:\/\//.test(P.pay_link)?`<a class="btn dark" href="${esc(P.pay_link)}" target="_blank" rel="noopener">Pay deposit${P.deposit?' · '+money(P.deposit):''}</a>`:'';
+ document.getElementById('actions').innerHTML=expired?'<p class="small">This proposal has expired. Reply to your contact at OTT for an updated one.</p>':`<button class="btn" id="accept">Accept proposal</button>`;
+ document.getElementById('pay2').innerHTML=pay;
+ document.getElementById('accept')?.addEventListener('click',()=>{document.getElementById('acc').classList.add('show');document.getElementById('an').focus()});
+ document.getElementById('go').addEventListener('click',async()=>{let n=document.getElementById('an').value.trim(),em=document.getElementById('ae').value.trim(),er=document.getElementById('err');if(!n){er.textContent='Add your name';return}
+  let b=document.getElementById('go');b.disabled=true;b.textContent='Sending…';
+  try{let r=await fetch(ENGINE,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({proposal_accept:{id:P.id,inquiry:P.inq,owner:P.owner,title:P.title,name:n,email:em}})}),j=await r.json();if(!j.ok)throw new Error(j.error||'Could not send');
+   document.getElementById('acc').classList.remove('show');document.getElementById('actions').innerHTML='';document.getElementById('ok').classList.add('show');if(!pay)document.getElementById('okp').textContent='We\'ve let the team know and they\'ll be in touch about next steps.'}
+  catch(e){er.textContent=e.message;b.disabled=false;b.textContent='Accept'}});
+}
+</script></body></html>
