@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-10-12T07:34:00.000Z",
+ "updated_at": "2026-10-20T20:17:46.000Z",
  "profiles": {
   "instagram:overthetopxp": {
    "platform": "instagram",
@@ -151,6 +151,158 @@
     }
    ],
    "fetched_at": "2026-10-12T07:34:00.000Z",
+   "error": null
+  },
+  "tiktok:reenatolentinoart": {
+   "platform": "tiktok",
+   "handle": "reenatolentinoart",
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@reenatolentinoart",
+   "history": [
+    {
+     "d": "2026-10-20",
+     "f": 1274
+    }
+   ],
+   "fetched_at": "2026-10-20T20:17:46.000Z",
+   "error": null,
+   "eng": 0.5,
+   "eng_posts": 8,
+   "name": "reenatolentinoart",
+   "followers": 1274,
+   "following": 53,
+   "posts": 78,
+   "likes": 622,
+   "bio": "International Contemporary Artist + Analog Astronaut"
+  },
+  "tiktok:lexapeel": {
+   "platform": "tiktok",
+   "handle": "lexapeel",
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@lexapeel",
+   "history": [
+    {
+     "d": "2026-10-20",
+     "f": 3334
+    }
+   ],
+   "fetched_at": "2026-10-20T20:17:46.000Z",
+   "error": null,
+   "eng": 8.91,
+   "eng_posts": 5,
+   "name": "LEXAPEEL",
+   "followers": 3334,
+   "following": 74,
+   "posts": 37,
+   "likes": 34000,
+   "bio": "DJ • Producer • Creative · LA / Bay Area"
+  },
+  "tiktok:corveezy": {
+   "platform": "tiktok",
+   "handle": "corveezy",
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@corveezy",
+   "history": [
+    {
+     "d": "2026-10-20",
+     "f": 1619
+    }
+   ],
+   "fetched_at": "2026-10-20T20:17:46.000Z",
+   "error": null,
+   "eng": 6.46,
+   "eng_posts": 8,
+   "name": "Red Corvette",
+   "followers": 1619,
+   "following": 442,
+   "posts": 654,
+   "likes": 30400,
+   "bio": "I DJ and other things"
+  },
+  "tiktok:jstagirrrll": {
+   "platform": "tiktok",
+   "handle": "jstagirrrll",
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@jstagirrrll",
+   "history": [
+    {
+     "d": "2026-10-20",
+     "f": 17800
+    }
+   ],
+   "fetched_at": "2026-10-20T20:17:46.000Z",
+   "error": null,
+   "eng": 0.45,
+   "eng_posts": 5,
+   "name": "Jaz",
+   "followers": 17800,
+   "following": 783,
+   "posts": 1438,
+   "likes": 2300000,
+   "bio": "DJ/Event Curator · los angeles, ca"
+  },
+  "tiktok:djrtistic": {
+   "platform": "tiktok",
+   "handle": "djrtistic",
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@djrtistic",
+   "history": [
+    {
+     "d": "2026-10-20",
+     "f": 21300
+    }
+   ],
+   "fetched_at": "2026-10-20T20:17:46.000Z",
+   "error": null,
+   "eng": 4.47,
+   "eng_posts": 8,
+   "name": "djrtistic",
+   "followers": 21300,
+   "following": 263,
+   "posts": 71,
+   "likes": 171800,
+   "bio": "International Party Rocker based in Los Angeles!"
+  },
+  "tiktok:deejaypuffy": {
+   "platform": "tiktok",
+   "handle": "deejaypuffy",
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@deejaypuffy",
+   "history": [
+    {
+     "d": "2026-10-20",
+     "f": 158900
+    }
+   ],
+   "fetched_at": "2026-10-20T20:17:46.000Z",
+   "error": null,
+   "eng": 2.36,
+   "eng_posts": 5,
+   "name": "DeeJayPuffy",
+   "followers": 158900,
+   "following": 156,
+   "posts": 254,
+   "likes": 1400000,
+   "bio": "World DJ Champion | Award Winning Intl DJ"
+  },
+  "instagram:reenatolentino": {
+   "platform": "instagram",
+   "handle": "reenatolentino",
+   "name": "RT",
+   "bio": "Could you say Art without RT? @arteyouthprogram",
+   "followers": null,
+   "verified": false,
+   "private": false,
+   "restricted": true,
+   "url": "https://www.instagram.com/reenatolentino/",
+   "history": [],
+   "fetched_at": "2026-10-20T20:17:46.000Z",
    "error": null
   }
  }
