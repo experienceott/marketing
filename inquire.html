@@ -4,10 +4,11 @@
 <style>
 *{box-sizing:border-box;margin:0}body{font-family:Inter,Helvetica,Arial,sans-serif;background:#0f0f10;color:#fff;-webkit-font-smoothing:antialiased}
 .wrap{max-width:860px;margin:0 auto;padding:40px 20px 80px}
-.logo{width:150px;display:block}
-.eye{font-weight:800;letter-spacing:.2em;font-size:12px;color:#ffd200;margin-top:44px}
-h1{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-weight:400;font-size:clamp(48px,9vw,92px);line-height:.95;margin-top:10px}
-.lede{color:#c9c9ce;font-size:17px;line-height:1.5;margin-top:16px;max-width:560px}
+.logo{width:170px;display:block;margin:0 auto}
+.hero{text-align:center}
+.eye{font-weight:800;letter-spacing:.2em;font-size:12px;color:#ffd200;margin-top:48px}
+h1{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-weight:400;line-height:.98;margin-top:12px}h1{display:flex;flex-direction:column;align-items:center}h1 span{display:block;width:max-content;white-space:nowrap;font-size:clamp(44px,13vw,124px)}h1 .y{color:#ffd200}
+.lede{color:#c9c9ce;font-size:17px;line-height:1.5;margin:18px auto 0;max-width:560px}
 .types{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:36px}
 .type{text-align:left;background:#1b1b1d;border:1.5px solid #2a2a2e;border-radius:16px;padding:16px 18px;color:#fff;font:inherit;cursor:pointer;transition:border-color .15s,transform .15s}
 .type:hover{transform:translateY(-2px)}.type b{display:block;font-size:16px}.type span{display:block;font-size:13px;color:#a3a3aa;margin-top:4px;line-height:1.4}
@@ -25,12 +26,13 @@ textarea{min-height:120px;resize:vertical}
 .done{display:none;margin-top:40px;background:#1b1b1d;border-radius:20px;padding:28px}.done.show{display:block}
 .done h2{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-weight:400;font-size:44px;color:#ffd200}
 .done p{color:#c9c9ce;margin-top:10px;line-height:1.5}
-@media(max-width:620px){.grid{grid-template-columns:1fr}}
+@media(max-width:620px){.grid{grid-template-columns:1fr 1fr;gap:10px}.grid .wide{grid-column:1/-1}.send{width:100%}.types{grid-template-columns:1fr 1fr;gap:8px}.type{padding:13px 14px}.type b{font-size:14.5px}.type span{font-size:12px}.eye{margin-top:36px}}
+.foot{margin-top:56px;text-align:center;font-size:13px;color:#77777e}.foot a{color:#c9c9ce;text-decoration:none}.foot a:hover{color:#ffd200}
 </style></head><body><div class="wrap">
-<img class="logo" src="media/logos/ott-wordmark-white.png" alt="Over The Top">
+<div class="hero"><img class="logo" src="media/logos/ott-wordmark-white.png" alt="Over The Top">
 <div class="eye">WORK WITH OTT</div>
-<h1>Let's make it<br><span style="color:#ffd200">over the top.</span></h1>
-<p class="lede">Tell us what you're planning. The right person on our team will get back to you within one business day.</p>
+<h1 id="h1"><span>Let's make it</span><span class="y">over the top.</span></h1>
+<p class="lede">Tell us what you're planning. The right person on our team will get back to you within one business day.</p></div>
 <div class="types" id="types">
  <button class="type" data-t="Private event"><b>Private event or buyout</b><span>Birthdays, corporate nights, brand parties, full buyouts</span></button>
  <button class="type" data-t="Brand sponsorship"><b>Brand sponsorship</b><span>Activations, product sampling, presenting partner</span></button>
@@ -41,11 +43,11 @@ textarea{min-height:120px;resize:vertical}
 </div>
 <form id="f" autocomplete="on">
  <div class="grid">
-  <label>Your name<input name="name" required></label>
-  <label>Email<input name="email" type="email" required></label>
+  <label class="wide">Your name<input name="name" required></label>
+  <label class="wide">Email<input name="email" type="email" required></label>
   <label>Phone<input name="phone" type="tel"></label>
   <label>Company or brand<input name="company"></label>
-  <label class="ev">Date or month<input name="date" placeholder="e.g. March 14, or spring 2027"></label>
+  <label class="ev">Date or month<input name="date" placeholder="e.g. March 14"></label>
   <label class="ev">Guests<input name="guests" inputmode="numeric" placeholder="e.g. 150"></label>
   <label class="ev">City<input name="city" placeholder="e.g. Oakland"></label>
   <label class="ev">Budget range<select name="budget"><option value="">Choose one</option><option>Under $5k</option><option>$5k to $15k</option><option>$15k to $50k</option><option>$50k+</option><option>Not sure yet</option></select></label>
@@ -56,12 +58,16 @@ textarea{min-height:120px;resize:vertical}
  <div class="msg" id="msg"></div>
 </form>
 <div class="done" id="done"><h2>Got it.</h2><p>Thanks. Your note is with the right person on our team, and they'll reply within one business day.</p></div>
+<p class="foot">Over The Top Experiences · <a href="https://instagram.com/overthetopxp" target="_blank" rel="noopener">@overthetopxp</a></p>
 </div>
 <script>
 const ENGINE='https://script.google.com/macros/s/AKfycbw4jQuOGhP5kz2eDYBK0ld4ei33R1FPV-GnyDjblCKT_KyhI7VtMcqpbnNlX3Tio153/exec';let type='';
 const src=new URLSearchParams(location.search).get('src')||document.referrer.replace(/^https?:\/\//,'').split('/')[0]||'direct';
 document.getElementById('types').addEventListener('click',e=>{let b=e.target.closest('.type');if(!b)return;type=b.dataset.t;document.querySelectorAll('.type').forEach(x=>x.classList.toggle('on',x===b));
- let f=document.getElementById('f');f.classList.add('show');let ev=!/Creator|Tickets|Talent/.test(type);f.querySelectorAll('.ev').forEach(x=>x.style.display=ev?'':'none');f.querySelector('[name=name]').focus()});
+ let f=document.getElementById('f');f.classList.add('show');let ev=!/Creator|Tickets|Talent/.test(type);f.querySelectorAll('.ev').forEach(x=>x.style.display=ev?'':'none');setTimeout(()=>{f.scrollIntoView({behavior:'smooth',block:'start'});if(matchMedia('(hover:hover)').matches)f.querySelector('[name=name]').focus({preventScroll:true})},60)});
+// heading lines fill the content width
+function fitH(){let h=document.getElementById('h1'),w=h.clientWidth;h.querySelectorAll('span').forEach(s=>{s.style.fontSize='100px';let r=w/s.scrollWidth;s.style.fontSize=Math.min(180,Math.floor(100*r*.995))+'px'})}
+(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(fitH);addEventListener('resize',fitH);fitH();
 document.getElementById('f').addEventListener('submit',async e=>{e.preventDefault();let f=e.target,btn=f.querySelector('.send'),msg=document.getElementById('msg');msg.textContent='';btn.disabled=true;btn.textContent='Sending…';
  let q=Object.fromEntries(new FormData(f).entries());q.type=type;q.source=src;
  try{let r=await fetch(ENGINE,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({inquiry:q})}),j=await r.json();if(!j.ok)throw new Error(j.error||'Something went wrong');
