@@ -60,7 +60,7 @@ await safe('Scene + cities', async () => {
   if (!tags.length) return;
   const items = await run('clockworks~tiktok-scraper', { hashtags: tags, resultsPerPage: cfg.videos_per_hashtag || 15 }, 'videos');
   const cutoff = Date.now() - (cfg.window_days || 30) * 864e5;
-  const vids = items.filter(v => v.id).map(v => ({ id: v.id, at: v.createTimeISO || (v.createTime ? new Date(v.createTime * 1000).toISOString() : null), views: v.playCount || 0, eng: (v.diggCount || 0) + (v.commentCount || 0) + (v.shareCount || 0), tags: (v.hashtags || []).map(h => String(h.name || h).toLowerCase()).filter(Boolean), from: String(v.searchHashtag?.name || v.input || '').replace(/^#/, '').toLowerCase(), sound: v.musicMeta && !v.musicMeta.musicOriginal ? { name: v.musicMeta.musicName, author: v.musicMeta.musicAuthor } : null, url: v.webVideoUrl, author: v.authorMeta?.name }))
+  const vids = items.filter(v => v.id).map(v => ({ id: v.id, at: v.createTimeISO || (v.createTime ? new Date(v.createTime * 1000).toISOString() : null), views: v.playCount || 0, eng: (v.diggCount || 0) + (v.commentCount || 0) + (v.shareCount || 0), tags: (v.hashtags || []).map(h => String(h.name || h).toLowerCase()).filter(Boolean), from: String(v.searchHashtag?.name || v.input || '').replace(/^#/, '').toLowerCase(), sound: v.musicMeta && !v.musicMeta.musicOriginal ? { name: v.musicMeta.musicName, author: v.musicMeta.musicAuthor, url: v.musicMeta.playUrl ? null : null } : null, url: v.webVideoUrl, author: v.authorMeta?.name, cover: v.videoMeta?.coverUrl || null, caption: (v.text || '').slice(0, 140), likes: v.diggCount || 0 }))
     .filter(v => v.at && Date.parse(v.at) >= cutoff);
   // Scene sounds + hashtags
   const sv = vids.filter(v => scene.includes(v.from) || v.tags.some(t => scene.includes(t)));
@@ -69,6 +69,9 @@ await safe('Scene + cities', async () => {
     if (v.sound?.name) { const k = (v.sound.name + '|' + v.sound.author).toLowerCase(); (S[k] ||= { title: v.sound.name, artist: v.sound.author, uses: 0, views: 0, creators: new Set(), example: v.url }); S[k].uses++; S[k].views += v.views; S[k].creators.add(v.author); }
     for (const t of new Set(v.tags)) if (!scene.includes(t) && t.length > 2 && !/^(fyp|foryou|foryoupage|viral|trending|fy|parati)/.test(t)) { (H[t] ||= { tag: t, uses: 0, views: 0 }); H[t].uses++; H[t].views += v.views; }
   }
+  const recent14 = sv.filter(v => Date.parse(v.at) >= Date.now() - 14 * 864e5);
+  const topTT = [...new Map(recent14.map(v => [v.id, v])).values()].sort((a, b) => b.views - a.views).slice(0, 12).map(v => ({ platform: 'tiktok', url: v.url, cover: v.cover, views: v.views, likes: v.likes, author: v.author, caption: v.caption, at: v.at, sound: v.sound }));
+  db.niche = { ...(db.niche || {}), at: now, tiktok: topTT };
   db.scene = {
     at: now, videos: sv.length,
     sounds: Object.values(S).map(s => ({ ...s, creators: s.creators.size })).sort((a, b) => b.creators - a.creators || b.views - a.views).slice(0, 15),
@@ -102,6 +105,16 @@ await safe('Reels audio', async () => {
     (A[k] ||= { title, artist, uses: 0, plays: 0, accounts: new Set(), example: r.url }); A[k].uses++; A[k].plays += r.videoPlayCount || r.videoViewCount || 0; A[k].accounts.add(who);
   }
   db.reels = { at: now, sounds: Object.values(A).map(a => ({ ...a, accounts: [...a.accounts] })).sort((a, b) => b.accounts.length - a.accounts.length || b.plays - a.plays).slice(0, 20) };
+});
+// 3d) Trending Reels in OTT's niche (Instagram hashtags)
+await safe('Niche Reels', async () => {
+  const tags = cfg.ig_hashtags || []; if (!tags.length) return;
+  const items = await run('apify~instagram-scraper', { directUrls: tags.map(h => `https://www.instagram.com/explore/tags/${h}/`), resultsType: 'posts', resultsLimit: 20, onlyPostsNewerThan: '21 days' }, 'ig-hashtags');
+  const vids = items.filter(p => p.type === 'Video' || p.productType === 'clips' || p.videoUrl);
+  const reels = [...new Map(vids.map(p => [p.id || p.shortCode, p])).values()].map(p => { const m = p.musicInfo || {}; const title = m.song_name || ''; const orig = !!m.uses_original_audio || /original audio/i.test(title) || !title; return { platform: 'instagram', url: p.url, cover: p.displayUrl || null, views: p.videoPlayCount || p.videoViewCount || 0, likes: p.likesCount > 0 ? p.likesCount : 0, author: p.ownerUsername, caption: (p.caption || '').slice(0, 140), at: p.timestamp, sound: orig ? null : { name: title, author: m.artist_name || '' } }; }).sort((a, b) => (b.views || b.likes * 20) - (a.views || a.likes * 20));
+  db.niche = { ...(db.niche || {}), reels: reels.slice(0, 12), reels_at: now };
+  const A = {}; for (const r of reels) if (r.sound?.name) { const k = (r.sound.name + '|' + r.sound.author).toLowerCase(); (A[k] ||= { title: r.sound.name, artist: r.sound.author, uses: 0, views: 0, creators: new Set(), example: r.url }); A[k].uses++; A[k].views += r.views; A[k].creators.add(r.author); }
+  db.niche.reels_audio = Object.values(A).map(a => ({ ...a, creators: a.creators.size })).sort((a, b) => b.creators - a.creators || b.views - a.views).slice(0, 15);
 });
 // 3c) Where people are asking for OTT: city mentions in comments on OTT's own posts
 await safe('OTT comment cities', async () => {

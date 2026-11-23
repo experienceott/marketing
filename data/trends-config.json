@@ -4,13 +4,17 @@
  "window_days": 30,
  "scene_hashtags": [
   "rnbdayparty",
+  "rnbbrunch",
   "dayparty",
+  "blackownedevents",
   "bayareanightlife",
   "oaklandnightlife",
   "sfnightlife",
-  "rnbparty",
+  "afrobeatsparty",
+  "brunchparty",
+  "runclub",
   "blackinthebay",
-  "runclub"
+  "socialclub"
  ],
  "cities": [
   {
@@ -348,5 +352,13 @@
     "Toronto"
    ]
   ]
+ ],
+ "ig_hashtags": [
+  "rnbdayparty",
+  "dayparty",
+  "bayareaevents",
+  "oaklandevents",
+  "brunchparty",
+  "blackownedevents"
  ]
 }
