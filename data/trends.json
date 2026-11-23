@@ -1,0 +1,1050 @@
+{
+ "cities": {
+  "Bay Area": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 28,
+     "avg_views": 47993,
+     "er": 6.37
+    }
+   ],
+   "name": "Bay Area",
+   "state": "CA",
+   "ott": true,
+   "hashtags": [
+    "bayareaevents",
+    "sfevents",
+    "oaklandevents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@aashleeys/video/7708047390099492109",
+     "views": 508900,
+     "author": "aashleeys"
+    },
+    {
+     "url": "https://www.tiktok.com/@golocal.movement/video/7704863713349750047",
+     "views": 253600,
+     "author": "golocal.movement"
+    },
+    {
+     "url": "https://www.tiktok.com/@akki_girlbeingcrazy/video/7708179531357490446",
+     "views": 167800,
+     "author": "akki_girlbeingcrazy"
+    }
+   ],
+   "ott_lift": {
+    "posts": 3,
+    "pct": -8
+   }
+  },
+  "Los Angeles": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 19,
+     "avg_views": 47512,
+     "er": 11.06
+    }
+   ],
+   "name": "Los Angeles",
+   "state": "CA",
+   "ott": true,
+   "hashtags": [
+    "laevents",
+    "losangelesevents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@christina.patricio/video/7710915292515372302",
+     "views": 661600,
+     "author": "christina.patricio"
+    },
+    {
+     "url": "https://www.tiktok.com/@user98778072658068/video/7704194640416738592",
+     "views": 98800,
+     "author": "user98778072658068"
+    },
+    {
+     "url": "https://www.tiktok.com/@hey_emmily/video/7711109252219194638",
+     "views": 34800,
+     "author": "hey_emmily"
+    }
+   ],
+   "ott_lift": {
+    "posts": 2,
+    "pct": -62
+   }
+  },
+  "Las Vegas": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 28,
+     "avg_views": 71822,
+     "er": 8.16
+    }
+   ],
+   "name": "Las Vegas",
+   "state": "NV",
+   "ott": true,
+   "hashtags": [
+    "vegasevents",
+    "lasvegasevents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@fabianjmua/video/7710786401016515853",
+     "views": 1400000,
+     "author": "fabianjmua"
+    },
+    {
+     "url": "https://www.tiktok.com/@mrsalondrav/video/7704959583445355790",
+     "views": 190400,
+     "author": "mrsalondrav"
+    },
+    {
+     "url": "https://www.tiktok.com/@alainapinkney/video/7706771651848932638",
+     "views": 126900,
+     "author": "alainapinkney"
+    }
+   ],
+   "ott_lift": {
+    "posts": 2,
+    "pct": -73
+   }
+  },
+  "Miami": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 13,
+     "avg_views": 23365,
+     "er": 11.21
+    }
+   ],
+   "name": "Miami",
+   "state": "FL",
+   "ott": true,
+   "hashtags": [
+    "miamievents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@rairadiouno/video/7709800456402357536",
+     "views": 174700,
+     "author": "rairadiouno"
+    },
+    {
+     "url": "https://www.tiktok.com/@agentthorburn/video/7702923798542159134",
+     "views": 40500,
+     "author": "agentthorburn"
+    },
+    {
+     "url": "https://www.tiktok.com/@directedbyjunior/video/7708098188091165965",
+     "views": 36200,
+     "author": "directedbyjunior"
+    }
+   ],
+   "ott_lift": {
+    "posts": 1,
+    "pct": -96
+   }
+  },
+  "Sacramento": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 14,
+     "avg_views": 53014,
+     "er": 5.72
+    }
+   ],
+   "name": "Sacramento",
+   "state": "CA",
+   "ott": true,
+   "hashtags": [
+    "sacramentoevents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@rewirediaries/video/7705856979834604813",
+     "views": 463600,
+     "author": "rewirediaries"
+    },
+    {
+     "url": "https://www.tiktok.com/@norcal_with_kids/video/7709186476235394334",
+     "views": 126200,
+     "author": "norcal_with_kids"
+    },
+    {
+     "url": "https://www.tiktok.com/@itskarlyjay/video/7707148253426421023",
+     "views": 63400,
+     "author": "itskarlyjay"
+    }
+   ],
+   "ott_lift": null
+  },
+  "San Diego": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 15,
+     "avg_views": 20129,
+     "er": 7.83
+    }
+   ],
+   "name": "San Diego",
+   "state": "CA",
+   "ott": false,
+   "hashtags": [
+    "sandiegoevents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@daniellabraggtravels/video/7704375183016037645",
+     "views": 138700,
+     "author": "daniellabraggtravels"
+    },
+    {
+     "url": "https://www.tiktok.com/@zzzellotravel/video/7707372586979691790",
+     "views": 98500,
+     "author": "zzzellotravel"
+    },
+    {
+     "url": "https://www.tiktok.com/@kelansb/video/7711062636707794190",
+     "views": 56300,
+     "author": "kelansb"
+    }
+   ],
+   "ott_lift": null
+  },
+  "Atlanta": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 22,
+     "avg_views": 38952,
+     "er": 10.01
+    }
+   ],
+   "name": "Atlanta",
+   "state": "GA",
+   "ott": false,
+   "hashtags": [
+    "atlantaevents",
+    "atlevents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@atlanticstation/video/7706621231893679374",
+     "views": 249000,
+     "author": "atlanticstation"
+    },
+    {
+     "url": "https://www.tiktok.com/@traveldoublesedu/video/7710308795221544223",
+     "views": 98500,
+     "author": "traveldoublesedu"
+    },
+    {
+     "url": "https://www.tiktok.com/@naia_foodie/video/7710264959279664397",
+     "views": 88500,
+     "author": "naia_foodie"
+    }
+   ],
+   "ott_lift": null
+  },
+  "Houston": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 6,
+     "avg_views": 226071,
+     "er": 10.91
+    }
+   ],
+   "name": "Houston",
+   "state": "TX",
+   "ott": false,
+   "hashtags": [
+    "houstonevents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@imperioballrooms/video/7710668310458797342",
+     "views": 1300000,
+     "author": "imperioballrooms"
+    },
+    {
+     "url": "https://www.tiktok.com/@dj_lyohtx/video/7706212705182485774",
+     "views": 38500,
+     "author": "dj_lyohtx"
+    },
+    {
+     "url": "https://www.tiktok.com/@montroseedit/video/7710329192772095245",
+     "views": 7795,
+     "author": "montroseedit"
+    }
+   ],
+   "ott_lift": null
+  },
+  "Dallas": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 12,
+     "avg_views": 22435,
+     "er": 17.48
+    }
+   ],
+   "name": "Dallas",
+   "state": "TX",
+   "ott": false,
+   "hashtags": [
+    "dallasevents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@kass_delgado/video/7706953733938236686",
+     "views": 141400,
+     "author": "kass_delgado"
+    },
+    {
+     "url": "https://www.tiktok.com/@elevesocialsociety/video/7709550978944503071",
+     "views": 104600,
+     "author": "elevesocialsociety"
+    },
+    {
+     "url": "https://www.tiktok.com/@tito.ent/video/7707770715256229133",
+     "views": 6740,
+     "author": "tito.ent"
+    }
+   ],
+   "ott_lift": null
+  },
+  "Seattle": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 14,
+     "avg_views": 27962,
+     "er": 7.3
+    }
+   ],
+   "name": "Seattle",
+   "state": "WA",
+   "ott": false,
+   "hashtags": [
+    "seattleevents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@donnaluvss/video/7705191437763136799",
+     "views": 153200,
+     "author": "donnaluvss"
+    },
+    {
+     "url": "https://www.tiktok.com/@george.pnw/video/7708894164930333965",
+     "views": 47100,
+     "author": "george.pnw"
+    },
+    {
+     "url": "https://www.tiktok.com/@corteezyy/video/7710407857748905230",
+     "views": 39100,
+     "author": "corteezyy"
+    }
+   ],
+   "ott_lift": null
+  },
+  "Phoenix": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 14,
+     "avg_views": 24965,
+     "er": 16.58
+    }
+   ],
+   "name": "Phoenix",
+   "state": "AZ",
+   "ott": false,
+   "hashtags": [
+    "phoenixevents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@engage221/video/7710764337115286802",
+     "views": 275800,
+     "author": "engage221"
+    },
+    {
+     "url": "https://www.tiktok.com/@culturecentral_/video/7709045262831947038",
+     "views": 56800,
+     "author": "culturecentral_"
+    },
+    {
+     "url": "https://www.tiktok.com/@legendseventcenter/video/7708402171695451422",
+     "views": 8338,
+     "author": "legendseventcenter"
+    }
+   ],
+   "ott_lift": null
+  },
+  "New York": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 15,
+     "avg_views": 35596,
+     "er": 10.53
+    }
+   ],
+   "name": "New York",
+   "state": "NY",
+   "ott": false,
+   "hashtags": [
+    "nycevents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@nyc_super_mom/video/7700289307738721566",
+     "views": 298200,
+     "author": "nyc_super_mom"
+    },
+    {
+     "url": "https://www.tiktok.com/@ariffhakim493/video/7710665880211967238",
+     "views": 221100,
+     "author": "ariffhakim493"
+    },
+    {
+     "url": "https://www.tiktok.com/@sharmedlife/video/7711081515433692446",
+     "views": 4311,
+     "author": "sharmedlife"
+    }
+   ],
+   "ott_lift": null
+  },
+  "Washington DC": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 14,
+     "avg_views": 129177,
+     "er": 5.03
+    }
+   ],
+   "name": "Washington DC",
+   "state": "DC",
+   "ott": false,
+   "hashtags": [
+    "dcevents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@empireexperience/video/7710696209349971214",
+     "views": 751800,
+     "author": "empireexperience"
+    },
+    {
+     "url": "https://www.tiktok.com/@eventswithnexy/video/7711045943545580831",
+     "views": 733100,
+     "author": "eventswithnexy"
+    },
+    {
+     "url": "https://www.tiktok.com/@dmvfoodie/video/7703196936379059470",
+     "views": 135900,
+     "author": "dmvfoodie"
+    }
+   ],
+   "ott_lift": null
+  },
+  "Chicago": {
+   "history": [
+    {
+     "d": "2026-11-23",
+     "videos": 7,
+     "avg_views": 12300,
+     "er": 13.37
+    }
+   ],
+   "name": "Chicago",
+   "state": "IL",
+   "ott": false,
+   "hashtags": [
+    "chicagoevents"
+   ],
+   "top": [
+    {
+     "url": "https://www.tiktok.com/@jacqsplate/video/7710582741271596301",
+     "views": 31100,
+     "author": "jacqsplate"
+    },
+    {
+     "url": "https://www.tiktok.com/@oneluckypisces/video/7709748708019031326",
+     "views": 30100,
+     "author": "oneluckypisces"
+    },
+    {
+     "url": "https://www.tiktok.com/@windy_citychicago/video/7710281007802404110",
+     "views": 9225,
+     "author": "windy_citychicago"
+    }
+   ],
+   "ott_lift": null
+  }
+ },
+ "us": {
+  "hashtags": [
+   {
+    "tag": "huss",
+    "rank": 1,
+    "change": null,
+    "posts": null,
+    "views": 57716457,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "husshusshuss",
+    "rank": 2,
+    "change": null,
+    "posts": null,
+    "views": 48049909,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "lucia",
+    "rank": 3,
+    "change": null,
+    "posts": null,
+    "views": 570260481,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "hippo",
+    "rank": 4,
+    "change": null,
+    "posts": null,
+    "views": 64485728,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "jlo",
+    "rank": 5,
+    "change": null,
+    "posts": null,
+    "views": 45592443,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "redcupday",
+    "rank": 6,
+    "change": null,
+    "posts": null,
+    "views": 32662418,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "momcozyblackfriday",
+    "rank": 7,
+    "change": null,
+    "posts": null,
+    "views": 15440675,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "mastersdegree",
+    "rank": 8,
+    "change": null,
+    "posts": null,
+    "views": 11199887,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "dessa",
+    "rank": 9,
+    "change": null,
+    "posts": null,
+    "views": 8677779,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "smilecheck",
+    "rank": 10,
+    "change": null,
+    "posts": null,
+    "views": 8490099,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "treelighting",
+    "rank": 11,
+    "change": null,
+    "posts": null,
+    "views": 2858970,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "thriftmas",
+    "rank": 12,
+    "change": null,
+    "posts": null,
+    "views": 2587974,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "moneytalk",
+    "rank": 13,
+    "change": null,
+    "posts": null,
+    "views": 2519256,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "crushed",
+    "rank": 14,
+    "change": null,
+    "posts": null,
+    "views": 2070837,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "blackfridaysale",
+    "rank": 15,
+    "change": null,
+    "posts": null,
+    "views": 115736871,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "poweroutage",
+    "rank": 16,
+    "change": null,
+    "posts": null,
+    "views": 94493881,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "cincinnatizoo",
+    "rank": 17,
+    "change": null,
+    "posts": null,
+    "views": 70456624,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "wendys",
+    "rank": 18,
+    "change": null,
+    "posts": null,
+    "views": 39357284,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "hoofcleaning",
+    "rank": 19,
+    "change": null,
+    "posts": null,
+    "views": 22406965,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "justgolive",
+    "rank": 20,
+    "change": null,
+    "posts": null,
+    "views": 20915017,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "lasvegasgp",
+    "rank": 21,
+    "change": null,
+    "posts": null,
+    "views": 18529178,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "19denoviembre",
+    "rank": 22,
+    "change": null,
+    "posts": null,
+    "views": 11971797,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "bracescheck",
+    "rank": 23,
+    "change": null,
+    "posts": null,
+    "views": 7038294,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "windowtreatments",
+    "rank": 24,
+    "change": null,
+    "posts": null,
+    "views": 3675383,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "internationalmensday",
+    "rank": 25,
+    "change": null,
+    "posts": null,
+    "views": 3134779,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "tableware",
+    "rank": 26,
+    "change": null,
+    "posts": null,
+    "views": 1324140,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "randomday",
+    "rank": 27,
+    "change": null,
+    "posts": null,
+    "views": 1260009,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "gta6clips",
+    "rank": 28,
+    "change": null,
+    "posts": null,
+    "views": 195955958,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "mandy",
+    "rank": 29,
+    "change": null,
+    "posts": null,
+    "views": 99194689,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "toothpain",
+    "rank": 30,
+    "change": null,
+    "posts": null,
+    "views": 26886952,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "hooftrimming",
+    "rank": 31,
+    "change": null,
+    "posts": null,
+    "views": 25881735,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "costumeideas",
+    "rank": 32,
+    "change": null,
+    "posts": null,
+    "views": 21768383,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "thanksgiving2026",
+    "rank": 33,
+    "change": null,
+    "posts": null,
+    "views": 11547864,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "jumbotron",
+    "rank": 34,
+    "change": null,
+    "posts": null,
+    "views": 11256678,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "foodinspiration",
+    "rank": 35,
+    "change": null,
+    "posts": null,
+    "views": 9616647,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "classicweekend",
+    "rank": 36,
+    "change": null,
+    "posts": null,
+    "views": 8514149,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "travelwithme",
+    "rank": 37,
+    "change": null,
+    "posts": null,
+    "views": 7548868,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "thanksgivingtable",
+    "rank": 38,
+    "change": null,
+    "posts": null,
+    "views": 5586560,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "mba",
+    "rank": 39,
+    "change": null,
+    "posts": null,
+    "views": 3349781,
+    "industry": "",
+    "isNew": false
+   },
+   {
+    "tag": "garbage",
+    "rank": 40,
+    "change": null,
+    "posts": null,
+    "views": 3299241,
+    "industry": "",
+    "isNew": false
+   }
+  ],
+  "hashtags_at": "2026-11-23T05:47:47.408Z"
+ },
+ "scene": {
+  "at": "2026-11-23T05:47:47.408Z",
+  "videos": 42,
+  "sounds": [
+   {
+    "title": "A World With You",
+    "artist": "Odette Shaw",
+    "uses": 2,
+    "views": 9622,
+    "creators": 2,
+    "example": "https://www.tiktok.com/@sf.robin/video/7709758664952777997"
+   },
+   {
+    "title": "Snowman",
+    "artist": "Sia",
+    "uses": 1,
+    "views": 508900,
+    "creators": 1,
+    "example": "https://www.tiktok.com/@aashleeys/video/7708047390099492109"
+   },
+   {
+    "title": "Evening Aura",
+    "artist": "Mirellavieira",
+    "uses": 1,
+    "views": 253600,
+    "creators": 1,
+    "example": "https://www.tiktok.com/@golocal.movement/video/7704863713349750047"
+   },
+   {
+    "title": "It's the Most Wonderful Time of the Year",
+    "artist": "Andy Williams",
+    "uses": 1,
+    "views": 147100,
+    "creators": 1,
+    "example": "https://www.tiktok.com/@wanderingcreator_meghana/video/7704859641880104205"
+   },
+   {
+    "title": "Sleigh Bell Wagon",
+    "artist": "Peg Hartley",
+    "uses": 1,
+    "views": 89500,
+    "creators": 1,
+    "example": "https://www.tiktok.com/@unionsquaresf/video/7707466786085653774"
+   },
+   {
+    "title": "Little Fairy",
+    "artist": "Fairygarden",
+    "uses": 1,
+    "views": 30700,
+    "creators": 1,
+    "example": "https://www.tiktok.com/@tulle.and.twirls/video/7700364943220100382"
+   },
+   {
+    "title": "Famous Johann Strauss II's The Blue Danube",
+    "artist": "Alessandro Vieri",
+    "uses": 1,
+    "views": 26800,
+    "creators": 1,
+    "example": "https://www.tiktok.com/@oreyfit/video/7710049540015017230"
+   },
+   {
+    "title": "risk it all",
+    "artist": "kwn",
+    "uses": 1,
+    "views": 14500,
+    "creators": 1,
+    "example": "https://www.tiktok.com/@haveagoodtime.us/video/7709298148040133902"
+   },
+   {
+    "title": "Paper Clip",
+    "artist": "Loose Boots Club",
+    "uses": 1,
+    "views": 10400,
+    "creators": 1,
+    "example": "https://www.tiktok.com/@esther.jkim/video/7702132349701590302"
+   },
+   {
+    "title": "Golden Hour: Piano Version (Cover)",
+    "artist": "Andy Morris",
+    "uses": 1,
+    "views": 5588,
+    "creators": 1,
+    "example": "https://www.tiktok.com/@reluxehomes/video/7710340607725620510"
+   },
+   {
+    "title": "Big Michael Michael",
+    "artist": "Looze Cannon",
+    "uses": 1,
+    "views": 1936,
+    "creators": 1,
+    "example": "https://www.tiktok.com/@mzlyteskynn/video/7706957329912057102"
+   }
+  ],
+  "hashtags": [
+   {
+    "tag": "bayarea",
+    "uses": 11,
+    "views": 909102
+   },
+   {
+    "tag": "sanfrancisco",
+    "uses": 9,
+    "views": 448900
+   },
+   {
+    "tag": "rnb",
+    "uses": 5,
+    "views": 11933
+   },
+   {
+    "tag": "sfbayarea",
+    "uses": 4,
+    "views": 204303
+   },
+   {
+    "tag": "thingstodoinsf",
+    "uses": 4,
+    "views": 96921
+   },
+   {
+    "tag": "thingstodo",
+    "uses": 3,
+    "views": 22576
+   },
+   {
+    "tag": "oakland",
+    "uses": 3,
+    "views": 1569
+   },
+   {
+    "tag": "filoli",
+    "uses": 2,
+    "views": 676700
+   },
+   {
+    "tag": "holidayseason",
+    "uses": 2,
+    "views": 236600
+   },
+   {
+    "tag": "holidayactivities",
+    "uses": 2,
+    "views": 236600
+   },
+   {
+    "tag": "christmas",
+    "uses": 2,
+    "views": 192600
+   },
+   {
+    "tag": "sfthingstodo",
+    "uses": 2,
+    "views": 34419
+   },
+   {
+    "tag": "sanfranciscoevents",
+    "uses": 2,
+    "views": 34288
+   },
+   {
+    "tag": "party",
+    "uses": 2,
+    "views": 27542
+   },
+   {
+    "tag": "rnbvibes",
+    "uses": 2,
+    "views": 14903
+   },
+   {
+    "tag": "ilovernb",
+    "uses": 2,
+    "views": 3828
+   },
+   {
+    "tag": "oliviarodrigo",
+    "uses": 2,
+    "views": 1355
+   },
+   {
+    "tag": "events",
+    "uses": 2,
+    "views": 863
+   }
+  ]
+ },
+ "updated_at": "2026-11-23T05:47:47.408Z",
+ "errors": []
+}
