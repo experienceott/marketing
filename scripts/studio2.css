@@ -62,8 +62,6 @@ html body :focus-visible{outline:2px solid #0a0a0a;outline-offset:3px;box-shadow
  html body #root>.top .nav .ng{display:flex!important;flex-direction:column;width:100%}
  html body #root>.top .nav .ngmenu{position:static!important;display:none!important;padding:2px 0 6px 12px!important}
  html body #root>.top .nav .ngmenu::before{display:none}
- html body #root>.top .nav .ng:has(>button.on) .ngmenu{display:block!important}
- html body #root>.top .nav .ng:has(>button.on)>button svg{transform:rotate(180deg)}
  html body #root>.top .nav .ngmenu button{min-width:0!important;height:36px;margin:1px 0!important;padding:0 14px!important;border-radius:999px;font-size:14px;color:#636366!important}
  html body #root>.top .nav .ngmenu button.on{background:rgba(255,214,10,.28)!important;color:#0a0a0a!important;font-weight:600}
  html body #root>.top .gsearch input{width:100%!important;padding:0 12px 0 32px!important;color:inherit!important;cursor:text!important;height:40px;border-radius:999px!important;background-color:rgba(118,118,128,.12)!important;border:0!important}
@@ -81,22 +79,23 @@ html body :focus-visible{outline:2px solid #0a0a0a;outline-offset:3px;box-shadow
 }
 
 /* motion */
-html body .wrap.s2enter>*{animation:s2rise .6s cubic-bezier(.2,.8,.2,1) both}
-html body .wrap.s2enter>*:nth-child(2){animation-delay:.05s}html body .wrap.s2enter>*:nth-child(3){animation-delay:.1s}html body .wrap.s2enter>*:nth-child(4){animation-delay:.15s}
+html body .wrap.s2enter>*{animation:s2rise .32s cubic-bezier(.2,.8,.2,1) both}
+html body .wrap.s2enter>*:nth-child(2){animation-delay:.03s}html body .wrap.s2enter>*:nth-child(3){animation-delay:.06s}html body .wrap.s2enter>*:nth-child(n+4){animation-delay:.08s}
 .s2ask{position:fixed;right:24px;bottom:24px;z-index:40;display:flex;align-items:center;gap:10px;height:52px;padding:0 18px 0 8px;border-radius:999px;border:1px solid rgba(10,10,10,.07);
  background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%);box-shadow:inset 0 1px 0 #fff,0 18px 40px -14px rgba(0,0,0,.32);
  font:600 15px var(--s2-font);color:#0a0a0a;cursor:pointer;animation:s2rise .7s .6s cubic-bezier(.2,.8,.2,1) both}
 .s2ask .orb{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,#fff3b0,#ffd60a 55%,#ff9f0a);box-shadow:0 4px 12px -4px rgba(255,159,10,.6);animation:s2breath 3.2s ease-in-out infinite}
 .s2ask kbd{font:500 12px var(--s2-font);color:#636366;background:#e5e5ea;border-radius:7px;padding:2px 7px}
 @media (max-width:900px){.s2ask{bottom:16px;right:16px;padding:0 8px}.s2ask span.t,.s2ask kbd{display:none}}
-body:has(.modalbg) .s2ask,body:has(.offbar) .s2ask{bottom:100px}
-@keyframes s2rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+body.s2modal .s2ask{bottom:100px}
+@keyframes s2rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes s2breath{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 @keyframes s2drift{0%{transform:translate(0,0)}50%{transform:translate(70px,50px) scale(1.08)}100%{transform:translate(-40px,90px) scale(.95)}}
 @media (prefers-reduced-motion:reduce){html body *,html body::before{animation:none!important;transition:none!important}}
 
 /* fixes after first look */
-html body :is(h2,h3,h4,b,strong,span,div,p,button,a,label,small,li,td,th,input,select,textarea):not(h1):not(.ottlogo *){font-family:var(--s2-font)!important}
+html body #root *,html body .qpbg *,html body .modal *{font-family:var(--s2-font)!important}
+html body #root h1,html body #root h1 *,html body .modal h1{font-family:"Archivo Black",Inter,sans-serif!important}
 html body :is(h2,.hcname,.h2card h3){letter-spacing:-.02em!important}
 html body .h2card,html body .tcard,html body .stat,html body .ptile,html body .tevcard,html body .cbcard,html body #root>.toppost,html body .bigcal{border:0!important;border-radius:24px!important;box-shadow:var(--s2-e1)!important}
 html body .h2wrapup{border:0!important;border-radius:24px!important}
@@ -178,10 +177,10 @@ html body .bigcal .citem:hover{filter:brightness(.95)}
 }
 
 /* sign-in: no app chrome, just the card on a soft gradient */
-body:has(.panel.login) #root>.top,body:has(.panel.login) .subnav,body:has(.panel.login) .s2ask,body:has(.panel.login) .offbar{display:none!important}
-body:has(.panel.login){background:radial-gradient(900px 600px at 15% 10%,rgba(255,214,10,.45),transparent 60%),radial-gradient(800px 600px at 90% 90%,rgba(255,159,10,.30),transparent 60%),radial-gradient(700px 500px at 80% 10%,rgba(255,255,255,.9),transparent 60%),#f2f2f7!important;min-height:100vh}
-body:has(.panel.login)::before{width:520px;height:520px;left:55%;top:40%;background:radial-gradient(circle,rgba(255,214,10,.35),transparent 65%)}
-html body:has(.panel.login) .wrap{margin:0 auto!important;max-width:none!important;min-height:100vh;display:grid!important;place-items:center;padding:24px!important}
+body.s2login #root>.top,body.s2login .subnav,body.s2login .s2ask,body.s2login .offbar{display:none!important}
+body.s2login{background:radial-gradient(900px 600px at 15% 10%,rgba(255,214,10,.45),transparent 60%),radial-gradient(800px 600px at 90% 90%,rgba(255,159,10,.30),transparent 60%),radial-gradient(700px 500px at 80% 10%,rgba(255,255,255,.9),transparent 60%),#f2f2f7!important;min-height:100vh}
+body.s2login::before{width:520px;height:520px;left:55%;top:40%;background:radial-gradient(circle,rgba(255,214,10,.35),transparent 65%)}
+html body.s2login .wrap{margin:0 auto!important;max-width:none!important;min-height:100vh;display:grid!important;place-items:center;padding:24px!important}
 html body .panel.login{width:min(440px,calc(100vw - 48px));box-sizing:border-box;text-align:center;padding:40px 36px!important;border-radius:32px!important;border:1px solid rgba(255,255,255,.6)!important;
  background:rgba(255,255,255,.62)!important;-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);
  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 40px 80px -30px rgba(0,0,0,.35)!important;animation:s2rise .7s cubic-bezier(.2,.8,.2,1) both}
@@ -191,26 +190,25 @@ html body .panel.login h1{font-size:34px!important;margin:6px 0 10px!important}
 html body .panel.login .row{justify-content:center!important}
 html body .panel.login .btn.primary{min-height:50px;padding:0 26px;font-size:16px}
 @media (prefers-color-scheme:dark){
- body:has(.panel.login){background:radial-gradient(900px 600px at 15% 10%,rgba(255,214,10,.22),transparent 60%),radial-gradient(800px 600px at 90% 90%,rgba(255,159,10,.16),transparent 60%),#000!important}
+ body.s2login{background:radial-gradient(900px 600px at 15% 10%,rgba(255,214,10,.22),transparent 60%),radial-gradient(800px 600px at 90% 90%,rgba(255,159,10,.16),transparent 60%),#000!important}
  html body .panel.login{background:rgba(30,30,32,.6)!important;border-color:rgba(255,255,255,.1)!important}
 }
-body:has(.panel.login) .toast{display:none!important}
+body.s2login .toast{display:none!important}
 /* boot screen before the app loads */
-body:has(.s2boot){background:radial-gradient(900px 600px at 15% 10%,rgba(255,214,10,.45),transparent 60%),radial-gradient(800px 600px at 90% 90%,rgba(255,159,10,.30),transparent 60%),#f2f2f7!important}
-.s2boot{min-height:100vh;display:grid;place-items:center}
+.s2boot{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:radial-gradient(900px 600px at 15% 10%,rgba(255,214,10,.45),transparent 60%),radial-gradient(800px 600px at 90% 90%,rgba(255,159,10,.30),transparent 60%),#f2f2f7}
 .s2boot .card{width:260px;padding:34px 30px;border-radius:32px;display:flex;flex-direction:column;align-items:center;gap:22px;background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.6);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 40px 80px -30px rgba(0,0,0,.35)}
 .s2boot svg{height:46px;width:auto;fill:#0a0a0a}
 .s2boot .ld{width:140px;height:6px;border-radius:3px;background:rgba(10,10,10,.08);overflow:hidden;position:relative}
 .s2boot .ld::after{content:"";position:absolute;inset:0;width:40%;border-radius:3px;background:#ffd60a;animation:s2load 1.2s ease-in-out infinite}
 @keyframes s2load{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
-@media (prefers-color-scheme:dark){body:has(.s2boot){background:radial-gradient(900px 600px at 15% 10%,rgba(255,214,10,.22),transparent 60%),#000!important}.s2boot .card{background:rgba(30,30,32,.6);border-color:rgba(255,255,255,.1)}.s2boot svg{fill:#ffd60a}.s2boot .ld{background:rgba(255,255,255,.12)}}
+@media (prefers-color-scheme:dark){.s2boot{background:radial-gradient(900px 600px at 15% 10%,rgba(255,214,10,.22),transparent 60%),#000}.s2boot .card{background:rgba(30,30,32,.6);border-color:rgba(255,255,255,.1)}.s2boot svg{fill:#ffd60a}.s2boot .ld{background:rgba(255,255,255,.12)}}
 
 /* Home: do this next + suggestions on event cards */
 .s2next{display:flex;flex-direction:column;gap:12px;margin:8px 0 28px}
 .s2next h2{margin:0;font-size:19px}
 .s2nextg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .s2card{background:#fff;border-radius:24px;box-shadow:var(--s2-e1);padding:20px;display:flex;flex-direction:column;gap:10px;min-height:168px}
-.s2enter .s2card{animation:s2rise .6s cubic-bezier(.2,.8,.2,1) both}.s2enter .s2card:nth-child(2){animation-delay:.06s}.s2enter .s2card:nth-child(3){animation-delay:.12s}
+.s2enter .s2card{animation:s2rise .32s cubic-bezier(.2,.8,.2,1) both}.s2enter .s2card:nth-child(2){animation-delay:.06s}.s2enter .s2card:nth-child(3){animation-delay:.12s}
 .s2card b{font-size:17px;line-height:1.25;font-weight:700}
 .s2card small{font-size:13px;color:#636366}
 .s2act{margin-top:auto}
@@ -264,7 +262,8 @@ html body .crank{display:inline-flex!important;align-items:baseline;gap:1px}
 .s2add{display:inline-block;margin-top:4px;font-size:12px;font-weight:600;color:#8a6100;background:#fff4cc;border-radius:999px;padding:2px 9px;cursor:pointer}
 @media (prefers-color-scheme:dark){.s2add{background:#332a00;color:#ffd60a}}
 /* regular text, no shouting labels (page titles keep the bold caps) */
-html body #root *:not(h1):not(h1 *){text-transform:none!important}
+html body #root *{text-transform:none!important}
+html body #root h1{text-transform:uppercase!important}html body #root h1 *{text-transform:inherit!important}
 html body #root .eyebrow,html body #root .tghead,html body #root .cl,html body #root th{letter-spacing:0!important}
 /* roadmap: every label is a pill */
 html body .rc2{border-radius:999px!important}
@@ -362,7 +361,7 @@ html body .rctable tr.rcsec td.hl{background:#fff8d6!important}
 
 /* fewer subpages: sidebar shows sections only, pages inside a section are tabs at the top */
 @media (min-width:901px){
- html body #root>.top .nav .ngmenu,html body #root>.top .nav .ng:has(>button.on) .ngmenu{display:none!important}
+ html body #root>.top .nav .ngmenu{display:none!important}
  html body #root>.top .nav .ng>button svg{display:none!important}
  html body #root>.subnav{display:flex!important;align-items:center;gap:2px;margin:24px 0 0 288px!important;padding:4px!important;width:max-content;max-width:calc(100% - 320px);overflow-x:auto;border-radius:999px;border:1px solid rgba(10,10,10,.06)!important;background:rgba(255,255,255,.8)!important;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 8px 24px -14px rgba(0,0,0,.25)!important;position:relative;z-index:2}
  html body #root>.subnav .sublabel{display:none!important}
@@ -380,5 +379,8 @@ html body .wrap>.row:first-child{margin-bottom:16px}
  html body .cav{background-color:#2c2c2e!important}
 }
 /* sign-in card: dead center */
-html body:has(.panel.login) #root>main.wrap,html body:has(.panel.login) #root>.wrap,html body:has(.panel.login) #root .wrap{margin:0!important;max-width:none!important;width:100%!important;box-sizing:border-box!important;min-height:100vh;display:grid!important;place-items:center!important;padding:24px!important}
-html body:has(.panel.login) .panel.login{margin:0 auto!important}
+html body.s2login #root>main.wrap,html body.s2login #root>.wrap,html body.s2login #root .wrap{margin:0!important;max-width:none!important;width:100%!important;box-sizing:border-box!important;min-height:100vh;display:grid!important;place-items:center!important;padding:24px!important}
+html body.s2login .panel.login{margin:0 auto!important}
+html body .cmdk *{text-transform:none!important;letter-spacing:0!important}
+html body .cmdk .gskind{font-size:12px;font-weight:600;color:#8e8e93}
+html body .cmdbox{border-radius:28px!important;border:0!important;box-shadow:0 40px 90px -30px rgba(0,0,0,.45)!important}
