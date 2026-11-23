@@ -264,3 +264,22 @@ html body .rosbtn{border:0!important;background:#e5e5ea!important;color:#0a0a0a!
 html body .crank{display:inline-flex!important;align-items:baseline;gap:1px}
 .s2add{display:inline-block;margin-top:4px;font-size:12px;font-weight:600;color:#8a6100;background:#fff4cc;border-radius:999px;padding:2px 9px;cursor:pointer}
 @media (prefers-color-scheme:dark){.s2add{background:#332a00;color:#ffd60a}}
+/* regular text, no shouting labels (page titles keep the bold caps) */
+html body #root *:not(h1):not(h1 *){text-transform:none!important}
+html body #root .eyebrow,html body #root .tghead,html body #root .cl,html body #root th{letter-spacing:0!important}
+/* roadmap: every label is a pill */
+html body .rc2{border-radius:999px!important}
+html body .lk{border-radius:999px!important;padding-left:10px!important;padding-right:10px!important}
+html body .lk.ready{font-weight:700}
+/* equal-height cards in a row */
+html body .cbgrid,html body .tevgrid,html body .h2evs,html body .cards{align-items:stretch!important}
+html body .cbcard,html body .tevcard,html body .h2evs>*{height:100%}
+html body .cbcard{display:flex!important;flex-direction:column}
+html body .cbcard>*:last-child{flex:1;display:flex;flex-direction:column}
+html body .cbcard>*:last-child>*:last-child{margin-top:auto}
+/* Marketing Today: top row lines up */
+html body .tdev{align-items:stretch}
+html body .tdev>*{display:flex!important;flex-direction:column;height:100%}
+html body .tdev>*>*:last-child{margin-top:auto}
+html body .tdev .tdevt{min-height:2.7em;align-items:flex-start}
+html body .tdev .tdevt>*:first-child{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
