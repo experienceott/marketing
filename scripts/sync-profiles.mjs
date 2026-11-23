@@ -48,11 +48,11 @@ const summarize = (posts, followers, byViews = false) => {
     engagement_rate: byViews ? (views.length ? +(views.reduce((s, p) => s + inter(p), 0) / Math.max(1, views.reduce((s, p) => s + p.views, 0)) * 100).toFixed(2) : null) : (followers ? +(avg / followers * 100).toFixed(2) : null),
     engagement_basis: byViews ? 'views' : 'followers',
     formats: posts.reduce((m, p) => (m[p.type] = (m[p.type] || 0) + 1, m), {}),
-    best: { url: best.url, type: best.type, at: best.at, interactions: inter(best), views: best.views ?? null, caption: (best.caption || '').slice(0, 160), sound: best.sound || null },
+    best: { thumb_src: best.thumb || null, url: best.url, type: best.type, at: best.at, interactions: inter(best), views: best.views ?? null, caption: (best.caption || '').slice(0, 160), sound: best.sound || null },
     recent: posts.slice(0, 6).map(p => ({ url: p.url, type: p.type, at: p.at, likes: p.likes, comments: p.comments, shares: p.shares ?? null, views: p.views ?? null, caption: (p.caption || '').slice(0, 120), sound: p.sound || null }))
   };
 };
-await fs.mkdir('media/profiles', { recursive: true });
+await fs.mkdir('media/profiles', { recursive: true }); await fs.mkdir('media/posts', { recursive: true });
 const ig = only.filter(h => h.startsWith('instagram:')).map(h => h.split(':')[1]);
 const tt = only.filter(h => h.startsWith('tiktok:')).map(h => h.split(':')[1]);
 const failures = [];
@@ -63,8 +63,9 @@ if (ig.length) {
     for (const it of items) {
       const u = String(it.username || '').toLowerCase(); if (!u) continue; seen.add(u);
       const photo = await savePhoto(it.profilePicUrlHD || it.profilePicUrl, `media/profiles/instagram-${u}.jpg`);
-      const posts = (it.latestPosts || []).filter(p => !p.isPinned).map(p => ({ url: p.url || (p.shortCode ? `https://www.instagram.com/p/${p.shortCode}/` : ''), type: p.type === 'Sidecar' ? 'Carousel' : p.type === 'Video' ? 'Reel' : (p.type || 'Photo'), at: p.timestamp, likes: p.likesCount > 0 ? p.likesCount : 0, comments: p.commentsCount || 0, views: p.videoViewCount ?? p.videoPlayCount ?? null, caption: p.caption }));
-      upsert(`instagram:${u}`, { platform: 'instagram', handle: u, name: it.fullName || '', bio: it.biography || '', followers: it.followersCount ?? null, following: it.followsCount ?? null, posts: it.postsCount ?? null, verified: !!it.verified, private: !!it.private, link: it.externalUrl || '', url: `https://www.instagram.com/${u}/`, photo: photo || db.profiles[`instagram:${u}`]?.photo || null, stats: summarize(posts, it.followersCount) });
+      const posts = (it.latestPosts || []).filter(p => !p.isPinned).map(p => ({ url: p.url || (p.shortCode ? `https://www.instagram.com/p/${p.shortCode}/` : ''), type: p.type === 'Sidecar' ? 'Carousel' : p.type === 'Video' ? 'Reel' : (p.type || 'Photo'), at: p.timestamp, likes: p.likesCount > 0 ? p.likesCount : 0, comments: p.commentsCount || 0, views: p.videoViewCount ?? p.videoPlayCount ?? null, caption: p.caption, thumb: p.displayUrl || null }));
+      const st = summarize(posts, it.followersCount); if (st?.best) { st.best.thumb = await savePhoto(st.best.thumb_src, `media/posts/best-instagram-${u}.jpg`) || db.profiles[`instagram:${u}`]?.stats?.best?.thumb || null; delete st.best.thumb_src; }
+      upsert(`instagram:${u}`, { platform: 'instagram', handle: u, name: it.fullName || '', bio: it.biography || '', followers: it.followersCount ?? null, following: it.followsCount ?? null, posts: it.postsCount ?? null, verified: !!it.verified, private: !!it.private, link: it.externalUrl || '', url: `https://www.instagram.com/${u}/`, photo: photo || db.profiles[`instagram:${u}`]?.photo || null, stats: st });
     }
     for (const u of ig) if (!seen.has(u)) db.profiles[`instagram:${u}`] = { ...(db.profiles[`instagram:${u}`] || {}), platform: 'instagram', handle: u, error: 'Not found or private', fetched_at: now };
   } catch (e) { failures.push(String(e.message || e)); }
@@ -76,8 +77,9 @@ if (tt.length) {
     for (const it of items) { const a = it.authorMeta || {}; const u = String(a.name || '').toLowerCase(); if (!u) continue; (byUser[u] ||= { a, vids: [] }).vids.push(it); }
     for (const [u, { a, vids }] of Object.entries(byUser)) {
       const photo = await savePhoto(a.avatar || a.originalAvatarUrl, `media/profiles/tiktok-${u}.jpg`);
-      const posts = vids.filter(v => v.id).map(v => ({ url: v.webVideoUrl || `https://www.tiktok.com/@${u}/video/${v.id}`, type: v.isSlideshow ? 'Slideshow' : 'Video', at: v.createTimeISO || (v.createTime ? new Date(v.createTime * 1000).toISOString() : null), likes: v.diggCount || 0, comments: v.commentCount || 0, shares: v.shareCount || 0, views: v.playCount ?? null, caption: v.text, sound: v.musicMeta ? { name: v.musicMeta.musicName || '', author: v.musicMeta.musicAuthor || '', original: !!v.musicMeta.musicOriginal } : null }));
-      upsert(`tiktok:${u}`, { platform: 'tiktok', handle: u, name: a.nickName || '', bio: a.signature || '', followers: a.fans ?? null, following: a.following ?? null, posts: a.video ?? null, likes: a.heart ?? null, verified: !!a.verified, private: !!a.privateAccount, url: `https://www.tiktok.com/@${u}`, photo: photo || db.profiles[`tiktok:${u}`]?.photo || null, stats: summarize(posts, a.fans, true) });
+      const posts = vids.filter(v => v.id).map(v => ({ url: v.webVideoUrl || `https://www.tiktok.com/@${u}/video/${v.id}`, type: v.isSlideshow ? 'Slideshow' : 'Video', at: v.createTimeISO || (v.createTime ? new Date(v.createTime * 1000).toISOString() : null), likes: v.diggCount || 0, comments: v.commentCount || 0, shares: v.shareCount || 0, views: v.playCount ?? null, caption: v.text, thumb: v.videoMeta?.coverUrl || v.videoMeta?.originalCoverUrl || null, sound: v.musicMeta ? { name: v.musicMeta.musicName || '', author: v.musicMeta.musicAuthor || '', original: !!v.musicMeta.musicOriginal } : null }));
+      const st = summarize(posts, a.fans, true); if (st?.best) { st.best.thumb = await savePhoto(st.best.thumb_src, `media/posts/best-tiktok-${u}.jpg`) || db.profiles[`tiktok:${u}`]?.stats?.best?.thumb || null; delete st.best.thumb_src; }
+      upsert(`tiktok:${u}`, { platform: 'tiktok', handle: u, name: a.nickName || '', bio: a.signature || '', followers: a.fans ?? null, following: a.following ?? null, posts: a.video ?? null, likes: a.heart ?? null, verified: !!a.verified, private: !!a.privateAccount, url: `https://www.tiktok.com/@${u}`, photo: photo || db.profiles[`tiktok:${u}`]?.photo || null, stats: st });
     }
     for (const u of tt) if (!byUser[u]) db.profiles[`tiktok:${u}`] = { ...(db.profiles[`tiktok:${u}`] || {}), platform: 'tiktok', handle: u, error: 'Not found or private', fetched_at: now };
   } catch (e) { failures.push(String(e.message || e)); }
