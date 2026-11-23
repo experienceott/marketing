@@ -22,6 +22,9 @@ const run = async (actor, input, name) => {
 };
 const pick = (o, ...ks) => { for (const k of ks) { const v = k.split('.').reduce((a, p) => a?.[p], o); if (v != null && v !== '') return v; } return null; };
 const num = v => v == null ? null : typeof v === 'number' ? v : (+String(v).replace(/[^\d.]/g, '') || null);
+const NICHE = /\b(r&b|rnb|r ?n ?b|day ?party|brunch|afro(beats?)?|amapiano|dancehall|hip ?hop|soul|neo ?soul|black ?(owned|excellence|joy|in)|melanin|culture|nightlife|night ?out|run ?club|social ?club|rooftop|day ?drink|bottomless|mimosa|dj|lineup|pull ?up|tickets?|link in bio|bay ?area|oakland|the town|sf\b|san francisco|san jose|east ?bay|la\b|los angeles|atl|houston|vegas|miami|wellness|fitness|yoga|sound ?bath|networking|members? only|supper club|pool ?party)\b/gi;
+const NOISE = /\b(christmas|xmas|holiday (lights|market|decor)|santa|jingle|thanksgiving recipe|prank|giveaway closed)\b/i;
+const relevant = (text, tags = []) => { const s = `${text || ''} ${(tags || []).join(' ')}`; const hits = (s.match(NICHE) || []).length; if (!/[a-z]{3,}/i.test(s)) return false; const nonAscii = (s.replace(/[\s\d\p{Emoji}\p{P}]/gu, '').match(/[^\x00-\x7F]/g) || []).length; if (nonAscii > 12) return false; if (/\b(der|die|und|para|avec|pour|mit|nicht|ist)\b/i.test(s)) return false; return hits >= 2 && !(NOISE.test(s) && hits < 3); };
 const errors = [];
 const safe = async (label, fn) => { try { await fn(); } catch (e) { errors.push(`${label}: ${e.message || e}`); console.error(label, e.message || e); } };
 
@@ -60,17 +63,17 @@ await safe('Scene + cities', async () => {
   if (!tags.length) return;
   const items = await run('clockworks~tiktok-scraper', { hashtags: tags, resultsPerPage: cfg.videos_per_hashtag || 15 }, 'videos');
   const cutoff = Date.now() - (cfg.window_days || 30) * 864e5;
-  const vids = items.filter(v => v.id).map(v => ({ id: v.id, at: v.createTimeISO || (v.createTime ? new Date(v.createTime * 1000).toISOString() : null), views: v.playCount || 0, eng: (v.diggCount || 0) + (v.commentCount || 0) + (v.shareCount || 0), tags: (v.hashtags || []).map(h => String(h.name || h).toLowerCase()).filter(Boolean), from: String(v.searchHashtag?.name || v.input || '').replace(/^#/, '').toLowerCase(), sound: v.musicMeta && !v.musicMeta.musicOriginal ? { name: v.musicMeta.musicName, author: v.musicMeta.musicAuthor, url: v.musicMeta.playUrl ? null : null } : null, url: v.webVideoUrl, author: v.authorMeta?.name, cover: v.videoMeta?.coverUrl || null, caption: (v.text || '').slice(0, 140), likes: v.diggCount || 0 }))
+  const vids = items.filter(v => v.id).map(v => ({ id: v.id, at: v.createTimeISO || (v.createTime ? new Date(v.createTime * 1000).toISOString() : null), views: v.playCount || 0, eng: (v.diggCount || 0) + (v.commentCount || 0) + (v.shareCount || 0), tags: (v.hashtags || []).map(h => String(h.name || h).toLowerCase()).filter(Boolean), from: String(v.searchHashtag?.name || v.input || '').replace(/^#/, '').toLowerCase(), sound: v.musicMeta && !v.musicMeta.musicOriginal ? { name: v.musicMeta.musicName, author: v.musicMeta.musicAuthor, url: v.musicMeta.playUrl ? null : null } : null, url: v.webVideoUrl, author: v.authorMeta?.name, cover: v.videoMeta?.coverUrl || null, caption: (v.text || '').slice(0, 300), lang: v.textLanguage && !/^(en|un)$/.test(v.textLanguage) ? 'other' : 'en', likes: v.diggCount || 0, fans: v.authorMeta?.fans || 0 }))
     .filter(v => v.at && Date.parse(v.at) >= cutoff);
   // Scene sounds + hashtags
-  const sv = vids.filter(v => scene.includes(v.from) || v.tags.some(t => scene.includes(t)));
+  const sv = vids.filter(v => (scene.includes(v.from) || v.tags.some(t => scene.includes(t))) && v.lang !== 'other' && relevant(v.caption, v.tags));
   const S = {}, H = {};
   for (const v of sv) {
     if (v.sound?.name) { const k = (v.sound.name + '|' + v.sound.author).toLowerCase(); (S[k] ||= { title: v.sound.name, artist: v.sound.author, uses: 0, views: 0, creators: new Set(), example: v.url }); S[k].uses++; S[k].views += v.views; S[k].creators.add(v.author); }
     for (const t of new Set(v.tags)) if (!scene.includes(t) && t.length > 2 && !/^(fyp|foryou|foryoupage|viral|trending|fy|parati)/.test(t)) { (H[t] ||= { tag: t, uses: 0, views: 0 }); H[t].uses++; H[t].views += v.views; }
   }
   const recent14 = sv.filter(v => Date.parse(v.at) >= Date.now() - 14 * 864e5);
-  const topTT = [...new Map(recent14.map(v => [v.id, v])).values()].sort((a, b) => b.views - a.views).slice(0, 12).map(v => ({ platform: 'tiktok', url: v.url, cover: v.cover, views: v.views, likes: v.likes, author: v.author, caption: v.caption, at: v.at, sound: v.sound }));
+  const topTT = [...new Map(recent14.filter(v => v.fans < 2e6).map(v => [v.id, v])).values()].sort((a, b) => b.views - a.views).slice(0, 12).map(v => ({ platform: 'tiktok', url: v.url, cover: v.cover, views: v.views, likes: v.likes, author: v.author, caption: (v.caption || '').slice(0, 140), at: v.at, sound: v.sound }));
   db.niche = { ...(db.niche || {}), at: now, tiktok: topTT };
   db.scene = {
     at: now, videos: sv.length,
@@ -110,7 +113,7 @@ await safe('Reels audio', async () => {
 await safe('Niche Reels', async () => {
   const tags = cfg.ig_hashtags || []; if (!tags.length) return;
   const items = await run('apify~instagram-scraper', { directUrls: tags.map(h => `https://www.instagram.com/explore/tags/${h}/`), resultsType: 'posts', resultsLimit: 20, onlyPostsNewerThan: '21 days' }, 'ig-hashtags');
-  const vids = items.filter(p => p.type === 'Video' || p.productType === 'clips' || p.videoUrl);
+  const vids = items.filter(p => (p.type === 'Video' || p.productType === 'clips' || p.videoUrl) && relevant(p.caption, p.hashtags));
   const reels = [...new Map(vids.map(p => [p.id || p.shortCode, p])).values()].map(p => { const m = p.musicInfo || {}; const title = m.song_name || ''; const orig = !!m.uses_original_audio || /original audio/i.test(title) || !title; return { platform: 'instagram', url: p.url, cover: p.displayUrl || null, views: p.videoPlayCount || p.videoViewCount || 0, likes: p.likesCount > 0 ? p.likesCount : 0, author: p.ownerUsername, caption: (p.caption || '').slice(0, 140), at: p.timestamp, sound: orig ? null : { name: title, author: m.artist_name || '' } }; }).sort((a, b) => (b.views || b.likes * 20) - (a.views || a.likes * 20));
   db.niche = { ...(db.niche || {}), reels: reels.slice(0, 12), reels_at: now };
   const A = {}; for (const r of reels) if (r.sound?.name) { const k = (r.sound.name + '|' + r.sound.author).toLowerCase(); (A[k] ||= { title: r.sound.name, artist: r.sound.author, uses: 0, views: 0, creators: new Set(), example: r.url }); A[k].uses++; A[k].views += r.views; A[k].creators.add(r.author); }
@@ -124,7 +127,7 @@ await safe('OTT comment cities', async () => {
   const texts = [];
   if (ig.length) { const cm = await run('apify~instagram-scraper', { directUrls: ig, resultsType: 'comments', resultsLimit: 60 }, 'ig-comments'); for (const x of cm) texts.push({ t: x.text || '', p: 'instagram', at: x.timestamp }); }
   if (tt.length) {
-    const vids = await run('clockworks~tiktok-scraper', { postURLs: tt, commentsPerPost: 60, resultsPerPage: 1 }, 'tt-comments');
+    const vids = await run('clockworks~tiktok-scraper', { postURLs: tt, commentsPerPost: 30, resultsPerPage: 1 }, 'tt-comments');
     for (const v of vids) { const u = v.commentsDatasetUrl; if (!u || FIX) continue; try { const r = await fetch(u + (u.includes('?') ? '&' : '?') + 'token=' + TOKEN + '&clean=1'); if (r.ok) for (const x of await r.json()) texts.push({ t: x.text || '', p: 'tiktok', at: x.createTimeISO }); } catch {} }
   }
   { const seen = new Set(); for (let i = texts.length - 1; i >= 0; i--) { const k = texts[i].t.trim().toLowerCase(); if (!k || seen.has(k)) texts.splice(i, 1); else seen.add(k); } }
