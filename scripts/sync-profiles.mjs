@@ -49,7 +49,7 @@ const summarize = (posts, followers, byViews = false) => {
     engagement_basis: byViews ? 'views' : 'followers',
     formats: posts.reduce((m, p) => (m[p.type] = (m[p.type] || 0) + 1, m), {}),
     best: { thumb_src: best.thumb || null, url: best.url, type: best.type, at: best.at, interactions: inter(best), views: best.views ?? null, caption: (best.caption || '').slice(0, 160), sound: best.sound || null },
-    recent: posts.slice(0, 6).map(p => ({ thumb_url: p.thumb || null, url: p.url, type: p.type, at: p.at, likes: p.likes, comments: p.comments, shares: p.shares ?? null, views: p.views ?? null, caption: (p.caption || '').slice(0, 120), sound: p.sound || null }))
+    recent: posts.slice(0, 12).map(p => ({ thumb_url: p.thumb || null, url: p.url, type: p.type, at: p.at, likes: p.likes, comments: p.comments, shares: p.shares ?? null, views: p.views ?? null, caption: (p.caption || '').slice(0, 120), sound: p.sound || null }))
   };
 };
 await fs.mkdir('media/profiles', { recursive: true }); await fs.mkdir('media/posts', { recursive: true });

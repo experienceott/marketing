@@ -78,9 +78,9 @@ await safe('Scene + cities', async () => {
   for (const c of cities) {
     const cv = vids.filter(v => c.hashtags.includes(v.from) || v.tags.some(t => c.hashtags.includes(t)));
     const uniq = [...new Map(cv.map(v => [v.id, v])).values()];
-    const views = uniq.reduce((s, v) => s + v.views, 0), eng = uniq.reduce((s, v) => s + v.eng, 0);
+    const med = a => { a = [...a].sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : 0; };
     const prev = db.cities[c.name] || { history: [] };
-    const point = { d: today, videos: uniq.length, avg_views: uniq.length ? Math.round(views / uniq.length) : 0, er: views ? +(eng / views * 100).toFixed(2) : null };
+    const point = { d: today, videos: uniq.length, avg_views: med(uniq.map(v => v.views)), er: uniq.length ? +med(uniq.map(v => v.views ? v.eng / v.views * 100 : 0)).toFixed(2) : null };
     const history = [...(prev.history || []).filter(h => h.d !== today), point].slice(-120);
     db.cities[c.name] = { ...prev, name: c.name, state: c.state || '', ott: !!c.ott, hashtags: c.hashtags, history, top: uniq.sort((a, b) => b.views - a.views).slice(0, 3).map(v => ({ url: v.url, views: v.views, author: v.author })) };
   }
@@ -102,6 +102,31 @@ await safe('Reels audio', async () => {
     (A[k] ||= { title, artist, uses: 0, plays: 0, accounts: new Set(), example: r.url }); A[k].uses++; A[k].plays += r.videoPlayCount || r.videoViewCount || 0; A[k].accounts.add(who);
   }
   db.reels = { at: now, sounds: Object.values(A).map(a => ({ ...a, accounts: [...a.accounts] })).sort((a, b) => b.accounts.length - a.accounts.length || b.plays - a.plays).slice(0, 20) };
+});
+// 3c) Where people are asking for OTT: city mentions in comments on OTT's own posts
+await safe('OTT comment cities', async () => {
+  const prof = await readJSON('data/profiles.json', { profiles: {} });
+  const ig = (prof.profiles['instagram:overthetopxp']?.stats?.recent || []).map(p => p.url).filter(Boolean);
+  const tt = (prof.profiles['tiktok:overthetopxp']?.stats?.recent || []).map(p => p.url).filter(Boolean);
+  const texts = [];
+  if (ig.length) { const cm = await run('apify~instagram-scraper', { directUrls: ig, resultsType: 'comments', resultsLimit: 60 }, 'ig-comments'); for (const x of cm) texts.push({ t: x.text || '', p: 'instagram', at: x.timestamp }); }
+  if (tt.length) {
+    const vids = await run('clockworks~tiktok-scraper', { postURLs: tt, commentsPerPost: 60, resultsPerPage: 1 }, 'tt-comments');
+    for (const v of vids) { const u = v.commentsDatasetUrl; if (!u || FIX) continue; try { const r = await fetch(u + (u.includes('?') ? '&' : '?') + 'token=' + TOKEN + '&clean=1'); if (r.ok) for (const x of await r.json()) texts.push({ t: x.text || '', p: 'tiktok', at: x.createTimeISO }); } catch {} }
+  }
+  const all = [...cities.map(c => [c.name, c.state, c.aliases || [c.name]]), ...(cfg.request_cities || [])];
+  const esc = w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const ask = /(come|bring|pull up|when.{0,20}(com|com?ing|be in|hit)|need (this|y'?all|you|one)|do (one|this) in|next.{0,12}(stop|city)|please.{0,15}(in|to))/i;
+  const M = {};
+  for (const x of texts) for (const [name, state, al] of all) {
+    const short = al.filter(w => w.length <= 3), long = al.filter(w => w.length > 3);
+    const hit = long.some(w => new RegExp(`\\b${esc(w)}\\b`, 'i').test(x.t)) || short.some(w => new RegExp(`(^|[^A-Za-z])${esc(w)}([^A-Za-z]|$)`).test(x.t));
+    if (!hit) continue;
+    const m = (M[name] ||= { name, state, mentions: 0, requests: 0, ig: 0, tiktok: 0, quotes: [] });
+    m.mentions++; m[x.p]++; if (ask.test(x.t)) m.requests++;
+    if (m.quotes.length < 3 && x.t.length < 160) m.quotes.push(x.t);
+  }
+  db.asks = { at: now, comments: texts.length, cities: Object.values(M).sort((a, b) => b.requests - a.requests || b.mentions - a.mentions) };
 });
 // 4) OTT engagement lift by city mentioned in its own posts (from profiles.json)
 await safe('OTT city lift', async () => {

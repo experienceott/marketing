@@ -1,6 +1,6 @@
 {
  "note": "What the trends sync watches. Scene hashtags feed 'sounds in your scene'. Cities feed 'where demand is heating up'.",
- "videos_per_hashtag": 15,
+ "videos_per_hashtag": 20,
  "window_days": 30,
  "scene_hashtags": [
   "rnbdayparty",
@@ -176,5 +176,177 @@
     "Chi"
    ]
   }
+ ],
+ "request_cities": [
+  [
+   "Denver",
+   "CO",
+   [
+    "Denver"
+   ]
+  ],
+  [
+   "Portland",
+   "OR",
+   [
+    "Portland",
+    "PDX"
+   ]
+  ],
+  [
+   "Austin",
+   "TX",
+   [
+    "Austin",
+    "ATX"
+   ]
+  ],
+  [
+   "New Orleans",
+   "LA",
+   [
+    "New Orleans",
+    "NOLA"
+   ]
+  ],
+  [
+   "Charlotte",
+   "NC",
+   [
+    "Charlotte",
+    "CLT"
+   ]
+  ],
+  [
+   "Nashville",
+   "TN",
+   [
+    "Nashville"
+   ]
+  ],
+  [
+   "Philadelphia",
+   "PA",
+   [
+    "Philly",
+    "Philadelphia"
+   ]
+  ],
+  [
+   "Boston",
+   "MA",
+   [
+    "Boston"
+   ]
+  ],
+  [
+   "Detroit",
+   "MI",
+   [
+    "Detroit"
+   ]
+  ],
+  [
+   "Baltimore",
+   "MD",
+   [
+    "Baltimore",
+    "Bmore"
+   ]
+  ],
+  [
+   "Fresno",
+   "CA",
+   [
+    "Fresno"
+   ]
+  ],
+  [
+   "Stockton",
+   "CA",
+   [
+    "Stockton"
+   ]
+  ],
+  [
+   "Modesto",
+   "CA",
+   [
+    "Modesto"
+   ]
+  ],
+  [
+   "Reno",
+   "NV",
+   [
+    "Reno"
+   ]
+  ],
+  [
+   "Tahoe",
+   "CA",
+   [
+    "Tahoe"
+   ]
+  ],
+  [
+   "Orlando",
+   "FL",
+   [
+    "Orlando"
+   ]
+  ],
+  [
+   "Tampa",
+   "FL",
+   [
+    "Tampa"
+   ]
+  ],
+  [
+   "Honolulu",
+   "HI",
+   [
+    "Hawaii",
+    "Honolulu"
+   ]
+  ],
+  [
+   "San Antonio",
+   "TX",
+   [
+    "San Antonio"
+   ]
+  ],
+  [
+   "Minneapolis",
+   "MN",
+   [
+    "Minneapolis"
+   ]
+  ],
+  [
+   "St. Louis",
+   "MO",
+   [
+    "St Louis",
+    "St. Louis",
+    "STL"
+   ]
+  ],
+  [
+   "Memphis",
+   "TN",
+   [
+    "Memphis"
+   ]
+  ],
+  [
+   "Toronto",
+   "ON",
+   [
+    "Toronto"
+   ]
+  ]
  ]
 }
