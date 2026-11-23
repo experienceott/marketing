@@ -1,0 +1,21 @@
+# OTT Studio · Dropbox photo sync (stored privately in Supabase; Studio adds new photos on load).
+name: Dropbox sync
+on:
+  schedule:
+    - cron: '27 13 * * *'   # about 5:27am Pacific
+  workflow_dispatch:
+jobs:
+  dropbox:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Walk Dropbox event folders
+        env:
+          APPS_SCRIPT_URL: https://script.google.com/macros/s/AKfycbw4jQuOGhP5kz2eDYBK0ld4ei33R1FPV-GnyDjblCKT_KyhI7VtMcqpbnNlX3Tio153/exec
+          SUPABASE_URL: https://mqybmdqcixfhtbddmaof.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/sync-dropbox.mjs
