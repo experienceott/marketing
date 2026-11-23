@@ -1,0 +1,21 @@
+# OTT Studio · daily Instagram insights + ad spend (stored privately in Supabase).
+name: Meta sync
+on:
+  schedule:
+    - cron: '9 14 * * *'   # about 6:09am Pacific
+  workflow_dispatch:
+jobs:
+  meta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Pull Instagram insights and ad spend
+        env:
+          META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
+          SUPABASE_URL: https://mqybmdqcixfhtbddmaof.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/sync-meta.mjs
