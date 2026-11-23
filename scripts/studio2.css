@@ -71,7 +71,6 @@ html body :focus-visible{outline:2px solid #0a0a0a;outline-offset:3px;box-shadow
  html body #root>.top .gsearch{order:-1;flex:1 1 100%}
  html body #root>.top .gsres{position:fixed!important;left:260px!important;top:20px!important;right:auto!important;width:520px!important;border-radius:24px!important;box-shadow:0 30px 70px -20px rgba(0,0,0,.35)!important;border:0!important}
  html body #root>.top .right .btn{min-height:36px;height:36px}
- html body #root>.subnav{display:none!important}
  html body #root>main,html body #root>.wrap,html body .wrap{margin-left:260px!important;max-width:1220px!important;padding:36px 40px 120px 28px!important}
  html body .offbar{left:272px!important}
 }
@@ -360,3 +359,16 @@ html body .rctable tr.rcsec td.hl{background:#fff8d6!important}
 @media (max-width:900px){.s2takeg{grid-template-columns:1fr}}
 @media (prefers-color-scheme:dark){.s2tk{background:#1c1c1e}.s2tk small{color:#a1a1a6}.qpideas .qpc button{background:#332a00!important;color:#f5f5f7!important}}
 .s2take{margin-top:28px!important}
+
+/* fewer subpages: sidebar shows sections only, pages inside a section are tabs at the top */
+@media (min-width:901px){
+ html body #root>.top .nav .ngmenu,html body #root>.top .nav .ng:has(>button.on) .ngmenu{display:none!important}
+ html body #root>.top .nav .ng>button svg{display:none!important}
+ html body #root>.subnav{display:flex!important;align-items:center;gap:2px;margin:24px 0 0 288px!important;padding:4px!important;width:max-content;max-width:calc(100% - 320px);overflow-x:auto;border-radius:999px;border:1px solid rgba(10,10,10,.06)!important;background:rgba(255,255,255,.8)!important;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 8px 24px -14px rgba(0,0,0,.25)!important;position:relative;z-index:2}
+ html body #root>.subnav .sublabel{display:none!important}
+ html body #root>.subnav button{height:36px;padding:0 16px!important;border-radius:999px!important;border:0!important;background:transparent!important;font-size:14px!important;font-weight:500!important;color:#636366!important;white-space:nowrap}
+ html body #root>.subnav button.on{background:#fff!important;color:#0a0a0a!important;font-weight:600!important;box-shadow:0 2px 8px rgba(0,0,0,.12)!important}
+ html body #root>.subnav+.wrap,html body #root>.subnav~main.wrap{padding-top:20px!important}
+}
+@media (prefers-color-scheme:dark){html body #root>.subnav{background:rgba(44,44,46,.8)!important;border-color:rgba(255,255,255,.08)!important}html body #root>.subnav button{color:#a1a1a6!important}html body #root>.subnav button.on{background:#48484a!important;color:#f5f5f7!important}}
+html body .wrap>.row:first-child{margin-bottom:16px}
