@@ -1,0 +1,22 @@
+{
+ "note": "What the trends sync watches. Scene hashtags feed 'sounds in your scene'. Cities feed 'where demand is heating up'.",
+ "videos_per_hashtag": 15,
+ "window_days": 30,
+ "scene_hashtags": ["bayareaevents", "sfevents", "oaklandevents", "dayparty", "rnbparty", "runclub"],
+ "cities": [
+  { "name": "Bay Area", "state": "CA", "ott": true, "hashtags": ["bayareaevents", "sfevents", "oaklandevents"], "aliases": ["Bay Area", "SF", "San Francisco", "Oakland", "San Jose"] },
+  { "name": "Los Angeles", "state": "CA", "ott": true, "hashtags": ["laevents", "losangelesevents"], "aliases": ["LA", "Los Angeles"] },
+  { "name": "Las Vegas", "state": "NV", "ott": true, "hashtags": ["vegasevents", "lasvegasevents"], "aliases": ["Vegas", "Las Vegas"] },
+  { "name": "Miami", "state": "FL", "ott": true, "hashtags": ["miamievents"], "aliases": ["Miami"] },
+  { "name": "Sacramento", "state": "CA", "ott": true, "hashtags": ["sacramentoevents"], "aliases": ["Sacramento", "Sac"] },
+  { "name": "San Diego", "state": "CA", "hashtags": ["sandiegoevents"], "aliases": ["San Diego", "SD"] },
+  { "name": "Atlanta", "state": "GA", "hashtags": ["atlantaevents", "atlevents"], "aliases": ["Atlanta", "ATL"] },
+  { "name": "Houston", "state": "TX", "hashtags": ["houstonevents"], "aliases": ["Houston", "HTX"] },
+  { "name": "Dallas", "state": "TX", "hashtags": ["dallasevents"], "aliases": ["Dallas"] },
+  { "name": "Seattle", "state": "WA", "hashtags": ["seattleevents"], "aliases": ["Seattle"] },
+  { "name": "Phoenix", "state": "AZ", "hashtags": ["phoenixevents"], "aliases": ["Phoenix"] },
+  { "name": "New York", "state": "NY", "hashtags": ["nycevents"], "aliases": ["NYC", "New York"] },
+  { "name": "Washington DC", "state": "DC", "hashtags": ["dcevents"], "aliases": ["DC", "DMV"] },
+  { "name": "Chicago", "state": "IL", "hashtags": ["chicagoevents"], "aliases": ["Chicago", "Chi"] }
+ ]
+}
