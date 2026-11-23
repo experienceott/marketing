@@ -73,7 +73,7 @@ if (ig.length) {
 }
 if (tt.length) {
   try {
-    const items = await run('clockworks~tiktok-scraper', { profiles: tt, resultsPerPage: 12, profileSorting: 'latest', excludePinnedPosts: true });
+    const items = await run('clockworks~tiktok-scraper', { profiles: tt, resultsPerPage: 8, profileSorting: 'latest', excludePinnedPosts: true });
     const byUser = {};
     for (const it of items) { const a = it.authorMeta || {}; const u = String(a.name || '').toLowerCase(); if (!u) continue; (byUser[u] ||= { a, vids: [] }).vids.push(it); }
     for (const [u, { a, vids }] of Object.entries(byUser)) {

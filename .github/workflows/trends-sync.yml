@@ -1,9 +1,9 @@
 # OTT Studio · trends sync (US TikTok charts, sounds in OTT's scene, city demand).
-# Runs Monday and Thursday mornings and on demand.
+# Runs Monday mornings and on demand.
 name: Trends sync
 on:
   schedule:
-    - cron: '41 13 * * 1,4'   # about 5:41am Pacific, Mon + Thu
+    - cron: '41 13 * * 1'   # about 5:41am Pacific, Mondays
   workflow_dispatch:
 permissions:
   contents: write

@@ -1,6 +1,6 @@
 {
  "note": "What the trends sync watches. Scene hashtags feed 'sounds in your scene'. Cities feed 'where demand is heating up'.",
- "videos_per_hashtag": 20,
+ "videos_per_hashtag": 12,
  "window_days": 30,
  "scene_hashtags": [
   "rnbdayparty",
@@ -360,5 +360,6 @@
   "oaklandevents",
   "brunchparty",
   "blackownedevents"
- ]
+ ],
+ "us_charts": false
 }

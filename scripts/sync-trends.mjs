@@ -40,7 +40,7 @@ const normSound = s => ({
   url: pick(s, 'link', 'url', 'music_url', 'tiktok_url', 'musicUrl') || '',
   trend: (pick(s, 'trend', 'trends') || []).map?.(t => num(t?.value ?? t)).filter(v => v != null).slice(-14) || []
 });
-await safe('US sounds', async () => {
+if (cfg.us_charts) await safe('US sounds', async () => {
   const pop = await run('burbn~tiktok-trending-sounds', { country_code: 'US', period: '7', rank_type: 'popular', maxResults: 20, limit: 20 }, 'sounds-popular');
   const sur = await run('burbn~tiktok-trending-sounds', { country_code: 'US', period: '7', rank_type: 'surging', maxResults: 20, limit: 20 }, 'sounds-surging');
   const p = pop.map(normSound).filter(s => s.title), q = sur.map(normSound).filter(s => s.title);
@@ -51,7 +51,7 @@ await safe('US sounds', async () => {
   if (e.length) db.us = { ...(db.us || {}), sounds: e, surging: [], sounds_at: now, sounds_src: 'explore' };
 });
 // 2) US trending hashtags
-await safe('US hashtags', async () => {
+if (cfg.us_charts) await safe('US hashtags', async () => {
   const items = await run('automation-lab~tiktok-trends-scraper', { trendType: 'hashtag', countryCode: 'US', period: 7, maxResults: 40 }, 'hashtags');
   const h = items.map(x => ({ tag: String(pick(x, 'hashtag', 'hashtagName', 'name', 'title') || '').replace(/^#/, ''), rank: num(pick(x, 'rank')), change: num(pick(x, 'rankDiff', 'rank_diff', 'rankChange')), momentum: num(pick(x, 'momentumPct')), stage: pick(x, 'trendStage') || '', posts: num(pick(x, 'publishedVideoCount', 'postCount', 'publishCount', 'posts', 'videoCount')), views: num(pick(x, 'videoViews', 'views', 'viewCount')), industry: pick(x, 'industry', 'industryName') || '', isNew: !!pick(x, 'isNew', 'is_new', 'newOnBoard') })).filter(x => x.tag);
   if (h.length) db.us = { ...(db.us || {}), hashtags: h, hashtags_at: now };
@@ -95,7 +95,7 @@ await safe('Scene + cities', async () => {
 await safe('Reels audio', async () => {
   const comp = await readJSON('data/competitors.json', { competitors: [] });
   const owners = {}; for (const c of [{ name: 'OTT', handles: comp.self?.handles || [] }, ...comp.competitors]) for (const h of c.handles || []) if (h.startsWith('instagram:')) owners[h.split(':')[1]] = c.name;
-  const items = await run('apify~instagram-scraper', { directUrls: Object.keys(owners).map(u => `https://www.instagram.com/${u}/`), resultsType: 'reels', resultsLimit: cfg.reels_per_account || 8 }, 'reels');
+  const items = await run('apify~instagram-scraper', { directUrls: Object.keys(owners).map(u => `https://www.instagram.com/${u}/`), resultsType: 'reels', resultsLimit: cfg.reels_per_account || 6 }, 'reels');
   const A = {};
   const fresh = Date.now() - 60 * 864e5;
   for (const r of items) {
@@ -112,7 +112,7 @@ await safe('Reels audio', async () => {
 // 3d) Trending Reels in OTT's niche (Instagram hashtags)
 await safe('Niche Reels', async () => {
   const tags = cfg.ig_hashtags || []; if (!tags.length) return;
-  const items = await run('apify~instagram-scraper', { directUrls: tags.map(h => `https://www.instagram.com/explore/tags/${h}/`), resultsType: 'posts', resultsLimit: 20, onlyPostsNewerThan: '21 days' }, 'ig-hashtags');
+  const items = await run('apify~instagram-scraper', { directUrls: tags.map(h => `https://www.instagram.com/explore/tags/${h}/`), resultsType: 'posts', resultsLimit: 15, onlyPostsNewerThan: '21 days' }, 'ig-hashtags');
   const vids = items.filter(p => (p.type === 'Video' || p.productType === 'clips' || p.videoUrl) && relevant(p.caption, p.hashtags));
   const reels = [...new Map(vids.map(p => [p.id || p.shortCode, p])).values()].map(p => { const m = p.musicInfo || {}; const title = m.song_name || ''; const orig = !!m.uses_original_audio || /original audio/i.test(title) || !title; return { platform: 'instagram', url: p.url, cover: p.displayUrl || null, views: p.videoPlayCount || p.videoViewCount || 0, likes: p.likesCount > 0 ? p.likesCount : 0, author: p.ownerUsername, caption: (p.caption || '').slice(0, 140), at: p.timestamp, sound: orig ? null : { name: title, author: m.artist_name || '' } }; }).sort((a, b) => (b.views || b.likes * 20) - (a.views || a.likes * 20));
   db.niche = { ...(db.niche || {}), reels: reels.slice(0, 12), reels_at: now };
