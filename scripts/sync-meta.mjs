@@ -11,10 +11,15 @@ const errors = [], safe = async (l, f) => { try { return await f(); } catch (e) 
 
 // 1) Find the Instagram account + a Page token (Page tokens from a long-lived user token don't expire; keep it privately)
 let cred = await load('meta_cred');
+if (cred && cred.username?.toLowerCase() !== IG_HANDLE) cred = null;
 if (UT) await safe('Find account', async () => {
   const pages = await gq('me/accounts', UT, { fields: 'name,access_token,instagram_business_account{id,username}', limit: 100 });
-  const pg = pages.data.find(p => p.instagram_business_account?.username?.toLowerCase() === IG_HANDLE) || pages.data.find(p => p.instagram_business_account);
-  if (!pg) throw new Error('No Page with a linked Instagram account was shared with the app');
+  const pg = pages.data.find(p => p.instagram_business_account?.username?.toLowerCase() === IG_HANDLE);
+  if (!pg) {
+    console.error(`@${IG_HANDLE} was not shared with the app. Pages it can see: ` + (pages.data.map(p => `${p.name} (IG: ${p.instagram_business_account?.username || 'none'})`).join(', ') || 'none'));
+    await sb('ott_private?key=in.(meta,meta_cred)', { method: 'DELETE' });
+    process.exit(1);
+  }
   cred = { ig_id: pg.instagram_business_account.id, username: pg.instagram_business_account.username, page: pg.name, page_token: pg.access_token, at: new Date().toISOString() };
   await save('meta_cred', cred);
 });
