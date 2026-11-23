@@ -525,7 +525,7 @@ Thanks for thinking of OTT. Here's what we'd put together for you. Accept below 
 })();
 
 ;
-// ---- Studio fix 2 (Nov 22): native Sheets. Event budgets and team spreadsheets built, edited, uploaded and downloaded inside the Studio ----
+// ---- Studio fix 2 (Nov 22, v2): native Sheets. Each event's Budget tab is its spreadsheet; Campaigns > Sheets lists every sheet. All inside the Studio ----
 (function(){
  const SHE={view:'list',open:'',dirty:false,timer:0,loading:false,libs:null,status:''};
  const esc2=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -560,7 +560,7 @@ Thanks for thinking of OTT. Here's what we'd put together for you. Accept below 
   let r=await fetch(U,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({sheet_full:{url},key:m.brief_key})}),j=await r.json();
   if(!j.ok)throw new Error(/handle are required/i.test(j.error||'')?'Deploy engine v100 first, then try again':(j.error||'Could not read the sheet'));
   await libs();let rec={id:q(),name:name||j.title||'Budget',campaign_id:cid||'',source:{type:'gsheet',id:j.id,title:j.title},data:fromGoogle(j),updated_at:new Date().toISOString(),by:me()};
-  sheets().push(rec);await k('Brought a sheet into the Studio',rec.name);return rec}
+  sheets().push(rec);await k('Pulled a budget into the Studio',rec.name);return rec}
  // --- xlsx out (values, formulas, number formats, widths, merges) ---
  function toXlsx(rec,data){let wb=XLSX.utils.book_new();
   for(const s of (data||rec.data||[])){let ws={},mr=0,mc=0,cells=s.celldata||(window.luckysheet&&s.data?luckysheet.transToCellData(s.data):[]);
@@ -573,70 +573,103 @@ Thanks for thinking of OTT. Here's what we'd put together for you. Accept below 
   XLSX.writeFile(wb,(rec.name||'sheet').replace(/[\\\/:*?"<>|]+/g,' ').trim()+'.xlsx')}
  async function download(id){let rec=sheets().find(x=>x.id===id);if(!rec)return;await libs();let live=SHE.open===id&&window.luckysheet?compact():null;toXlsx(rec,live)}
  // --- xlsx in ---
- function upload(cid){let i=document.createElement('input');i.type='file';i.accept='.xlsx';i.onchange=async()=>{let f=i.files[0];if(!f)return;try{j('Reading '+f.name+'…');await libs();await luckyExcel();
+ function upload(cid,replaceId){let i=document.createElement('input');i.type='file';i.accept='.xlsx';i.onchange=async()=>{let f=i.files[0];if(!f)return;try{j('Reading '+f.name+'…');await libs();await luckyExcel();
    LuckyExcel.transformExcelToLucky(f,async(ex)=>{if(!ex||!ex.sheets||!ex.sheets.length){j('Could not read that file. Only .xlsx works.');return}
-    let rec={id:q(),name:f.name.replace(/\.xlsx$/i,''),campaign_id:cid||'',source:{type:'xlsx',file:f.name},data:ex.sheets.map((s,ix)=>({name:s.name,index:'s'+ix,order:ix,status:ix===0?1:0,celldata:s.celldata||[],config:s.config||{},row:Math.max(60,(s.row||0)),column:Math.max(26,(s.column||0)),frozen:s.frozen})),updated_at:new Date().toISOString(),by:me()};
-    sheets().push(rec);await k('Uploaded a sheet',rec.name);openSheet(rec.id)})}catch(e){j(e.message||'Upload failed')}};i.click()}
- // --- editor ---
+    let data=ex.sheets.map((s,ix)=>{let cd=s.celldata||[];return {name:s.name,index:'s'+ix,order:ix,status:ix===0?1:0,celldata:cd,calcChain:cd.filter(e=>e.v&&e.v.f).map(e=>({r:e.r,c:e.c,index:'s'+ix})),config:s.config||{},row:Math.max(60,(s.row||0)),column:Math.max(26,(s.column||0)),frozen:s.frozen}});
+    let old=sheets().find(x=>x.id===replaceId),rec;
+    if(old){if(SHE.open===old.id)unmount(true);old.data=data;old.source={type:'xlsx',file:f.name};old.updated_at=new Date().toISOString();old.by=me();rec=old;await k('Replaced sheet with an upload',rec.name)}
+    else{rec={id:q(),name:f.name.replace(/\.xlsx$/i,''),campaign_id:cid||'',source:{type:'xlsx',file:f.name},data,updated_at:new Date().toISOString(),by:me()};sheets().push(rec);if(V==='Sheets'&&!se)SHE.page=rec.id;await k('Uploaded a sheet',rec.name)}
+   })}catch(e){j(e.message||'Upload failed')}};i.click()}
+ // --- one editor, kept alive and moved into whichever slot is on screen (event Budget tab or the Sheets page) ---
+ const HOST=document.createElement('div');HOST.id='shhost';HOST.innerHTML='<div id="luckysheet"></div>';
+ const blank=()=>[{name:'Budget',index:'s0',order:0,status:1,celldata:[],config:{},row:60,column:26}];
  function compact(){return luckysheet.getAllSheets().map((s,ix)=>{let o={name:s.name,index:s.index,order:s.order??ix,status:s.status,color:s.color,config:s.config||{},celldata:luckysheet.transToCellData(s.data||[]),row:s.row,column:s.column};if(s.calcChain&&s.calcChain.length)o.calcChain=s.calcChain;if(s.frozen)o.frozen=s.frozen;if(s.hide)o.hide=1;return o})}
- async function saveOpen(){let rec=sheets().find(x=>x.id===SHE.open);if(!rec||!window.luckysheet)return;clearTimeout(SHE.timer);SHE.dirty=false;setSt('Saving…');
-  try{rec.data=compact();rec.updated_at=new Date().toISOString();rec.by=me();await k('Edited sheet',rec.name);setSt('Saved')}catch(e){setSt('Not saved');SHE.dirty=true}}
- function setSt(t){SHE.status=t;let el=document.querySelector('#ottsh .shst');if(el)el.textContent=t}
- function dirty(){SHE.dirty=true;setSt('Unsaved changes');clearTimeout(SHE.timer);SHE.timer=setTimeout(saveOpen,2500)}
- async function openSheet(id){let rec=sheets().find(x=>x.id===id);if(!rec)return;SHE.view='edit';SHE.open=id;draw();setSt('Loading…');
-  try{await libs()}catch(e){setSt('Could not load the spreadsheet tools. Check the connection and try again.');return}
-  let data=JSON.parse(JSON.stringify(rec.data&&rec.data.length?rec.data:[{name:'Sheet1',index:'s0',order:0,status:1,celldata:[],config:{},row:60,column:26}]));
-  try{luckysheet.destroy()}catch(e){}
+ // save without redrawing the page, so typing in the sheet is never interrupted
+ async function quiet(text,rec){if(L&&!J&&(!F||G!=='cloud')){j('Team sign-in required before editing');return false}
+  if(text&&!SHE.logged){SHE.logged=true;m.activity.unshift({id:q(),text,record:rec.name,date:new Date().toISOString(),by:me()});m.activity=m.activity.slice(0,500)}
+  Sr(G==='cloud'?Wt+'_cloud':Wt,m);if(G==='cloud'&&F){Xd=Xd.then(bb).catch(a=>{j('Cloud sync failed. Refresh before editing further.');console.error(a);ut=!1;G='sync-error'});await Xd}return true}
+ function setSt(t){SHE.status=t;document.querySelectorAll('.shst').forEach(el=>el.textContent=t)}
+ async function saveOpen(){let rec=sheets().find(x=>x.id===SHE.open);if(!rec||!window.luckysheet||!SHE.ready)return;clearTimeout(SHE.timer);SHE.dirty=false;setSt('Saving…');
+  try{rec.data=compact();rec.updated_at=new Date().toISOString();rec.by=me();let c=camp(rec.campaign_id),t=totals(rec);if(c&&t.exp!=null)c.budget=t.exp;
+   if(await quiet('Edited sheet',rec)){setSt('Saved');paintTotals(rec)}else{SHE.dirty=true;setSt('Not saved')}}catch(e){setSt('Not saved');SHE.dirty=true}}
+ function dirty(){if(!SHE.ready)return;SHE.dirty=true;setSt('Unsaved changes');clearTimeout(SHE.timer);SHE.timer=setTimeout(saveOpen,2500)}
+ async function load(id){let rec=sheets().find(x=>x.id===id);if(!rec)return;SHE.open=id;SHE.ready=false;SHE.logged=false;setSt('Loading…');
+  try{await libs()}catch(e){setSt('Could not load the spreadsheet tools. Check the connection and refresh.');return}
+  if(SHE.open!==id)return;let data=JSON.parse(JSON.stringify(rec.data&&rec.data.length?rec.data:blank()));
+  HOST.innerHTML='<div id="luckysheet"></div>';
   luckysheet.create({container:'luckysheet',data,title:rec.name,lang:'en',showinfobar:false,showsheetbarConfig:{add:true,menu:true},forceCalculation:true,allowUpdate:false,
-   hook:{updated:()=>dirty(),sheetActivate:()=>{}}});setSt('Saved')}
- async function closeEditor(){if(SHE.dirty)await saveOpen();try{luckysheet.destroy()}catch(e){}SHE.view='list';SHE.open='';draw()}
- // --- list ---
+   hook:{updated:()=>dirty()}});setTimeout(()=>{SHE.ready=true;setSt('Saved')},400)}
+ function unmount(skipSave){if(SHE.dirty&&!skipSave)saveOpen();if(skipSave){SHE.open='';SHE.ready=false}HOST.remove()}
+ let mounting=false;
+ function mount(){if(mounting)return;let slot=document.querySelector('[data-shslot]');
+  if(!slot){if(HOST.isConnected)unmount();return}
+  mounting=true;try{let id=slot.dataset.shslot;if(HOST.parentNode!==slot)slot.appendChild(HOST);
+   if(SHE.open!==id){if(SHE.dirty)saveOpen();load(id)}else{try{luckysheet.resize()}catch(e){}}setSt(SHE.status||'Saved')}finally{mounting=false}}
+ let raf=0;new MutationObserver(()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;mount()})}).observe(document.body,{childList:true,subtree:true});
+ window.addEventListener('resize',()=>{try{if(HOST.isConnected)luckysheet.resize()}catch(e){}});
+ // --- headline numbers read from the sheet itself (rows labelled Total revenue / Total expenses / Net / Margin) ---
+ const LBL=[['rev',/^total (revenue|income|sales)\b/i],['exp',/^total (expenses|costs?|spend)\b/i],['net',/^net( profit| income)?\b/i],['mar',/^(net |profit )?margin\b/i]];
+ function totals(rec){let out={};for(const s of rec.data||[]){if(s.hide)continue;let rows={};for(const e of s.celldata||[])(rows[e.r]=rows[e.r]||[]).push(e);
+   for(const r in rows){let cs=rows[r].sort((a,b)=>a.c-b.c);for(let i=0;i<cs.length;i++){let v=cs[i].v&&cs[i].v.v;if(typeof v!=='string')continue;let lab=v.trim();
+     for(const [key,re] of LBL){if(out[key]!=null||!re.test(lab))continue;let n=cs.slice(i+1).find(x=>x.v&&typeof x.v.v==='number');if(n){out[key]=n.v.v;out[key+'_m']=n.v.m||String(n.v.v)}}}}}
+  return out}
+ function chips(rec){let t=totals(rec),f=n=>'$'+Math.round(n).toLocaleString('en-US');let a=[];
+  if(t.rev!=null)a.push(['Revenue',f(t.rev)]);if(t.exp!=null)a.push(['Expenses',f(t.exp)]);if(t.net!=null)a.push(['Net',f(t.net)]);if(t.mar!=null)a.push(['Margin',Math.abs(t.mar)<=1.5?(t.mar*100).toFixed(1)+'%':t.mar_m]);
+  return a.map(([k2,v])=>`<span class="shchip"><small>${k2}</small><b>${esc2(v)}</b></span>`).join('')}
+ function paintTotals(rec){document.querySelectorAll('[data-shtot="'+rec.id+'"]').forEach(el=>el.innerHTML=chips(rec))}
+ // --- the event's Budget tab: the sheet is the budget ---
+ const _or=or;
+ or=function(e){try{let rec=sheets().find(x=>x.campaign_id===e.id),old=bt(e).length;
+   if(rec)return `<div class="panel span2 bpanel shbud"><div class="shbudhead"><div><h3>Budget</h3><span class="sub tiny">${esc2(rec.name)} · <span class="shst">${esc2(SHE.status||'Saved')}</span></span></div><div class="shtot" data-shtot="${rec.id}">${chips(rec)}</div><span class="shacts"><button class="btn sm" data-shup="${e.id}|${rec.id}" title="Replace this budget with an .xlsx file">Upload .xlsx</button><button class="btn sm" data-shdl="${rec.id}">Download .xlsx</button></span></div>
+    <div class="shslot shslotev" data-shslot="${rec.id}"></div>${old?`<details class="shold"><summary>Earlier line items (${old})</summary>${_or(e)}</details>`:''}</div>`;
+   let g=e.sheet&&e.sheet.id;
+   return `<div class="panel span2 bpanel shbud"><div class="shbudhead"><div><h3>Budget</h3><span class="sub tiny">Build this event's budget as a spreadsheet, right here. Formulas, tabs and formatting all work.</span></div></div>
+    <div class="shstart">${g?`<button class="btn primary" data-shimport="${e.id}">Pull in ${esc2(e.sheet.title||'the linked Google Sheet')}</button>`:''}<button class="btn ${g?'':'primary'}" data-shnew="${e.id}">Start a blank budget</button><button class="btn" data-shup="${e.id}|">Upload .xlsx</button></div>
+    ${g?'<p class="shmuted">Pulling copies the Google Sheet into the Studio once. From then on the team edits it here.</p>':''}
+    ${old?`<details class="shold"><summary>Earlier line items (${old})</summary>${_or(e)}</details>`:''}</div>`}catch(er){console.warn(er);return _or(e)}};
+ // --- Campaigns > Sheets page ---
+ {let g=Ce.find(x=>x[0]==='Campaigns');if(g&&!g[1].includes('Sheets'))g[1].push('Sheets')}
  function eventRows(){let t=td(),cs=(m.campaigns||[]).filter(c=>c.date&&c.date>=new Date(Date.now()-120*864e5).toISOString().slice(0,10)).sort((a,b)=>(a.date<t)-(b.date<t)||(a.date<t?b.date.localeCompare(a.date):a.date.localeCompare(b.date)));
-  return cs.map(c=>{let nat=sheets().filter(x=>x.campaign_id===c.id),g=c.sheet&&c.sheet.id;
-   let act=nat.length?nat.map(x=>`<button class="btn sm primary" data-shopen="${x.id}">Open ${esc2(x.name)}</button>`).join(''):g?`<button class="btn sm primary" data-shimport="${c.id}">Bring in budget</button>`:`<button class="btn sm" data-shnew="${c.id}">+ Budget sheet</button>`;
-   return `<div class="shrow"><span class="shname"><b>${esc2(c.name)}</b><small>${esc2(fmtD(c.date+'T12:00:00'))}${c.date<t?' · past':''}${g&&!nat.length?' · linked: '+esc2(c.sheet.title||'Google Sheet'):''}</small></span><span class="shacts">${act}</span></div>`}).join('')}
- function allRows(){let L=sheets().slice().sort((a,b)=>String(b.updated_at).localeCompare(String(a.updated_at)));if(!L.length)return '<p class="shmuted">No sheets yet. Start one, upload an .xlsx, or bring in an event budget above.</p>';
-  return L.map(x=>{let c=camp(x.campaign_id);return `<div class="shrow"><span class="shname"><b>${esc2(x.name)}</b><small>${c?esc2(c.name)+' · ':''}${(x.data||[]).length} tab${(x.data||[]).length===1?'':'s'} · edited ${esc2(fmtD(x.updated_at))}${x.by?' by '+esc2(String(x.by).split('@')[0]):''}</small></span><span class="shacts"><button class="btn sm primary" data-shopen="${x.id}">Open</button><button class="btn sm" data-shdl="${x.id}">Download .xlsx</button><button class="linkbtn red" data-shdel="${x.id}">Delete</button></span></div>`}).join('')}
- function draw(){let el=document.getElementById('ottsh');if(!el){el=document.createElement('div');el.id='ottsh';document.body.appendChild(el)}document.body.classList.add('shopen');
-  if(SHE.view==='edit'){let rec=sheets().find(x=>x.id===SHE.open)||{};let opts=['<option value="">No event</option>',...(m.campaigns||[]).slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).map(c=>`<option value="${c.id}" ${c.id===rec.campaign_id?'selected':''}>${esc2(c.name)}</option>`)].join('');
-   el.innerHTML=`<div class="shbar"><button class="btn sm" data-shback>← Sheets</button><input class="field shtitle" value="${esc2(rec.name||'')}" data-shname aria-label="Sheet name"><select class="field shev" data-shev>${opts}</select><span class="shst">${esc2(SHE.status)}</span><span class="shsp"></span><button class="btn sm" data-shsave>Save</button><button class="btn sm primary" data-shdl="${rec.id}">Download .xlsx</button></div><div id="luckysheet"></div>`;return}
-  el.innerHTML=`<div class="shwrap"><div class="shhead"><div><h1>Sheets</h1><p class="shmuted">Event budgets and team spreadsheets, built and edited right here. Formulas, tabs, formatting, upload and download.</p></div><span class="shacts"><button class="btn" data-shup>Upload .xlsx</button><button class="btn primary" data-shnew="">+ New sheet</button><button class="close shx" data-shclose aria-label="Close">×</button></span></div>
-   <section class="panel"><div class="row"><h3>Event budgets</h3><button class="linkbtn" data-shimportall>Bring in every linked budget</button></div>${eventRows()||'<p class="shmuted">No events yet.</p>'}</section>
-   <section class="panel"><div class="row"><h3>All sheets</h3></div>${allRows()}</section></div>`}
- function openList(){SHE.view='list';draw()}
- function closeAll(){if(SHE.view==='edit'){closeEditor().then(()=>{document.getElementById('ottsh')?.remove();document.body.classList.remove('shopen')});return}document.getElementById('ottsh')?.remove();document.body.classList.remove('shopen')}
- async function bringIn(cid){let c=camp(cid);if(!c||!c.sheet||!c.sheet.id)return;try{j('Bringing in '+(c.sheet.title||'the budget')+'…');let rec=await importGoogle('https://docs.google.com/spreadsheets/d/'+c.sheet.id+'/edit',(c.sheet.title||c.name+' budget'),cid);j(rec.name+' is now a Studio sheet');openSheet(rec.id)}catch(e){j(e.message)}}
+  return cs.map(c=>{let nat=sheets().find(x=>x.campaign_id===c.id),g=c.sheet&&c.sheet.id;
+   let act=nat?`<button class="btn sm primary" data-shopen="${nat.id}">Open budget</button>`:g?`<button class="btn sm primary" data-shimport="${c.id}">Pull in budget</button>`:`<button class="btn sm" data-shnew="${c.id}">+ Budget</button>`;
+   return `<div class="shrow"><span class="shname"><b>${esc2(c.name)}</b><small>${esc2(fmtD(c.date+'T12:00:00'))}${c.date<t?' · past':''}${nat?' · '+esc2(nat.name):g?' · Google Sheet linked, not pulled in yet':' · no budget yet'}</small></span>${nat?`<span class="shtot sm">${chips(nat)}</span>`:''}<span class="shacts">${act}</span></div>`}).join('')}
+ function otherRows(){let L2=sheets().filter(x=>!camp(x.campaign_id)).sort((a,b)=>String(b.updated_at).localeCompare(String(a.updated_at)));if(!L2.length)return '<p class="shmuted">Sheets that are not an event budget show here.</p>';
+  return L2.map(x=>`<div class="shrow"><span class="shname"><b>${esc2(x.name)}</b><small>${(x.data||[]).length} tab${(x.data||[]).length===1?'':'s'} · edited ${esc2(fmtD(x.updated_at))}${x.by?' by '+esc2(String(x.by).split('@')[0]):''}</small></span><span class="shacts"><button class="btn sm primary" data-shopen="${x.id}">Open</button><button class="btn sm" data-shdl="${x.id}">Download</button><button class="linkbtn red" data-shdel="${x.id}">Delete</button></span></div>`).join('')}
+ function page(){let rec=SHE.page&&sheets().find(x=>x.id===SHE.page);
+  if(rec){let opts=['<option value="">Not an event budget</option>',...(m.campaigns||[]).slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).map(c=>`<option value="${c.id}" ${c.id===rec.campaign_id?'selected':''}>${esc2(c.name)}</option>`)].join('');
+   return `<div class="shedit"><div class="shbar"><button class="btn sm" data-shback>← Sheets</button><input class="field shtitle" value="${esc2(rec.name)}" data-shname="${rec.id}" aria-label="Sheet name"><select class="field shev" data-shev="${rec.id}" aria-label="Event">${opts}</select><span class="shst">${esc2(SHE.status||'')}</span><span class="shsp"></span><span class="shtot" data-shtot="${rec.id}">${chips(rec)}</span><button class="btn sm" data-shdl="${rec.id}">Download .xlsx</button>${camp(rec.campaign_id)?'':`<button class="linkbtn red" data-shdel="${rec.id}">Delete</button>`}</div><div class="shslot shslotpg" data-shslot="${rec.id}"></div></div>`}
+  return `<div class="row"><div><h1>Sheets</h1><p class="sub">Every event's budget, plus any other team spreadsheet. Open an event to edit its budget in the Budget tab, or open it here.</p></div><div class="titleacts"><button class="btn" data-shup="|">Upload .xlsx</button><button class="btn primary" data-shnew="">+ New sheet</button></div></div>
+   <section class="panel"><div class="row"><h3>Event budgets</h3>${(m.campaigns||[]).some(c=>c.sheet&&c.sheet.id&&!sheets().some(s=>s.campaign_id===c.id))?'<button class="linkbtn" data-shimportall>Pull in every linked Google Sheet</button>':''}</div>${eventRows()||'<p class="shmuted">No events yet.</p>'}</section>
+   <section class="panel"><div class="row"><h3>Other sheets</h3></div>${otherRows()}</section>`}
+ const _pb=pb;pb=function(){return V==='Sheets'?page():_pb()};
+ qe.Sheets='Sheets';
+ async function pull(cid){let c=camp(cid);if(!c||!c.sheet||!c.sheet.id)return;try{j('Pulling in '+(c.sheet.title||'the budget')+'…');let rec=await importGoogle('https://docs.google.com/spreadsheets/d/'+c.sheet.id+'/edit',(c.sheet.title||c.name+' budget'),cid);j(rec.name+' is now this event’s budget')}catch(e){j(e.message)}}
  document.addEventListener('click',async e=>{let t=e.target;if(!t.closest)return;
-  if(t.closest('[data-sheets]')){e.preventDefault();e.stopPropagation();openList();return}
-  let b=t.closest('[data-shevsheet]');if(b){e.preventDefault();e.stopPropagation();let cid=b.dataset.shevsheet,nat=sheets().find(x=>x.campaign_id===cid);if(nat)openSheet(nat.id);else if(camp(cid)?.sheet?.id)bringIn(cid);else{openList()}return}
-  if(!t.closest('#ottsh'))return;
-  if(t.closest('[data-shclose]')){closeAll();return}
-  if(t.closest('[data-shback]')){closeEditor();return}
-  if(t.closest('[data-shsave]')){saveOpen();return}
-  if(t.closest('[data-shup]')){upload('');return}
-  let o=t.closest('[data-shopen]');if(o){openSheet(o.dataset.shopen);return}
-  let d=t.closest('[data-shdl]');if(d){download(d.dataset.shdl);return}
-  let x=t.closest('[data-shdel]');if(x){let rec=sheets().find(s=>s.id===x.dataset.shdel);if(rec&&confirm('Delete "'+rec.name+'"? This cannot be undone.')){m.sheets=sheets().filter(s=>s.id!==rec.id);await k('Deleted sheet',rec.name);draw()}return}
-  let n=t.closest('[data-shnew]');if(n){let cid=n.dataset.shnew||'',c=camp(cid);let rec={id:q(),name:c?c.name+' budget':'Untitled sheet',campaign_id:cid,source:{type:'new'},data:[],updated_at:new Date().toISOString(),by:me()};sheets().push(rec);await k('New sheet',rec.name);openSheet(rec.id);return}
-  let im=t.closest('[data-shimport]');if(im){bringIn(im.dataset.shimport);return}
-  if(t.closest('[data-shimportall]')){let cs=(m.campaigns||[]).filter(c=>c.sheet&&c.sheet.id&&!sheets().some(s=>s.campaign_id===c.id));if(!cs.length){j('Every linked budget is already in Sheets');return}let n2=0;for(const c of cs){try{await importGoogle('https://docs.google.com/spreadsheets/d/'+c.sheet.id+'/edit',c.sheet.title||c.name+' budget',c.id);n2++}catch(er){j(c.name+': '+er.message)}}j(n2+' budget'+(n2===1?'':'s')+' brought in');draw();return}
+  if(t.closest('[data-nav]')&&SHE.page){SHE.page=''}
+  let b;
+  if(b=t.closest('[data-shback]')){if(SHE.dirty)await saveOpen();SHE.page='';y();return}
+  if(b=t.closest('[data-shopen]')){e.preventDefault();e.stopPropagation();let rec=sheets().find(x=>x.id===b.dataset.shopen);SHE.page=rec.id;V='Sheets';se=null;y();window.scrollTo(0,0);return}
+  if(b=t.closest('[data-shup]')){e.preventDefault();e.stopPropagation();let [cid,rid]=b.dataset.shup.split('|');if(rid&&!confirm('Replace this budget with the uploaded file? The current version will be overwritten.'))return;upload(cid,rid);return}
+  if(b=t.closest('[data-shdl]')){e.preventDefault();e.stopPropagation();download(b.dataset.shdl);return}
+  if(b=t.closest('[data-shdel]')){e.preventDefault();e.stopPropagation();let rec=sheets().find(s=>s.id===b.dataset.shdel);if(rec&&confirm('Delete "'+rec.name+'"? This cannot be undone.')){if(SHE.open===rec.id)unmount(true);m.sheets=sheets().filter(s=>s.id!==rec.id);SHE.page='';await k('Deleted sheet',rec.name)}return}
+  if(b=t.closest('[data-shnew]')){e.preventDefault();e.stopPropagation();let cid=b.dataset.shnew||'',c=camp(cid);let rec={id:q(),name:c?c.name+' budget':'Untitled sheet',campaign_id:cid,source:{type:'new'},data:[],updated_at:new Date().toISOString(),by:me()};sheets().push(rec);if(!c){SHE.page=rec.id}await k('New sheet',rec.name);return}
+  if(b=t.closest('[data-shimport]')){e.preventDefault();e.stopPropagation();pull(b.dataset.shimport);return}
+  if(t.closest('[data-shimportall]')){let cs=(m.campaigns||[]).filter(c=>c.sheet&&c.sheet.id&&!sheets().some(s=>s.campaign_id===c.id));let n2=0;j('Pulling in '+cs.length+' budget'+(cs.length===1?'':'s')+'…');for(const c of cs){try{await importGoogle('https://docs.google.com/spreadsheets/d/'+c.sheet.id+'/edit',c.sheet.title||c.name+' budget',c.id);n2++}catch(er){j(c.name+': '+er.message)}}j(n2+' budget'+(n2===1?'':'s')+' pulled in');return}
  },true);
- document.addEventListener('change',async e=>{let t=e.target;if(!t.closest||!t.closest('#ottsh'))return;let rec=sheets().find(x=>x.id===SHE.open);if(!rec)return;
-  if(t.matches('[data-shname]')){rec.name=t.value.trim()||rec.name;await k('Renamed sheet',rec.name)}
-  if(t.matches('[data-shev]')){rec.campaign_id=t.value;await k('Sheet moved',rec.name)}});
+ document.addEventListener('change',async e=>{let t=e.target;if(!t.matches)return;
+  if(t.matches('[data-shname]')){let rec=sheets().find(x=>x.id===t.dataset.shname);if(rec){rec.name=t.value.trim()||rec.name;await quiet('Renamed sheet',rec)}}
+  if(t.matches('[data-shev]')){let rec=sheets().find(x=>x.id===t.dataset.shev);if(!rec)return;let other=t.value&&sheets().find(x=>x.campaign_id===t.value&&x.id!==rec.id);if(other&&!confirm((camp(t.value)||{}).name+' already has a budget ('+other.name+'). Make this one its budget instead?')){t.value=rec.campaign_id||'';return}if(other)other.campaign_id='';rec.campaign_id=t.value;SHE.logged=false;await quiet('Sheet set as event budget',rec);j(t.value?'This is now '+camp(t.value).name+'’s budget':'No longer an event budget')}},true);
  window.addEventListener('beforeunload',e=>{if(SHE.dirty){saveOpen();e.preventDefault();e.returnValue=''}});
- // --- entry points: a Sheets button in the top bar, and a Budget sheet button inside each event ---
- function decorate(){try{let nav=document.querySelector('.top .nav');if(nav&&!nav.querySelector('[data-sheets]')){let b=document.createElement('button');b.type='button';b.dataset.sheets='1';b.textContent='Sheets';let cal=nav.querySelector(':scope > [data-nav="Calendar"]');cal?cal.after(b):nav.appendChild(b)}
-  let mo=document.querySelector('.campbg');if(mo&&!mo.querySelector('[data-shevsheet]')){let dup=[...mo.querySelectorAll('button')].find(x=>x.textContent.trim()==='Duplicate');let title=(mo.querySelector('h2')||{}).textContent||'';let c=(m.campaigns||[]).find(x=>String(x.name||'').trim().toLowerCase()===title.trim().toLowerCase());
-   if(dup&&c){let b=document.createElement('button');b.type='button';b.className=dup.className;b.dataset.shevsheet=c.id;b.textContent='Budget sheet';dup.after(b)}}}catch(e){}}
- new MutationObserver(()=>decorate()).observe(document.body,{childList:true,subtree:true});
- let st=document.createElement('style');st.textContent=`#ottsh{position:fixed;inset:0;z-index:9000;background:var(--bg,#f5f5f6);overflow:auto}body.shopen{overflow:hidden}
- #ottsh .shwrap{max-width:1100px;margin:0 auto;padding:32px 20px 60px}#ottsh .shhead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}#ottsh h1{margin:0}#ottsh .shmuted{color:#6b6b70;margin:6px 0 0;font-size:14px}
- #ottsh .shacts{display:flex;gap:8px;align-items:center;flex-wrap:wrap}#ottsh .panel{margin-bottom:14px}#ottsh .shrow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #f1f1f3}#ottsh .shrow:first-of-type{border-top:0}
- #ottsh .shname{display:flex;flex-direction:column;min-width:0}#ottsh .shname small{color:#6b6b70;font-size:12px}#ottsh .shx{font-size:26px;line-height:1;background:none;border:0;cursor:pointer;margin-left:6px}
- #ottsh .shbar{position:absolute;top:0;left:0;right:0;height:56px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#fff;border-bottom:1px solid #e6e6e9}#ottsh .shtitle{max-width:340px;font-weight:700}#ottsh .shev{max-width:260px}#ottsh .shst{font-size:12px;color:#6b6b70;white-space:nowrap}#ottsh .shsp{flex:1}
- #ottsh #luckysheet{position:absolute;top:56px;left:0;right:0;bottom:0}
- @media(max-width:700px){#ottsh .shhead{flex-direction:column}#ottsh .shrow{flex-direction:column;align-items:flex-start}#ottsh .shev{display:none}#ottsh .shtitle{max-width:150px}}`;document.head.appendChild(st);
+ let st=document.createElement('style');st.textContent=`#shhost{position:relative;width:100%;height:100%}#shhost #luckysheet{position:absolute;inset:0}
+ .shslot{position:relative;border:1px solid #e6e6e9;border-radius:12px;overflow:hidden;background:#fff}.shslotev{height:min(70vh,720px);min-height:460px;margin-top:12px}.shslotpg{height:calc(100vh - 190px);min-height:480px}
+ .shbudhead{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.shbudhead h3{margin:0}.shbudhead>div:first-child{flex:1;min-width:200px}
+ .shacts{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.shtot{display:flex;gap:8px;flex-wrap:wrap}.shchip{display:flex;flex-direction:column;padding:5px 11px;border-radius:10px;background:#f4f4f6;line-height:1.2}.shchip small{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#6b6b70}.shchip b{font-size:14px}
+ .shtot.sm .shchip{padding:3px 9px}.shtot.sm .shchip b{font-size:12px}
+ .shstart{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 4px}.shmuted{color:#6b6b70;font-size:13px;margin:8px 0 0}
+ .shold{margin-top:14px}.shold summary{cursor:pointer;font-size:13px;color:#55555c;font-weight:600}.shold .bpanel{margin-top:8px;box-shadow:none;border:0;padding:0}
+ .shrow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #f1f1f3}.shrow:first-of-type{border-top:0}.shname{display:flex;flex-direction:column;min-width:0;flex:1}.shname small{color:#6b6b70;font-size:12px}
+ .shbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}.shtitle{max-width:320px;font-weight:700}.shev{max-width:240px}.shst{font-size:12px;color:#6b6b70;white-space:nowrap}.shsp{flex:1}
+ @media(max-width:700px){.shrow{flex-direction:column;align-items:flex-start}.shtitle{max-width:none;flex:1}.shslotev{height:60vh}}`;document.head.appendChild(st);
 })();
 
 ;
