@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-10-20T20:17:46.000Z",
+ "updated_at": "2026-11-23T05:12:19.132Z",
  "profiles": {
   "instagram:overthetopxp": {
    "platform": "instagram",
    "handle": "overthetopxp",
    "name": "OTT Community • Elevated Socials & Experiences",
-   "bio": "🥂 Your social life, elevated.\n☕️ BlendFest & The Blend: Coffee + R&B Day Party\n👇🏽 Find your next OTT experience",
-   "followers": 17234,
-   "following": 742,
-   "posts": 1201,
+   "bio": "🥂 Your social life, elevated.\n☕️ BlendFest & The Blend: Coffee + R&B Day Party\n📍Miami — Dec 5\n📍Vegas — Jan\n📍Tahoe — Feb 18-21",
+   "followers": 19787,
+   "following": 764,
+   "posts": 1237,
    "verified": true,
    "private": false,
    "link": "https://linktr.ee/ott.xp",
@@ -18,20 +18,115 @@
     {
      "d": "2026-10-12",
      "f": 17234
+    },
+    {
+     "d": "2026-11-23",
+     "f": 19787
     }
    ],
-   "fetched_at": "2026-10-12T05:59:00.000Z",
-   "error": null
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-22T22:52:46.000Z",
+    "posts_per_week": 8.6,
+    "avg_interactions": 1300,
+    "avg_views": null,
+    "engagement_rate": 6.57,
+    "engagement_basis": "followers",
+    "formats": {
+     "Carousel": 6,
+     "Image": 1,
+     "Reel": 5
+    },
+    "best": {
+     "url": "https://www.instagram.com/p/Dfs75OiR_-5/",
+     "type": "Reel",
+     "at": "2026-11-14T00:39:06.000Z",
+     "interactions": 7508,
+     "views": null,
+     "caption": "Bring your crew. Come solo. In Tahoe, we’re all fam!\n\nOTT Tahoe Ski Wknd is back Feb 18-21, 2027\nTickets launch SOON\nComment ❄️ to get the link!",
+     "sound": null
+    },
+    "recent": [
+     {
+      "url": "https://www.instagram.com/p/DgD7Ba-lJGV/",
+      "type": "Carousel",
+      "at": "2026-11-22T22:52:46.000Z",
+      "likes": 105,
+      "comments": 5,
+      "shares": null,
+      "views": null,
+      "caption": "When @overthetopxp requests warm edits for their event photography 🤎☀️, we deliver 📸",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df--GHgo9Ax/",
+      "type": "Carousel",
+      "at": "2026-11-21T00:43:26.000Z",
+      "likes": 227,
+      "comments": 94,
+      "shares": null,
+      "views": null,
+      "caption": "A taste of the extraordinary. Reserved for a select few. \n\nOTT presents an immersive private dining experience, The Holi",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df-UjrTI0Ap/",
+      "type": "Carousel",
+      "at": "2026-11-20T18:40:28.000Z",
+      "likes": 122,
+      "comments": 7,
+      "shares": null,
+      "views": null,
+      "caption": "OAKLAND! Thank you, for another sold out event — we missed you too! If you missed it, we will have LIMITED same-day door",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df7rJXph9Ze/",
+      "type": "Image",
+      "at": "2026-11-19T18:00:11.000Z",
+      "likes": 115,
+      "comments": 4,
+      "shares": null,
+      "views": null,
+      "caption": "We’re proud to be a community partner for The Blend: Coffee & R&B Day Party, and we’re bringing the HerKind crew. ☕🎶\n\nY",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df5u8Lpo3oV/",
+      "type": "Carousel",
+      "at": "2026-11-18T23:54:48.000Z",
+      "likes": 180,
+      "comments": 20,
+      "shares": null,
+      "views": null,
+      "caption": "This Saturday, we're taking The Blend back to where it all began with THEE very first sing-along contest winner @nytesia",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df09zpsHKO9/",
+      "type": "Carousel",
+      "at": "2026-11-17T03:28:30.000Z",
+      "likes": 4455,
+      "comments": 282,
+      "shares": null,
+      "views": null,
+      "caption": "📆 SAVE THE DATE! \nYall have BEEN asking about Tahoe ‘27 — share this with your group chat. Tahoe is dropping sooner tha",
+      "sound": null
+     }
+    ]
+   }
   },
   "tiktok:overthetopxp": {
    "platform": "tiktok",
    "handle": "overthetopxp",
    "name": "OTT Experiences",
    "bio": "Events • Travel • Wellness • Real Community\nHome of The Blend: Coffee & R&B Day Party ☕️\nNext experience already loading ↓",
-   "followers": 2431,
-   "following": 172,
-   "posts": 88,
-   "likes": 2962,
+   "followers": 2467,
+   "following": 186,
+   "posts": 93,
+   "likes": 3142,
    "verified": false,
    "private": false,
    "url": "https://www.tiktok.com/@overthetopxp",
@@ -40,10 +135,131 @@
     {
      "d": "2026-10-12",
      "f": 2431
+    },
+    {
+     "d": "2026-11-23",
+     "f": 2467
     }
    ],
-   "fetched_at": "2026-10-12T05:59:00.000Z",
-   "error": null
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-19T01:27:37.000Z",
+    "posts_per_week": 0.8,
+    "avg_interactions": 38,
+    "avg_views": 687,
+    "engagement_rate": 5.56,
+    "engagement_basis": "views",
+    "formats": {
+     "Video": 12
+    },
+    "best": {
+     "url": "https://www.tiktok.com/@overthetopxp/video/7708109969165520141",
+     "type": "Video",
+     "at": "2026-11-14T19:23:55.000Z",
+     "interactions": 108,
+     "views": 770,
+     "caption": "OTT TAHOE SKI WKND IS LOADING - TICKETS LAUNCHING SOONER THAN YOU THINK\n\nComment ❄️ and we’ll send you the link!",
+     "sound": {
+      "name": "original sound",
+      "author": "OTT Experiences",
+      "original": true
+     }
+    },
+    "recent": [
+     {
+      "url": "https://www.tiktok.com/@overthetopxp/video/7709688096769559822",
+      "type": "Video",
+      "at": "2026-11-19T01:27:37.000Z",
+      "likes": 5,
+      "comments": 0,
+      "shares": 0,
+      "views": 79,
+      "caption": "For everyone asking! \nTahoe is loading. Comment ❄️ for the link to join the waitlist. ",
+      "sound": {
+       "name": "original sound",
+       "author": "OTT Experiences",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@overthetopxp/video/7708109969165520141",
+      "type": "Video",
+      "at": "2026-11-14T19:23:55.000Z",
+      "likes": 85,
+      "comments": 15,
+      "shares": 8,
+      "views": 770,
+      "caption": "OTT TAHOE SKI WKND IS LOADING - TICKETS LAUNCHING SOONER THAN YOU THINK\n\nComment ❄️ and we’ll send you the link!",
+      "sound": {
+       "name": "original sound",
+       "author": "OTT Experiences",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@overthetopxp/video/7706061172658703629",
+      "type": "Video",
+      "at": "2026-11-09T06:53:16.000Z",
+      "likes": 59,
+      "comments": 1,
+      "shares": 2,
+      "views": 1042,
+      "caption": "@Jaymee G reporting live from Union Square!",
+      "sound": {
+       "name": "original sound",
+       "author": "OTT Experiences",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@overthetopxp/video/7703714021630938381",
+      "type": "Video",
+      "at": "2026-11-02T23:05:26.000Z",
+      "likes": 11,
+      "comments": 0,
+      "shares": 1,
+      "views": 248,
+      "caption": "Miami! We’re coming for you. \n\n#Miami #florida ",
+      "sound": {
+       "name": "original sound",
+       "author": "OTT Experiences",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@overthetopxp/video/7697362675407326478",
+      "type": "Video",
+      "at": "2026-10-16T20:18:49.000Z",
+      "likes": 5,
+      "comments": 0,
+      "shares": 0,
+      "views": 264,
+      "caption": "The gala is roughly 24 hours away — head over to IG and vote for OTT SOUND OF THE YEAR. \n\n1 comment = 1 vote",
+      "sound": {
+       "name": "Black Violin Riot",
+       "author": "Tommy Albright",
+       "original": false
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@overthetopxp/video/7688889150065364238",
+      "type": "Video",
+      "at": "2026-09-24T00:17:05.000Z",
+      "likes": 22,
+      "comments": 0,
+      "shares": 4,
+      "views": 587,
+      "caption": "FULL DJ LINE-UP IS OUT!",
+      "sound": {
+       "name": "som original",
+       "author": "💥 Chhris Breezy 💥",
+       "original": true
+      }
+     }
+    ]
+   }
   },
   "instagram:dellthedirty": {
    "platform": "instagram",
@@ -303,6 +519,2364 @@
    "url": "https://www.instagram.com/reenatolentino/",
    "history": [],
    "fetched_at": "2026-10-20T20:17:46.000Z",
+   "error": null
+  },
+  "instagram:ap.group": {
+   "platform": "instagram",
+   "handle": "ap.group",
+   "name": "Bay Area’s Premier Event & Experience Agency",
+   "bio": "Bay Area event agency\nProduction • Talent buying • Brand activations\nFor venues, brands + city partners\nNow booking 2027",
+   "followers": 9459,
+   "following": 9,
+   "posts": 3083,
+   "verified": false,
+   "private": false,
+   "link": "http://anthonypresents.com",
+   "url": "https://www.instagram.com/ap.group/",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-23T02:00:01.000Z",
+    "posts_per_week": 27.6,
+    "avg_interactions": 48,
+    "avg_views": null,
+    "engagement_rate": 0.51,
+    "engagement_basis": "followers",
+    "formats": {
+     "Image": 6,
+     "Carousel": 4,
+     "Reel": 2
+    },
+    "best": {
+     "url": "https://www.instagram.com/p/DgEBt0oOqvl/",
+     "type": "Reel",
+     "at": "2026-11-22T23:53:11.000Z",
+     "interactions": 294,
+     "views": null,
+     "caption": "Why are millennials such homebodies? 🤣\n\nSundays at @beautybarsf_ \n\n#millennial #genz",
+     "sound": null
+    },
+    "recent": [
+     {
+      "url": "https://www.instagram.com/p/DgEQi9BG5U7/",
+      "type": "Image",
+      "at": "2026-11-23T02:00:01.000Z",
+      "likes": 4,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "Who’s your SantaCon plus-one? 🎅\n\nDecember 12 at Hawthorn. Noon–4 PM. 21+.\nGet tickets at anthonypresents.com.\n\nHawthorn",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DgELqUNCYFd/",
+      "type": "Carousel",
+      "at": "2026-11-23T01:18:13.000Z",
+      "likes": 6,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "After the Niners and Warriors games, come celebrate with us. HERMOSA tonight at Beauty Bar. J. Espinosa, Parrot + JR, 8 ",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DgEBt0oOqvl/",
+      "type": "Reel",
+      "at": "2026-11-22T23:53:11.000Z",
+      "likes": 275,
+      "comments": 19,
+      "shares": null,
+      "views": null,
+      "caption": "Why are millennials such homebodies? 🤣\n\nSundays at @beautybarsf_ \n\n#millennial #genz",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DgDnQ9UCWGQ/",
+      "type": "Image",
+      "at": "2026-11-22T20:00:02.000Z",
+      "likes": 4,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "TODAY: HERMOSA at Beauty Bar.\n\nNiners vs Vikings watch party with J Espinosa, Parrot + JR. Doors open at 4 PM. Kickoff a",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DgDmR9Mj_rf/",
+      "type": "Carousel",
+      "at": "2026-11-22T19:51:36.000Z",
+      "likes": 7,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "Whatever the night, your birthday is better with us. Day party, R&B night, rooftop session, we run the room and set the ",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DgBrwDMCaam/",
+      "type": "Image",
+      "at": "2026-11-22T02:00:02.000Z",
+      "likes": 1,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "TONIGHT: The Millennial Mixtape.\n\nRNB Social Club takes over Press Club with live band + DJ sets and R&B from the 2010s ",
+      "sound": null
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 9459
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "instagram:sundaze": {
+   "platform": "instagram",
+   "handle": "sundaze",
+   "name": "Sundaze Day Party",
+   "bio": "Daylife, Elevated.\nSF day party since 2014\n12/6 Après Ski @phoenixhotelsf, 2 to 6 PM\nComplimentary Ski Pass, entry before 3 PM",
+   "followers": 58253,
+   "following": 2695,
+   "posts": 5252,
+   "verified": false,
+   "private": false,
+   "link": "https://anthonypresents.com/sundaze",
+   "url": "https://www.instagram.com/sundaze/",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-23T00:00:02.000Z",
+    "posts_per_week": 6.3,
+    "avg_interactions": 223,
+    "avg_views": null,
+    "engagement_rate": 0.38,
+    "engagement_basis": "followers",
+    "formats": {
+     "Carousel": 7,
+     "Image": 3,
+     "Reel": 2
+    },
+    "best": {
+     "url": "https://www.instagram.com/p/Dfv_200Bkgf/",
+     "type": "Reel",
+     "at": "2026-11-15T05:12:23.000Z",
+     "interactions": 2137,
+     "views": null,
+     "caption": "Built different. \n\nSundays at @beautybarsf_ \n\n#genz #millennial",
+     "sound": null
+    },
+    "recent": [
+     {
+      "url": "https://www.instagram.com/p/DgECug_GsKR/",
+      "type": "Carousel",
+      "at": "2026-11-23T00:00:02.000Z",
+      "likes": 12,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "Two weeks to get the outfits together.\nSUNDAZE Apres Ski · Phoenix Hotel · December 6 · 2–6 PM · 21+\nTickets at anthonyp",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DgDnWsGGzZN/",
+      "type": "Image",
+      "at": "2026-11-22T20:00:01.000Z",
+      "likes": 2,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "Your Sunday crew. A little more lodge energy.\n\nAprès Ski on December 6: two indoor rooms at Phoenix Hotel, including Cha",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DgDmkeADzd6/",
+      "type": "Carousel",
+      "at": "2026-11-22T19:54:10.000Z",
+      "likes": 9,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "Whatever the night, your birthday is better with us. Day party, R&B night, rooftop session, we run the room and set the ",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DgBd_NzGvtj/",
+      "type": "Carousel",
+      "at": "2026-11-22T00:00:01.000Z",
+      "likes": 11,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "Your Sunday crew, with puffers this time.\nDecember 6. SUNDAZE Apres Ski at Phoenix Hotel, 2–6 PM. 21+.\nMake the plan: an",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DgBCjlmG_3-/",
+      "type": "Carousel",
+      "at": "2026-11-21T20:00:01.000Z",
+      "likes": 5,
+      "comments": 2,
+      "shares": null,
+      "views": null,
+      "caption": "We’re taking Après Ski inside. Two indoor rooms, including Chambers. Patio open too.\n\nDecember 6 · Phoenix Hotel · 2–6 P",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df-5LiCGrFh/",
+      "type": "Image",
+      "at": "2026-11-21T00:00:00.000Z",
+      "likes": 7,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "Bring the friend who always gets you out of the house.\nSUNDAZE Apres Ski, December 6 at Phoenix Hotel. 2–6 PM, 21+.\nTick",
+      "sound": null
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 58253
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "instagram:afrohaus.x": {
+   "platform": "instagram",
+   "handle": "afrohaus.x",
+   "name": "Winter Haus",
+   "bio": "Where the Haus is 🛖\nJanuary 28-31st, 2027\nSouth Lake Tahoe, CA\nPowered by @play2winsocial",
+   "followers": 1891,
+   "following": 0,
+   "posts": 60,
+   "verified": false,
+   "private": false,
+   "link": "https://www.theafrohaus.com/",
+   "url": "https://www.instagram.com/afrohaus.x/",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-21T23:45:00.000Z",
+    "posts_per_week": 2.8,
+    "avg_interactions": 185,
+    "avg_views": null,
+    "engagement_rate": 9.78,
+    "engagement_basis": "followers",
+    "formats": {
+     "Carousel": 4,
+     "Image": 2,
+     "Reel": 6
+    },
+    "best": {
+     "url": "https://www.instagram.com/p/DfNqMX7ytTh/",
+     "type": "Reel",
+     "at": "2026-11-01T21:11:16.000Z",
+     "interactions": 979,
+     "views": null,
+     "caption": "Yall come find your king or queen on the slopes! 🏂 can’t wait for @afrohaus.x black ski weekend 😆!! Hit that bio for a chance to hang out with me on the mount",
+     "sound": null
+    },
+    "recent": [
+     {
+      "url": "https://www.instagram.com/p/DgBcNE_jvBF/",
+      "type": "Carousel",
+      "at": "2026-11-21T23:45:00.000Z",
+      "likes": 143,
+      "comments": 54,
+      "shares": null,
+      "views": null,
+      "caption": "10 WEEKS AWAY!! DJing w/ @afrohaus.x BLACK SKI WEEKEND IN SOUTH LAKE TAHOE⛷️\n\nJANUARY 28-31st‼️\n\nTICKET LINK IN BIO‼️\n\nP",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df8VpCfpedV/",
+      "type": "Carousel",
+      "at": "2026-11-20T00:11:27.000Z",
+      "likes": 0,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "✈️ FLYING TO WINTER HAUS 2027?\n\nWe’re making it easier to get to the HAUS! 🏔️\n\nCheck out these round-trip flight prices",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df0jAjGP5Fw/",
+      "type": "Image",
+      "at": "2026-11-16T23:44:26.000Z",
+      "likes": 0,
+      "comments": 16,
+      "shares": null,
+      "views": null,
+      "caption": "THE OFFICIAL WINTER HAUS 2027 ITINERARY IS HERE!\n\n4 DAYS. 3 NIGHTS. ONE UNFORGETTABLE WEEKEND.\n\nWe’re taking over Lake T",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfxbsJISYa9/",
+      "type": "Reel",
+      "at": "2026-11-15T18:33:36.000Z",
+      "likes": 0,
+      "comments": 62,
+      "shares": null,
+      "views": null,
+      "caption": "Excited to announce that the I’ll be DJing Black ski weekend 2027 January 28th-31st @afrohaus.x in Lake Tahoe! Get the g",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfvKz6cSL7a/",
+      "type": "Reel",
+      "at": "2026-11-14T21:27:36.000Z",
+      "likes": 0,
+      "comments": 8,
+      "shares": null,
+      "views": null,
+      "caption": "Your Winter Haus stay starts here! ❄️🏔️\n\nWe’ve secured our host hotel accommodations to make your Winter Haus experienc",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Dfkr-n0OpTh/",
+      "type": "Image",
+      "at": "2026-11-10T19:45:56.000Z",
+      "likes": 0,
+      "comments": 49,
+      "shares": null,
+      "views": null,
+      "caption": "Is their such thing as too much enjoyment? We think not! AfroHaus would like to present the PHASE 2 DJ lineup for Winter",
+      "sound": null
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 1891
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "instagram:frndsonly": {
+   "platform": "instagram",
+   "handle": "frndsonly",
+   "name": "FRNDS Only",
+   "bio": "Fostering Reimagined Networks & Driving the Standard",
+   "followers": 42944,
+   "following": 0,
+   "posts": 414,
+   "verified": true,
+   "private": false,
+   "link": "https://linktr.ee/frndsonly",
+   "url": "https://www.instagram.com/frndsonly/",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-14T19:47:32.000Z",
+    "posts_per_week": 1,
+    "avg_interactions": 418,
+    "avg_views": null,
+    "engagement_rate": 0.97,
+    "engagement_basis": "followers",
+    "formats": {
+     "Reel": 4,
+     "Carousel": 8
+    },
+    "best": {
+     "url": "https://www.instagram.com/p/DdXjeximDuc/",
+     "type": "Carousel",
+     "at": "2026-09-17T00:17:42.000Z",
+     "interactions": 1329,
+     "views": null,
+     "caption": "BAY AREAAAAA \n\nWe couldn’t let day party szn end without giving you one last movie. Meet us in SF for the Bay Summer Finale 🕺💃\n\nFull venue takeover at the inf",
+     "sound": null
+    },
+    "recent": [
+     {
+      "url": "https://www.instagram.com/p/Dfu-6csPlWb/",
+      "type": "Reel",
+      "at": "2026-11-14T19:47:32.000Z",
+      "likes": 0,
+      "comments": 6,
+      "shares": null,
+      "views": null,
+      "caption": "Different cities, same FRNDS. 🌍❤️‍🔥\n\nThis time we touched down in Houston to kick off 10 years of AfroTech, and whewww",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Dfnj13hARqb/",
+      "type": "Carousel",
+      "at": "2026-11-11T22:31:29.000Z",
+      "likes": 0,
+      "comments": 4,
+      "shares": null,
+      "views": null,
+      "caption": "Afrotech ‘26 w/ FRNDS 🎞️❤️‍🔥\n\nHouston, we had a time! Thank you coming out to our Official Afrotech Kickoff, see you a",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfVqBAnRqrD/",
+      "type": "Reel",
+      "at": "2026-11-04T23:39:54.000Z",
+      "likes": 206,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "H-town just GETS it. Here’s how the city popped out at @frndsonly last night, featured on the BLK Events Tab 🤎",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfVd_WWGnus/",
+      "type": "Carousel",
+      "at": "2026-11-04T21:54:01.000Z",
+      "likes": 0,
+      "comments": 9,
+      "shares": null,
+      "views": null,
+      "caption": "Had a fun Halloweekend w/ our Bay frnds 👻\n\nStay tuned for what’s next ⏳👀\n\n📸: @callme.sh00ter",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DesTQ7uASLS/",
+      "type": "Carousel",
+      "at": "2026-10-19T22:11:26.000Z",
+      "likes": 1252,
+      "comments": 11,
+      "shares": null,
+      "views": null,
+      "caption": "FRNDS HALLOWEEN 🎃🤩\n\nBAY AREA GET READY FOR THE ULTIMATE NIGHT OF SPOOKY FUN! Our Super Bowl takeover of @1015sf was so",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DedTfBFjeLs/",
+      "type": "Carousel",
+      "at": "2026-10-14T02:24:45.000Z",
+      "likes": 1215,
+      "comments": 11,
+      "shares": null,
+      "views": null,
+      "caption": "HOUSTONNNN 🚀 we’re baaaack for Afrotech!\n\nIt’s been a year since we’ve seen y’all, & last time you showed OUT 🤩 So for",
+      "sound": null
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 42944
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "instagram:townstrides": {
+   "platform": "instagram",
+   "handle": "townstrides",
+   "name": "Town Strides",
+   "bio": "Oakland Wellness Collective reshaping how our community thinks about fitness\nJoin us for our weekly runs, group fitness classes, & wellness events ⬇️",
+   "followers": 28820,
+   "following": 105,
+   "posts": 298,
+   "verified": false,
+   "private": false,
+   "link": "http://www.townstrides.com",
+   "url": "https://www.instagram.com/townstrides/",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-20T03:27:16.000Z",
+    "posts_per_week": 1.6,
+    "avg_interactions": 468,
+    "avg_views": null,
+    "engagement_rate": 1.62,
+    "engagement_basis": "followers",
+    "formats": {
+     "Image": 4,
+     "Carousel": 5,
+     "Reel": 3
+    },
+    "best": {
+     "url": "https://www.instagram.com/p/DehczZBKrEa/",
+     "type": "Reel",
+     "at": "2026-10-15T17:08:11.000Z",
+     "interactions": 1900,
+     "views": null,
+     "caption": "Tag who you see! 👀🥂\n\n#townstrides #oakland #events #bayarea #runclub \n\nARE YOU COMING TO THE NEXT ONE?",
+     "sound": null
+    },
+    "recent": [
+     {
+      "url": "https://www.instagram.com/p/Df8rjzXq-SD/",
+      "type": "Image",
+      "at": "2026-11-20T03:27:16.000Z",
+      "likes": 323,
+      "comments": 12,
+      "shares": null,
+      "views": null,
+      "caption": "Run with us next Wednesday! We’re partnering with @mandelagrocery to bring you nutritious snacks to fuel you for the run",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df0443eqJL7/",
+      "type": "Image",
+      "at": "2026-11-17T02:52:37.000Z",
+      "likes": 155,
+      "comments": 1,
+      "shares": null,
+      "views": null,
+      "caption": "EVENT UPDATE: Please check your email for further communications. Unfortunately, due to rain in the forecast, we will be",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfVngzFjzZw/",
+      "type": "Carousel",
+      "at": "2026-11-04T23:17:14.000Z",
+      "likes": 808,
+      "comments": 33,
+      "shares": null,
+      "views": null,
+      "caption": "Join us! The @valkyries, in partnership with @ollywellness, will be hosting a special run and cool down for the communit",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfQsEgImgH3/",
+      "type": "Carousel",
+      "at": "2026-11-03T01:20:51.000Z",
+      "likes": 171,
+      "comments": 4,
+      "shares": null,
+      "views": null,
+      "caption": "The sun is setting earlier, but that doesn’t mean we have to stop showing up! \n\nAs we transition into darker evening run",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfOb6VXGw_4/",
+      "type": "Carousel",
+      "at": "2026-11-02T04:21:10.000Z",
+      "likes": 321,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "The goal is simple: NOBODY RUNS ALONE.\n\nCome find your people, find your pace, and let’s keep showing up for one another",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Dew8RxoKVN_/",
+      "type": "Reel",
+      "at": "2026-10-21T17:27:45.000Z",
+      "likes": 268,
+      "comments": 11,
+      "shares": null,
+      "views": null,
+      "caption": "Who’s coming to the next one? 👀\n\n#townstrides #BLK #runclub #oakland #event",
+      "sound": null
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 28820
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "instagram:toastedlife": {
+   "platform": "instagram",
+   "handle": "toastedlife",
+   "name": "Toasted Life",
+   "bio": "Empowering connections through bespoke events & experiences\nNext Stops:\n11.21 Oakland Tennis",
+   "followers": 34236,
+   "following": 7674,
+   "posts": 355,
+   "verified": true,
+   "private": false,
+   "link": "https://linktr.ee/toastedlife",
+   "url": "https://www.instagram.com/toastedlife/",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-20T20:42:16.000Z",
+    "posts_per_week": 0.4,
+    "avg_interactions": 528,
+    "avg_views": null,
+    "engagement_rate": 1.54,
+    "engagement_basis": "followers",
+    "formats": {
+     "Image": 4,
+     "Reel": 7,
+     "Carousel": 1
+    },
+    "best": {
+     "url": "https://www.instagram.com/p/Dd4txtyp-ev/",
+     "type": "Image",
+     "at": "2026-09-29T21:26:21.000Z",
+     "interactions": 3203,
+     "views": null,
+     "caption": "Oakland, we’re bringing the house party energy to you this Saturday!\n\nAfter his concert with Kehlani, come party with @durandbernarr + @toastedlife Life at Cryb",
+     "sound": null
+    },
+    "recent": [
+     {
+      "url": "https://www.instagram.com/p/Df-gyAVScD-/",
+      "type": "Image",
+      "at": "2026-11-20T20:42:16.000Z",
+      "likes": 0,
+      "comments": 14,
+      "shares": null,
+      "views": null,
+      "caption": "NEW DATE, SAME ENERGY, BUT BETTER! 🔥\n\nBayFit Collective X Toasted Life present SHAKE THE BAY at Bay Padel on Treasure I",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfFoo2bJTIo/",
+      "type": "Reel",
+      "at": "2026-10-29T18:23:27.000Z",
+      "likes": 317,
+      "comments": 89,
+      "shares": null,
+      "views": null,
+      "caption": "Bay Area, we’ve got a treat for you and your crew 👻\n\nWe’re giving away a table for 8 at the Toasted Life Halloween Day ",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Dehe9CgpGKn/",
+      "type": "Reel",
+      "at": "2026-10-15T17:32:02.000Z",
+      "likes": 0,
+      "comments": 21,
+      "shares": null,
+      "views": null,
+      "caption": "We’re hitting the tennis courts, working on technique, playing a few games, and making new tennis friends. You should to",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DefaeV0GrVt/",
+      "type": "Carousel",
+      "at": "2026-10-14T22:04:19.000Z",
+      "likes": 342,
+      "comments": 39,
+      "shares": null,
+      "views": null,
+      "caption": "Summer gave us a lot of good memories, but teaming up with the SF Giants was one of our favorites. ⚾️\n\nFor Black Heritag",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DeK6gh2jLJ7/",
+      "type": "Image",
+      "at": "2026-10-06T23:00:22.000Z",
+      "likes": 349,
+      "comments": 19,
+      "shares": null,
+      "views": null,
+      "caption": "Renegade is teaming up with Toasted Life on Saturday, October 17, from 11 AM–1 PM for tennis, connection, and friendly c",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Dd4txtyp-ev/",
+      "type": "Image",
+      "at": "2026-09-29T21:26:21.000Z",
+      "likes": 3104,
+      "comments": 99,
+      "shares": null,
+      "views": null,
+      "caption": "Oakland, we’re bringing the house party energy to you this Saturday!\n\nAfter his concert with Kehlani, come party with @d",
+      "sound": null
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 34236
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "instagram:familiarfacesparty": {
+   "platform": "instagram",
+   "handle": "familiarfacesparty",
+   "name": "Familiar Faces",
+   "bio": "familiar faces, new memories ✨\ntickets, photos, & youtube linked below  ⬇️",
+   "followers": 83430,
+   "following": 9,
+   "posts": 711,
+   "verified": true,
+   "private": false,
+   "link": "https://easol.link/6h2f",
+   "url": "https://www.instagram.com/familiarfacesparty/",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-21T01:58:16.000Z",
+    "posts_per_week": 4.8,
+    "avg_interactions": 30,
+    "avg_views": null,
+    "engagement_rate": 0.04,
+    "engagement_basis": "followers",
+    "formats": {
+     "Carousel": 3,
+     "Reel": 8,
+     "Image": 1
+    },
+    "best": {
+     "url": "https://www.instagram.com/p/DfWFv2nzc3x/",
+     "type": "Reel",
+     "at": "2026-11-05T03:41:51.000Z",
+     "interactions": 245,
+     "views": null,
+     "caption": "always love to see so many familiar faces 😝\n\nthinking about how i’ve met some of my fave people in LA so far all in one lil spot makes me so happy, let’s all g",
+     "sound": null
+    },
+    "recent": [
+     {
+      "url": "https://www.instagram.com/p/Df_GqQuEfp6/",
+      "type": "Carousel",
+      "at": "2026-11-21T01:58:16.000Z",
+      "likes": 0,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "people in LA for thanksgiving, wya? 🧡\n\nnov 25 · 4216 melrose ave, los angeles · 9pm–2am\n\nif you’re in the city for the ",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df97zagokQg/",
+      "type": "Reel",
+      "at": "2026-11-20T15:04:52.000Z",
+      "likes": 0,
+      "comments": 1,
+      "shares": null,
+      "views": null,
+      "caption": "NYC, FRIENDSGIVING WEEKEND IS OFFICIALLY ACTIVATED🧡\n\nthe wait is over, the group chat better be ready, and the dance fl",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df8TOgQPbE6/",
+      "type": "Reel",
+      "at": "2026-11-19T23:54:45.000Z",
+      "likes": 0,
+      "comments": 10,
+      "shares": null,
+      "views": null,
+      "caption": "NYC, WHY CAN’T THIS BE US TOMORROW? 😭🧡\n\ngood music, your favorite people, and absolutely no standing around.\n\nfriday, ",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df5Nh3bE47S/",
+      "type": "Carousel",
+      "at": "2026-11-18T19:02:51.000Z",
+      "likes": 0,
+      "comments": 4,
+      "shares": null,
+      "views": null,
+      "caption": "NEW YORK CITY, YOUR FRIDAY NIGHT IS IN GOOD HANDS 🗽💫\n\nsome of our favorite curators are coming together to keep you mo",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df0jAjGP5Fw/",
+      "type": "Image",
+      "at": "2026-11-16T23:44:26.000Z",
+      "likes": 0,
+      "comments": 16,
+      "shares": null,
+      "views": null,
+      "caption": "THE OFFICIAL WINTER HAUS 2027 ITINERARY IS HERE!\n\n4 DAYS. 3 NIGHTS. ONE UNFORGETTABLE WEEKEND.\n\nWe’re taking over Lake T",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Dfx-kA7ofSC/",
+      "type": "Reel",
+      "at": "2026-11-15T23:38:44.000Z",
+      "likes": 0,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "your friend sent you this for a reason 😭🧡\n\nenough with the “next time” excuses. we miss you outside!\n\nnyc, friday is f",
+      "sound": null
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 83430
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "instagram:rnbandribs": {
+   "platform": "instagram",
+   "handle": "rnbandribs",
+   "name": "R&B and RIBS",
+   "bio": "RIBSS\nA Day Party w/ Good Food and Dope DJs⁣⁣.\n@goodchoice.goodchoice \n📍🌎",
+   "followers": 96139,
+   "following": 250,
+   "posts": 605,
+   "verified": false,
+   "private": false,
+   "link": "http://rnbandribs.com",
+   "url": "https://www.instagram.com/rnbandribs/",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-20T01:21:34.000Z",
+    "posts_per_week": 2.1,
+    "avg_interactions": 1425,
+    "avg_views": null,
+    "engagement_rate": 1.48,
+    "engagement_basis": "followers",
+    "formats": {
+     "Reel": 11,
+     "Carousel": 1
+    },
+    "best": {
+     "url": "https://www.instagram.com/p/DfjMHlTik11/",
+     "type": "Reel",
+     "at": "2026-11-10T05:49:30.000Z",
+     "interactions": 9520,
+     "views": null,
+     "caption": "dancing in November with our Tokyo friends. \nin our favorite rooftop in Shibuya, lets run it back soon 🗼",
+     "sound": null
+    },
+    "recent": [
+     {
+      "url": "https://www.instagram.com/p/Df8dbz9CblF/",
+      "type": "Reel",
+      "at": "2026-11-20T01:21:34.000Z",
+      "likes": 725,
+      "comments": 66,
+      "shares": null,
+      "views": null,
+      "caption": "UNDER THE GRILL. We’re starting a new series! 🎥\n\nFrom El Rio to our larger Block Parties and RIBS on the road, we’re ta",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df0vsrkO6xz/",
+      "type": "Reel",
+      "at": "2026-11-17T01:28:07.000Z",
+      "likes": 229,
+      "comments": 6,
+      "shares": null,
+      "views": null,
+      "caption": "Tokyo, Arigato! 🙏🙏🗼\nrecap Sunday November 8 2026 @celavitokyo \n\n🔈 sounds by:  @knowpaslaps @jcu3 @djalamaki @djmarkw",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df0Gnz8hT2D/",
+      "type": "Reel",
+      "at": "2026-11-16T19:28:26.000Z",
+      "likes": 951,
+      "comments": 51,
+      "shares": null,
+      "views": null,
+      "caption": "RIBS radio on @applemusic 🍎\nnew sets out now! \n\nDP: @bydakotalim \nDir & Editor: @lilshaolin \nProd: @leftyleftyleftyleft",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfmzCGuOuiD/",
+      "type": "Reel",
+      "at": "2026-11-11T15:26:01.000Z",
+      "likes": 0,
+      "comments": 649,
+      "shares": null,
+      "views": null,
+      "caption": "They DIDN’T see this DJ transition coming… and the crowd went WILD! 🤯\n\nThe DJ: @johnyquest \n\n🏟️: @rnbandribs \n\nTrack I",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DflNpkBC3Dv/",
+      "type": "Reel",
+      "at": "2026-11-11T00:42:25.000Z",
+      "likes": 1447,
+      "comments": 22,
+      "shares": null,
+      "views": null,
+      "caption": "pour it up, pour it up in Shibuya🗼🌸",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfjMHlTik11/",
+      "type": "Reel",
+      "at": "2026-11-10T05:49:30.000Z",
+      "likes": 9415,
+      "comments": 105,
+      "shares": null,
+      "views": null,
+      "caption": "dancing in November with our Tokyo friends. \nin our favorite rooftop in Shibuya, lets run it back soon 🗼",
+      "sound": null
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 96139
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "instagram:unitedtribesof_africa": {
+   "platform": "instagram",
+   "handle": "unitedtribesof_africa",
+   "name": "United Tribes of Africa",
+   "bio": "Curating epic parties, events, and experiences that showcase the richness of African culture and foster community connections\n#UTA",
+   "followers": 8406,
+   "following": 5241,
+   "posts": 434,
+   "verified": false,
+   "private": false,
+   "link": "",
+   "url": "https://www.instagram.com/unitedtribesof_africa/",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-23T02:05:08.000Z",
+    "posts_per_week": 10.8,
+    "avg_interactions": 443,
+    "avg_views": null,
+    "engagement_rate": 5.27,
+    "engagement_basis": "followers",
+    "formats": {
+     "Reel": 8,
+     "Carousel": 3,
+     "Image": 1
+    },
+    "best": {
+     "url": "https://www.instagram.com/p/Df09zpsHKO9/",
+     "type": "Carousel",
+     "at": "2026-11-17T03:28:30.000Z",
+     "interactions": 4737,
+     "views": null,
+     "caption": "📆 SAVE THE DATE! \nYall have BEEN asking about Tahoe ‘27 — share this with your group chat. Tahoe is dropping sooner than you think!",
+     "sound": null
+    },
+    "recent": [
+     {
+      "url": "https://www.instagram.com/p/DgEQ2JrDyFA/",
+      "type": "Reel",
+      "at": "2026-11-23T02:05:08.000Z",
+      "likes": 87,
+      "comments": 12,
+      "shares": null,
+      "views": null,
+      "caption": "200+ of y'all pulled up for UTA Friendsgiving 🧡 Dinner, cocktails & Afrobeats at Meski, thank you fam 🙏🏾 Tag yourself",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DgDnts1CEU3/",
+      "type": "Carousel",
+      "at": "2026-11-22T20:04:40.000Z",
+      "likes": 8,
+      "comments": 0,
+      "shares": null,
+      "views": null,
+      "caption": "We ate. Now we outside. 🦃🔥 SHAKE BODY: NO LEFTOVERS takes over 811 Oakland this Saturday for Thanksgiving weekend.\n\n🎧",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DgBkeFho1WG/",
+      "type": "Reel",
+      "at": "2026-11-22T01:01:26.000Z",
+      "likes": 81,
+      "comments": 3,
+      "shares": null,
+      "views": null,
+      "caption": "From empty room to THIS 🇳🇬🔥 Thank you to everybody who pulled up to SHAKE BODY: Lagos Island Nights at @temple_sf. Ne",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DgBE5jPB29o/",
+      "type": "Image",
+      "at": "2026-11-21T21:13:20.000Z",
+      "likes": 0,
+      "comments": 4,
+      "shares": null,
+      "views": null,
+      "caption": "OAKLAND! WE’RE COMING BACK ONE MORE TIME BEFORE THE YEAR ENDS! 🧡🔥\n\nDETTY DECEMBER IS OFFICIALLY ACTIVE! 🇳🇬🥳\n\n🗓️ Fr",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df_v_pxIwmC/",
+      "type": "Reel",
+      "at": "2026-11-21T08:01:58.000Z",
+      "likes": 57,
+      "comments": 1,
+      "shares": null,
+      "views": null,
+      "caption": "Lagos Island is OUTSIDE 🇳🇬🔥\n\nSHAKE BODY is live at @temple_sf right now. The floor is moving and it’s only getting be",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df_fmn8o5xz/",
+      "type": "Reel",
+      "at": "2026-11-21T05:37:55.000Z",
+      "likes": 141,
+      "comments": 11,
+      "shares": null,
+      "views": null,
+      "caption": "Fit check before SHAKE BODY 🖤 All black is the code tonight. Lagos Island Nights at Temple SF, doors at 10. $30 online ",
+      "sound": null
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 8406
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "instagram:thernbbrunchbayarea": {
+   "platform": "instagram",
+   "handle": "thernbbrunchbayarea",
+   "name": "The R&B Brunch - Bay Area",
+   "bio": "Yesterday’s soul. Today’s vibe.\n12.06 San Francisco | 12.12 & 12.13 Danville [Sold Out]\n⬇️ Tickets Here",
+   "followers": 8935,
+   "following": 35,
+   "posts": 96,
+   "verified": false,
+   "private": false,
+   "link": "http://thernbbrunchbayarea.com",
+   "url": "https://www.instagram.com/thernbbrunchbayarea/",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-19T22:11:40.000Z",
+    "posts_per_week": 1.1,
+    "avg_interactions": 989,
+    "avg_views": null,
+    "engagement_rate": 11.07,
+    "engagement_basis": "followers",
+    "formats": {
+     "Reel": 10,
+     "Image": 2
+    },
+    "best": {
+     "url": "https://www.instagram.com/p/DdSUevFPKm9/",
+     "type": "Reel",
+     "at": "2026-09-14T23:35:10.000Z",
+     "interactions": 3305,
+     "views": null,
+     "caption": "MODESTO, WE’RE FINALLY COMING!\n\nFor over a year, Modesto has consistently been one of the most requested cities for us to bring The R&B Brunch to, and we’re exc",
+     "sound": null
+    },
+    "recent": [
+     {
+      "url": "https://www.instagram.com/p/Df8Hfx6TC5o/",
+      "type": "Reel",
+      "at": "2026-11-19T22:11:40.000Z",
+      "likes": 503,
+      "comments": 25,
+      "shares": null,
+      "views": null,
+      "caption": "We had a great time these last two visits to Modesto! @sidelineswhiskeyjacks209 has become a great home for us and we're",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Df58Chjhkuh/",
+      "type": "Image",
+      "at": "2026-11-19T01:52:37.000Z",
+      "likes": 172,
+      "comments": 5,
+      "shares": null,
+      "views": null,
+      "caption": "SAN FRANCISCO! 🌉❤️ We’re excited to be coming back to the city with THE R&B BRUNCH BAY AREA! 🥂🎶\n\nOn Sunday, December ",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfsOUT6OSH6/",
+      "type": "Reel",
+      "at": "2026-11-13T18:04:11.000Z",
+      "likes": 317,
+      "comments": 11,
+      "shares": null,
+      "views": null,
+      "caption": "DANVILLE, YOU ASKED… WE LISTENED! ❤️🎶\n\nAfter an incredible year of SOLD OUT editions of The R&B Brunch at @crushdwineba",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Dfn5P82h4FT/",
+      "type": "Reel",
+      "at": "2026-11-12T01:40:40.000Z",
+      "likes": 954,
+      "comments": 9,
+      "shares": null,
+      "views": null,
+      "caption": "MODESTO, WE’RE BACK THIS SUNDAY! ❤️‍🔥🎶\n\nAfter an incredible debut in the 209, we’re bringing THE R&B BRUNCH back to Mo",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfV7VtmOqeV/",
+      "type": "Reel",
+      "at": "2026-11-05T02:12:06.000Z",
+      "likes": 685,
+      "comments": 34,
+      "shares": null,
+      "views": null,
+      "caption": "MODESTO!!! WE’RE COMING BACK FOR YOU! ❤️‍🔥🎶\n\nAfter the INCREDIBLE love you showed us at our debut, there was no way we",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfCxe_rhUP2/",
+      "type": "Reel",
+      "at": "2026-10-28T15:42:48.000Z",
+      "likes": 286,
+      "comments": 23,
+      "shares": null,
+      "views": null,
+      "caption": "MODESTO! Y’all brought ALL the vibes last time! 🔥🤎\n\nSo you know we couldn’t let the year end without running it back o",
+      "sound": null
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 8935
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "instagram:play2winsocial": {
+   "platform": "instagram",
+   "handle": "play2winsocial",
+   "name": "Play2Win",
+   "bio": "You can’t win if you don’t play!  \n12.04 - OAK (First Friday Game Night)",
+   "followers": 5618,
+   "following": 0,
+   "posts": 110,
+   "verified": false,
+   "private": false,
+   "link": "https://linktr.ee/play2winsocial",
+   "url": "https://www.instagram.com/play2winsocial/",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-17T20:09:55.000Z",
+    "posts_per_week": 2.7,
+    "avg_interactions": 87,
+    "avg_views": null,
+    "engagement_rate": 1.55,
+    "engagement_basis": "followers",
+    "formats": {
+     "Reel": 4,
+     "Image": 4,
+     "Carousel": 4
+    },
+    "best": {
+     "url": "https://www.instagram.com/p/DfQ4gbnlK88/",
+     "type": "Carousel",
+     "at": "2026-11-03T03:09:31.000Z",
+     "interactions": 595,
+     "views": null,
+     "caption": "Oakland showed OUT for Halloween! 🎃🕸️\n\nThe costumes and energy were unmatched! 🔥 Thanks to everyone who came out!\n\nUp Next → 📍11.05 — HOU | Denim Nights w/ ",
+     "sound": null
+    },
+    "recent": [
+     {
+      "url": "https://www.instagram.com/p/Df2vlTVghhl/",
+      "type": "Reel",
+      "at": "2026-11-17T20:09:55.000Z",
+      "likes": 56,
+      "comments": 1,
+      "shares": null,
+      "views": null,
+      "caption": "DJ TUNEZ x Play2Win 🎱\n\n🎥: @later.still \n\n#foryou #film #explorepage #bayarea",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Dfz41fbAT_m/",
+      "type": "Image",
+      "at": "2026-11-16T17:30:45.000Z",
+      "likes": 245,
+      "comments": 2,
+      "shares": null,
+      "views": null,
+      "caption": "The holiday season is here and Christmas is just around the corner! Join us in our last First Friday Game Night of 2026 ",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfyFtiVGFSc/",
+      "type": "Carousel",
+      "at": "2026-11-16T00:39:51.000Z",
+      "likes": 0,
+      "comments": 10,
+      "shares": null,
+      "views": null,
+      "caption": "Oakland showed out for a night with DJ TUNEZ!\n\nThis weekend, we had the opportunity to host @dj_tunez at @caveoakland! T",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfvGw_eBGmo/",
+      "type": "Reel",
+      "at": "2026-11-14T20:52:44.000Z",
+      "likes": 0,
+      "comments": 12,
+      "shares": null,
+      "views": null,
+      "caption": "Denim looks good on you 💙\n\n🎥 @bycollinxander \n\n#culture #denim #houston",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/Dfkr-n0OpTh/",
+      "type": "Image",
+      "at": "2026-11-10T19:45:56.000Z",
+      "likes": 0,
+      "comments": 49,
+      "shares": null,
+      "views": null,
+      "caption": "Is their such thing as too much enjoyment? We think not! AfroHaus would like to present the PHASE 2 DJ lineup for Winter",
+      "sound": null
+     },
+     {
+      "url": "https://www.instagram.com/p/DfiOWkOoalr/",
+      "type": "Image",
+      "at": "2026-11-09T20:49:55.000Z",
+      "likes": 0,
+      "comments": 5,
+      "shares": null,
+      "views": null,
+      "caption": "Summer’s over… which means it’s just time for a switch up!\n\nIt’s not every day club club club - join us at Swingers DC f",
+      "sound": null
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 5618
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "tiktok:familiarfacesparty": {
+   "platform": "tiktok",
+   "handle": "familiarfacesparty",
+   "name": "Familiar Faces",
+   "bio": "familiar faces, new memories ✨\nupcoming dates ⬇️",
+   "followers": 19700,
+   "following": 92,
+   "posts": 436,
+   "likes": 949300,
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@familiarfacesparty",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-06T21:47:50.000Z",
+    "posts_per_week": 0.1,
+    "avg_interactions": 71546,
+    "avg_views": 463674,
+    "engagement_rate": 15.43,
+    "engagement_basis": "views",
+    "formats": {
+     "Video": 12
+    },
+    "best": {
+     "url": "https://www.tiktok.com/@familiarfacesparty/video/7403005862417141034",
+     "type": "Video",
+     "at": "2024-08-14T14:43:46.000Z",
+     "interactions": 477857,
+     "views": 3000000,
+     "caption": "Passing the vibe check on the spot!✨💪🏾🎤 @Mihji \n\n#blackinla #thingstodola #thingstodolosangeles #thingstodoinla #ladayparty #laparties #laevents ",
+     "sound": {
+      "name": "original sound",
+      "author": "Familiar Faces",
+      "original": true
+     }
+    },
+    "recent": [
+     {
+      "url": "https://www.tiktok.com/@familiarfacesparty/video/7705178437505371423",
+      "type": "Video",
+      "at": "2026-11-06T21:47:50.000Z",
+      "likes": 195,
+      "comments": 1,
+      "shares": 28,
+      "views": 2906,
+      "caption": "for everyone staying in LA this thanksgiving 🦃\n\nhome (away) · thanksgiving eve 11/25 · tickets in bio",
+      "sound": {
+       "name": "original sound",
+       "author": "Familiar Faces",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@familiarfacesparty/video/7701896562691018015",
+      "type": "Video",
+      "at": "2026-10-29T01:32:23.000Z",
+      "likes": 100,
+      "comments": 1,
+      "shares": 3,
+      "views": 1270,
+      "caption": "nothing better than watching the whole room move!\n\ncatch @DJ J-ME LEE full set on youtube now! ",
+      "sound": {
+       "name": "original sound",
+       "author": "Familiar Faces",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@familiarfacesparty/video/7693730889100037406",
+      "type": "Video",
+      "at": "2026-10-07T01:25:28.000Z",
+      "likes": 15,
+      "comments": 0,
+      "shares": 0,
+      "views": 700,
+      "caption": "you had to be there 🇬🇧✨\n\nMimi Rich london dj set is live on our youtube!",
+      "sound": {
+       "name": "original sound",
+       "author": "Familiar Faces",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@familiarfacesparty/video/7693638233351097631",
+      "type": "Video",
+      "at": "2026-10-06T19:26:03.000Z",
+      "likes": 48,
+      "comments": 1,
+      "shares": 0,
+      "views": 940,
+      "caption": "cause if you’re not dancing wyd!? 🤪",
+      "sound": {
+       "name": "Ma Tnsani (Yalla Habibi)",
+       "author": "Vanco & AYA",
+       "original": false
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@familiarfacesparty/video/7691403767438265631",
+      "type": "Video",
+      "at": "2026-09-30T18:55:16.000Z",
+      "likes": 32,
+      "comments": 0,
+      "shares": 2,
+      "views": 881,
+      "caption": "@djhoodbaby on the decks!\n\nour next phoenix date is this Saturday 10/3! ticket link in bio ✨",
+      "sound": {
+       "name": "original sound",
+       "author": "Familiar Faces",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@familiarfacesparty/video/7689158033967959326",
+      "type": "Video",
+      "at": "2026-09-24T17:40:24.000Z",
+      "likes": 14,
+      "comments": 0,
+      "shares": 0,
+      "views": 583,
+      "caption": "who you got? 🇯🇲✨\n\nand check out the full @bluebikess set on our youtube channel now! link in bio 📺 ",
+      "sound": {
+       "name": "original sound",
+       "author": "Familiar Faces",
+       "original": true
+      }
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 19700
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "tiktok:rnbandribs": {
+   "platform": "tiktok",
+   "handle": "rnbandribs",
+   "name": "RNBandRIBS",
+   "bio": "A Day Party with Good Food and Dope DJs\n📍 🌎",
+   "followers": 14800,
+   "following": 32,
+   "posts": 112,
+   "likes": 164800,
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@rnbandribs",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-10T23:37:33.000Z",
+    "posts_per_week": 0.3,
+    "avg_interactions": 341,
+    "avg_views": 4384,
+    "engagement_rate": 7.79,
+    "engagement_basis": "views",
+    "formats": {
+     "Video": 12
+    },
+    "best": {
+     "url": "https://www.tiktok.com/@rnbandribs/video/7699293860609985823",
+     "type": "Video",
+     "at": "2026-10-22T01:12:39.000Z",
+     "interactions": 1970,
+     "views": 13200,
+     "caption": "SD up next! Daygo turn up! 10.25.26 #rnbandribs #sandiego #daygo #jboog ",
+     "sound": {
+      "name": "original sound",
+      "author": "RNBandRIBS",
+      "original": true
+     }
+    },
+    "recent": [
+     {
+      "url": "https://www.tiktok.com/@rnbandribs/video/7706691036411661599",
+      "type": "Video",
+      "at": "2026-11-10T23:37:33.000Z",
+      "likes": 51,
+      "comments": 0,
+      "shares": 3,
+      "views": 940,
+      "caption": "#rnbandribs #tokyo #shibuya #rihanna ",
+      "sound": {
+       "name": "original sound",
+       "author": "RNBandRIBS",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@rnbandribs/video/7706414374709202206",
+      "type": "Video",
+      "at": "2026-11-10T05:44:00.000Z",
+      "likes": 40,
+      "comments": 2,
+      "shares": 0,
+      "views": 718,
+      "caption": "",
+      "sound": {
+       "name": "original sound",
+       "author": "RNBandRIBS",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@rnbandribs/video/7702230414932348190",
+      "type": "Video",
+      "at": "2026-10-29T23:07:54.000Z",
+      "likes": 432,
+      "comments": 9,
+      "shares": 27,
+      "views": 9129,
+      "caption": "San Diego went up!\n#rnbandribs #dj ",
+      "sound": {
+       "name": "original sound",
+       "author": "RNBandRIBS",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@rnbandribs/video/7701147261098528031",
+      "type": "Video",
+      "at": "2026-10-27T01:04:43.000Z",
+      "likes": 25,
+      "comments": 1,
+      "shares": 0,
+      "views": 1233,
+      "caption": "#rnbandribs #tokyo #shibuya ",
+      "sound": {
+       "name": "original sound",
+       "author": "RNBandRIBS",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@rnbandribs/video/7700306521195908383",
+      "type": "Video",
+      "at": "2026-10-24T18:42:20.000Z",
+      "likes": 30,
+      "comments": 0,
+      "shares": 1,
+      "views": 1408,
+      "caption": "#rnbandribs #dj #rnb @DJKaosSD ",
+      "sound": {
+       "name": "original sound",
+       "author": "RNBandRIBS",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@rnbandribs/video/7699753395413847326",
+      "type": "Video",
+      "at": "2026-10-23T06:55:54.000Z",
+      "likes": 50,
+      "comments": 3,
+      "shares": 7,
+      "views": 1769,
+      "caption": "#rnbandribs #sandiego @dauché DAUCHE had the energy going! ",
+      "sound": {
+       "name": "original sound",
+       "author": "RNBandRIBS",
+       "original": true
+      }
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 14800
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "tiktok:anthonypresents": {
+   "platform": "tiktok",
+   "handle": "anthonypresents",
+   "name": "Anthony Presents | SF Events",
+   "bio": "Crafting Elevated Experiences That Move Culture.",
+   "followers": 5539,
+   "following": 0,
+   "posts": 589,
+   "likes": 135000,
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@anthonypresents",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-22T19:06:04.000Z",
+    "posts_per_week": 0.1,
+    "avg_interactions": 3008,
+    "avg_views": 43905,
+    "engagement_rate": 6.85,
+    "engagement_basis": "views",
+    "formats": {
+     "Slideshow": 2,
+     "Video": 10
+    },
+    "best": {
+     "url": "https://www.tiktok.com/@anthonypresents/video/7575093311472454942",
+     "type": "Video",
+     "at": "2025-11-21T08:31:55.000Z",
+     "interactions": 28307,
+     "views": 327600,
+     "caption": "Rnb & scientist was amazing. Over 2,000 people sang songs and learned about biology. 🤣",
+     "sound": {
+      "name": "original sound",
+      "author": "Anthony Presents | SF Events",
+      "original": true
+     }
+    },
+    "recent": [
+     {
+      "url": "https://www.tiktok.com/@anthonypresents/video/7711074067645730061",
+      "type": "Slideshow",
+      "at": "2026-11-22T19:06:04.000Z",
+      "likes": 1,
+      "comments": 0,
+      "shares": 0,
+      "views": 97,
+      "caption": "RnB Social Club: The Millennial Mixtape was one for the books. San Francisco showed up dressed up and sang every word wi",
+      "sound": {
+       "name": "original sound - Anthony Presents | SF Events",
+       "author": "",
+       "original": false
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@anthonypresents/video/7710545587833228558",
+      "type": "Slideshow",
+      "at": "2026-11-21T18:00:00.000Z",
+      "likes": 1,
+      "comments": 0,
+      "shares": 0,
+      "views": 148,
+      "caption": "If you were making R&B mixes for somebody in 2012, bring them to Press Club tonight. I’ve got a live band, DJ sets and p",
+      "sound": {
+       "name": "original sound - Anthony Presents | SF Events",
+       "author": "",
+       "original": false
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@anthonypresents/video/7710527136137743630",
+      "type": "Video",
+      "at": "2026-11-21T07:43:32.000Z",
+      "likes": 6,
+      "comments": 0,
+      "shares": 2,
+      "views": 305,
+      "caption": "Tomorrow night, San Francisco. RnB Social Club: The Millennial Mixtape at Press Club. Live band, DJ sets, and a room tha",
+      "sound": {
+       "name": "original sound - Anthony Presents | SF Events",
+       "author": "Anthony Presents | SF Events",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@anthonypresents/video/7710525649395518751",
+      "type": "Video",
+      "at": "2026-11-21T07:38:38.000Z",
+      "likes": 11,
+      "comments": 0,
+      "shares": 0,
+      "views": 238,
+      "caption": "Who’s actually finishing their painting once the band starts playing? 🍷 This Saturday we’re back at Press Club SF for T",
+      "sound": {
+       "name": "original sound - Anthony Presents | SF Events",
+       "author": "Anthony Presents | SF Events",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@anthonypresents/video/7709357500717452557",
+      "type": "Video",
+      "at": "2026-11-18T04:04:46.000Z",
+      "likes": 41,
+      "comments": 0,
+      "shares": 1,
+      "views": 395,
+      "caption": "Millennial women aging like fine wine. 🍷 Saturday. RNB SOCIAL CLUB. ",
+      "sound": {
+       "name": "original sound",
+       "author": "Anthony Presents | SF Events",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@anthonypresents/video/7708321162190753037",
+      "type": "Video",
+      "at": "2026-11-15T09:04:04.000Z",
+      "likes": 112,
+      "comments": 1,
+      "shares": 3,
+      "views": 649,
+      "caption": "Built different. \n\nSundays at @beautybarsf \n\n#genz #millennial ",
+      "sound": {
+       "name": "original sound",
+       "author": "Anthony Presents | SF Events",
+       "original": true
+      }
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 5539
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "tiktok:thernbbrunch": {
+   "platform": "tiktok",
+   "handle": "thernbbrunch",
+   "name": "THE R&B BRUNCH BAY AREA",
+   "bio": "The R&B Brunch Bay Area\nNothing hits better than good brunch food & good classic R&B.\nLinks to all events ⬇️",
+   "followers": 1931,
+   "following": 2,
+   "posts": 18,
+   "likes": 10300,
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@thernbbrunch",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-10-21T20:04:07.000Z",
+    "posts_per_week": 0.3,
+    "avg_interactions": 805,
+    "avg_views": 12221,
+    "engagement_rate": 6.59,
+    "engagement_basis": "views",
+    "formats": {
+     "Video": 8,
+     "Slideshow": 4
+    },
+    "best": {
+     "url": "https://www.tiktok.com/@thernbbrunch/video/7685603996685339917",
+     "type": "Video",
+     "at": "2026-09-15T03:49:12.000Z",
+     "interactions": 4387,
+     "views": 60300,
+     "caption": "MODESTO, WE’RE FINALLY COMING.\n\nFor over a year, Modesto has consistently been one of the most requested cities for us to bring The R&B Brunch to, and we’re exc",
+     "sound": {
+      "name": "Stargazing by juju",
+      "author": "soundsbyjuju_",
+      "original": true
+     }
+    },
+    "recent": [
+     {
+      "url": "https://www.tiktok.com/@thernbbrunch/video/7699214329215716638",
+      "type": "Video",
+      "at": "2026-10-21T20:04:07.000Z",
+      "likes": 777,
+      "comments": 46,
+      "shares": 441,
+      "views": 16800,
+      "caption": "We really love what we’re building in Napa Valley. ❤️\n\nIt’s one thing to throw a brunch, but it’s another to see people ",
+      "sound": {
+       "name": "original sound",
+       "author": "THE R&B BRUNCH BAY AREA",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@thernbbrunch/video/7694121528992009503",
+      "type": "Video",
+      "at": "2026-10-08T02:41:24.000Z",
+      "likes": 97,
+      "comments": 15,
+      "shares": 64,
+      "views": 2430,
+      "caption": "FRESNO, IT’S FINALLY YOUR TURN!\n\nWe’ve been making our way across Northern California, bringing thousands of R&B lovers ",
+      "sound": {
+       "name": "original sound",
+       "author": "THE R&B BRUNCH BAY AREA",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@thernbbrunch/video/7685603996685339917",
+      "type": "Video",
+      "at": "2026-09-15T03:49:12.000Z",
+      "likes": 2569,
+      "comments": 58,
+      "shares": 1760,
+      "views": 60300,
+      "caption": "MODESTO, WE’RE FINALLY COMING.\n\nFor over a year, Modesto has consistently been one of the most requested cities for us t",
+      "sound": {
+       "name": "Stargazing by juju",
+       "author": "soundsbyjuju_",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@thernbbrunch/video/7665159861730086175",
+      "type": "Video",
+      "at": "2026-07-22T01:35:19.000Z",
+      "likes": 32,
+      "comments": 1,
+      "shares": 13,
+      "views": 925,
+      "caption": "Our first time in Danville, California! \n\nOur very first R&B Brunch in your city sold out, and from the moment the doors",
+      "sound": {
+       "name": "Simple Life",
+       "author": "Daniela Mlčúchová",
+       "original": false
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@thernbbrunch/video/7642550272727747870",
+      "type": "Video",
+      "at": "2026-05-22T03:18:32.000Z",
+      "likes": 150,
+      "comments": 4,
+      "shares": 49,
+      "views": 5889,
+      "caption": "Walnut Creek, it's a holiday weekend and you know that means we love to party just a little bit more. This Sunday the R&",
+      "sound": {
+       "name": "original sound",
+       "author": "THE R&B BRUNCH BAY AREA",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@thernbbrunch/video/7641513458466409759",
+      "type": "Slideshow",
+      "at": "2026-05-19T08:16:26.000Z",
+      "likes": 243,
+      "comments": 4,
+      "shares": 120,
+      "views": 7563,
+      "caption": "So much love that we had no choice but to come back TWICE in the same month.\n\nTHE R&B BRUNCH returns to Lil Sista’s Good",
+      "sound": {
+       "name": "original sound",
+       "author": "Sarai_cx",
+       "original": true
+      }
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 1931
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "tiktok:frndsonly": {
+   "platform": "tiktok",
+   "handle": "frndsonly",
+   "name": "FRNDS Only",
+   "bio": "Fostering Reimagined Networks & Driving the Standard",
+   "followers": 14000,
+   "following": 0,
+   "posts": 296,
+   "likes": 228400,
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@frndsonly",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-15T03:10:30.000Z",
+    "posts_per_week": 0.2,
+    "avg_interactions": 1937,
+    "avg_views": 21078,
+    "engagement_rate": 9.19,
+    "engagement_basis": "views",
+    "formats": {
+     "Video": 8,
+     "Slideshow": 4
+    },
+    "best": {
+     "url": "https://www.tiktok.com/@frndsonly/video/7553859718163254541",
+     "type": "Video",
+     "at": "2025-09-25T03:14:18.000Z",
+     "interactions": 17741,
+     "views": 143300,
+     "caption": "Always so much love in the Bay Area 🫶🏾 We’re bringing these vibes to San Francisco for FRNDS Fest featuring Metro Boomin 🙂‍↕️\n\nSee you 10/25 when you cop you",
+     "sound": {
+      "name": "original sound",
+      "author": "NorCal Rap Edits",
+      "original": true
+     }
+    },
+    "recent": [
+     {
+      "url": "https://www.tiktok.com/@frndsonly/video/7708230242803993869",
+      "type": "Video",
+      "at": "2026-11-15T03:10:30.000Z",
+      "likes": 239,
+      "comments": 2,
+      "shares": 35,
+      "views": 1684,
+      "caption": "The IG story when you never say no to a good night out>> 🙂‍↕️ \nWhat event should we throw next? 👀\n\n#nightlife #nightou",
+      "sound": {
+       "name": "My Finances",
+       "author": "E.S.K",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@frndsonly/video/7700754055018122509",
+      "type": "Video",
+      "at": "2026-10-25T23:39:06.000Z",
+      "likes": 111,
+      "comments": 2,
+      "shares": 44,
+      "views": 3644,
+      "caption": "How are our frnds coming to our Halloween party this Friday? 👀\n\nBay Area—Friday will be a night to remember! Grab your ",
+      "sound": {
+       "name": "original sound",
+       "author": "Mixes by Varun",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@frndsonly/video/7699666874669272334",
+      "type": "Slideshow",
+      "at": "2026-10-23T01:20:13.000Z",
+      "likes": 42,
+      "comments": 2,
+      "shares": 12,
+      "views": 2242,
+      "caption": "ATL!! We’re back for this Saturday night. Bring some frnds & meet some new ones. Get tickets via link in bio for good vi",
+      "sound": {
+       "name": "crew x street sweeper",
+       "author": "mikal",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@frndsonly/video/7698562197043105037",
+      "type": "Slideshow",
+      "at": "2026-10-20T01:53:33.000Z",
+      "likes": 74,
+      "comments": 0,
+      "shares": 33,
+      "views": 2374,
+      "caption": "10/30 is not a suggestion 🤷🏾‍♂️ We’re kicking off Halloweekend at 1015 Folsom in San Francisco for a night with your f",
+      "sound": {
+       "name": "original sound",
+       "author": "Haylie",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@frndsonly/video/7698201685046447373",
+      "type": "Video",
+      "at": "2026-10-19T02:34:25.000Z",
+      "likes": 425,
+      "comments": 9,
+      "shares": 197,
+      "views": 14400,
+      "caption": "Your costume needs to come in by 10/30 🎃 Meet us in San Francisco to kick off Halloweekend with good music, great vibes",
+      "sound": {
+       "name": "Phantom of the sexyy opera djhunnybee",
+       "author": "djhunnybee",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@frndsonly/video/7696707876080995597",
+      "type": "Slideshow",
+      "at": "2026-10-15T01:57:54.000Z",
+      "likes": 31,
+      "comments": 0,
+      "shares": 5,
+      "views": 1438,
+      "caption": "HOUSTON! We’re back for Afrotech & we’re making this one extra special. 🫶🏾 \n\nWe’re partnering with Afrotech for the of",
+      "sound": {
+       "name": "1 Thing",
+       "author": "Amerie",
+       "original": false
+      }
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 14000
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "tiktok:unitedtribesof_africa": {
+   "platform": "tiktok",
+   "handle": "unitedtribesof_africa",
+   "name": "United Tribes of Africa",
+   "bio": "Bay Area Afrobeats & Amapiano 🌍 SHAKE BODY 🎟 linktr.ee/unitedtribesofa",
+   "followers": 830,
+   "following": 352,
+   "posts": 72,
+   "likes": 3808,
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@unitedtribesof_africa",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-20T22:57:17.000Z",
+    "posts_per_week": 0.2,
+    "avg_interactions": 36,
+    "avg_views": 2222,
+    "engagement_rate": 1.64,
+    "engagement_basis": "views",
+    "formats": {
+     "Video": 6,
+     "Slideshow": 6
+    },
+    "best": {
+     "url": "https://www.tiktok.com/@unitedtribesof_africa/video/7629098494871080205",
+     "type": "Video",
+     "at": "2026-04-15T21:19:04.000Z",
+     "interactions": 151,
+     "views": 7387,
+     "caption": "Seattle 🇺🇸\n\nLagos Island\nApril 18\n@Flygerianjeff @DJ NAYIRAM @Seeyououtside @Global Bounce Radio \n#amapiano #afrobeats #seattlenightlife ",
+     "sound": {
+      "name": "original sound",
+      "author": "United Tribes of Africa",
+      "original": true
+     }
+    },
+    "recent": [
+     {
+      "url": "https://www.tiktok.com/@unitedtribesof_africa/video/7710391585388694797",
+      "type": "Video",
+      "at": "2026-11-20T22:57:17.000Z",
+      "likes": 15,
+      "comments": 0,
+      "shares": 1,
+      "views": 12000,
+      "caption": "y'all keep asking where this is in SF 👀 SHAKE BODY tonight at Temple SF. 10PM · 21+ · all black + gold. Link in bio 🏝️",
+      "sound": {
+       "name": "original sound - United Tribes of Africa",
+       "author": "United Tribes of Africa",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@unitedtribesof_africa/video/7696903317791706399",
+      "type": "Video",
+      "at": "2026-10-15T14:36:05.000Z",
+      "likes": 5,
+      "comments": 0,
+      "shares": 0,
+      "views": 245,
+      "caption": "SF we got plans Friday or what?? 👀🔥\n\nSHAKE BODY at Temple SF this Friday 10.16 🖤\n\nAfrobeats, Amapiano, Hip-Hop + R&B\n",
+      "sound": {
+       "name": "original sound",
+       "author": "United Tribes of Africa",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@unitedtribesof_africa/video/7686220363595812110",
+      "type": "Slideshow",
+      "at": "2026-09-16T19:40:54.000Z",
+      "likes": 3,
+      "comments": 0,
+      "shares": 0,
+      "views": 202,
+      "caption": "BAY AREA 👀 we’re building the UTA team.\n\nLooking for creative, connected + reliable people who want to help build the c",
+      "sound": {
+       "name": "original sound",
+       "author": "DJKaywise #DjKaywise",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@unitedtribesof_africa/video/7648082115703229710",
+      "type": "Video",
+      "at": "2026-06-06T01:05:11.000Z",
+      "likes": 15,
+      "comments": 0,
+      "shares": 1,
+      "views": 518,
+      "caption": "Tonight 🌴\n\nIf you've been asking where the Afrobeats crowd is at... here's your answer 👀\n\n#Afrobeats #Amapiano #Oaklan",
+      "sound": {
+       "name": "original sound",
+       "author": "United Tribes of Africa",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@unitedtribesof_africa/video/7642904809200225549",
+      "type": "Slideshow",
+      "at": "2026-05-23T02:14:15.000Z",
+      "likes": 36,
+      "comments": 0,
+      "shares": 0,
+      "views": 1137,
+      "caption": "Guess we outside this Saturday for Memorial Day weekend in #oakland 😌🙌🏾 \n#afrobeats #amapiano #hiphop",
+      "sound": {
+       "name": "FUN",
+       "author": "Rema",
+       "original": false
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@unitedtribesof_africa/video/7637189205889764622",
+      "type": "Slideshow",
+      "at": "2026-05-07T16:34:55.000Z",
+      "likes": 84,
+      "comments": 3,
+      "shares": 3,
+      "views": 1540,
+      "caption": "Shake Body is coming to Temple SF. May 15. This is not a regular night. 🔥\n#afrobeats #amapiano #sfnightlife #sanfrancis",
+      "sound": {
+       "name": "original sound",
+       "author": "PRESIDENT YA STRAATA🅿️🇿🇦🏟️",
+       "original": true
+      }
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 830
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "tiktok:town.strides": {
+   "platform": "tiktok",
+   "handle": "town.strides",
+   "name": "townstrides",
+   "bio": "Oakland, Ca\nRun/Walk Club every Wednesday\nMore movement on IG 🏃🏾‍♀️🏃🏾‍♂️💨",
+   "followers": 1637,
+   "following": 5,
+   "posts": 10,
+   "likes": 771,
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@town.strides",
+   "photo": null,
+   "stats": {
+    "sample": 10,
+    "last_post": "2026-08-18T22:19:20.000Z",
+    "posts_per_week": 0.1,
+    "avg_interactions": 91,
+    "avg_views": 2514,
+    "engagement_rate": 3.6,
+    "engagement_basis": "views",
+    "formats": {
+     "Slideshow": 3,
+     "Video": 7
+    },
+    "best": {
+     "url": "https://www.tiktok.com/@town.strides/video/7600093055210851615",
+     "type": "Video",
+     "at": "2026-01-27T17:22:54.000Z",
+     "interactions": 235,
+     "views": 3610,
+     "caption": "Looking for a health and wellness community in the bay area? Join Town Strides every wednesday! \n\nNext Event 1/28 \nRun/Walk: 6PM\nCool Down: 7:30PM at Night Hero",
+     "sound": {
+      "name": "[Raw recording] Record playback noise 01 (3 minutes)",
+      "author": "Icy Light",
+      "original": false
+     }
+    },
+    "recent": [
+     {
+      "url": "https://www.tiktok.com/@town.strides/video/7675499732977929502",
+      "type": "Slideshow",
+      "at": "2026-08-18T22:19:20.000Z",
+      "likes": 72,
+      "comments": 1,
+      "shares": 5,
+      "views": 1727,
+      "caption": "Join us for a three month event series with BLK! Tell a friend to tell a friend! \n\n#townstrides #communityevents #runclu",
+      "sound": {
+       "name": "Photoshoot",
+       "author": "Gucci Mane",
+       "original": false
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@town.strides/video/7666994925493292319",
+      "type": "Slideshow",
+      "at": "2026-07-27T00:16:20.000Z",
+      "likes": 48,
+      "comments": 0,
+      "shares": 3,
+      "views": 1418,
+      "caption": "Join us this Wednesday (7/29) for our weekly run + walk around Lake Merritt followed by a birthday Cool Down at Mad Oak!",
+      "sound": {
+       "name": "original sound",
+       "author": "Lyrically Games",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@town.strides/video/7633929630268787998",
+      "type": "Video",
+      "at": "2026-04-28T21:46:05.000Z",
+      "likes": 58,
+      "comments": 3,
+      "shares": 11,
+      "views": 2264,
+      "caption": "Love health and wellness events? Join Town Strides\n\n#townstrides #fyp #communityevents ",
+      "sound": {
+       "name": "original sound",
+       "author": "townstrides",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@town.strides/video/7600093055210851615",
+      "type": "Video",
+      "at": "2026-01-27T17:22:54.000Z",
+      "likes": 189,
+      "comments": 12,
+      "shares": 34,
+      "views": 3610,
+      "caption": "Looking for a health and wellness community in the bay area? Join Town Strides every wednesday! \n\nNext Event 1/28 \nRun/W",
+      "sound": {
+       "name": "[Raw recording] Record playback noise 01 (3 minutes)",
+       "author": "Icy Light",
+       "original": false
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@town.strides/video/7541100582166072590",
+      "type": "Video",
+      "at": "2025-08-21T18:01:56.000Z",
+      "likes": 104,
+      "comments": 4,
+      "shares": 25,
+      "views": 3427,
+      "caption": "Strava or it didn’t happen! 🏃🏾‍♀️🏃🏾‍♂️\n\nLast week we partnered with Strava’s Black Employee Resource Group for a com",
+      "sound": {
+       "name": "original sound",
+       "author": "townstrides",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@town.strides/video/7510384906179153198",
+      "type": "Video",
+      "at": "2025-05-30T23:29:46.000Z",
+      "likes": 218,
+      "comments": 5,
+      "shares": 7,
+      "views": 3734,
+      "caption": "For mental health awareness month we collaborated with @BLK dating app for a wellness event! @Bianka ✨ led us in a 30-mi",
+      "sound": {
+       "name": "original sound",
+       "author": "townstrides",
+       "original": true
+      }
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 1637
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
+   "error": null
+  },
+  "tiktok:afrohaus.x": {
+   "platform": "tiktok",
+   "handle": "afrohaus.x",
+   "name": "Afrohaus.x",
+   "bio": "Black Ski Weekend ❄️\nJanuary 28-31st, 2027\nSouth Lake Tahoe, CA\nPowered by @play2winsocial \nBook here 👇🏽",
+   "followers": 1635,
+   "following": 1,
+   "posts": 33,
+   "likes": 5716,
+   "verified": false,
+   "private": false,
+   "url": "https://www.tiktok.com/@afrohaus.x",
+   "photo": null,
+   "stats": {
+    "sample": 12,
+    "last_post": "2026-11-14T23:25:26.000Z",
+    "posts_per_week": 0.9,
+    "avg_interactions": 59,
+    "avg_views": 1258,
+    "engagement_rate": 4.71,
+    "engagement_basis": "views",
+    "formats": {
+     "Video": 11,
+     "Slideshow": 1
+    },
+    "best": {
+     "url": "https://www.tiktok.com/@afrohaus.x/video/7693588177524641055",
+     "type": "Slideshow",
+     "at": "2026-10-06T16:11:52.000Z",
+     "interactions": 216,
+     "views": 2884,
+     "caption": "📍South Lake Tahoe\nTryna catch a vibe? Join us this winter January 28-31st for our black ski weekend! 🎟️ Link in bio ! \n\n#professionals #blacktravel #realestat",
+     "sound": {
+      "name": "WTF GOIN",
+      "author": "Belly Gang Kushington & 21 Savage",
+      "original": false
+     }
+    },
+    "recent": [
+     {
+      "url": "https://www.tiktok.com/@afrohaus.x/video/7708172262624496926",
+      "type": "Video",
+      "at": "2026-11-14T23:25:26.000Z",
+      "likes": 23,
+      "comments": 0,
+      "shares": 10,
+      "views": 432,
+      "caption": "Your Winter Haus stay starts here! ❄️🏔️\n\nWe’ve secured our host hotel accommodations to make your Winter Haus experienc",
+      "sound": {
+       "name": "Yasashi",
+       "author": "CXSPER",
+       "original": false
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@afrohaus.x/video/7706633886993878302",
+      "type": "Video",
+      "at": "2026-11-10T19:55:49.000Z",
+      "likes": 28,
+      "comments": 3,
+      "shares": 31,
+      "views": 858,
+      "caption": "Winter Haus Ski Weekend is officially back! Four days of snow aprés, parties, community, & unforgettable moments.\n\n📍Sou",
+      "sound": {
+       "name": "E85",
+       "author": "Don Toliver",
+       "original": false
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@afrohaus.x/video/7706234709621198111",
+      "type": "Video",
+      "at": "2026-11-09T18:06:55.000Z",
+      "likes": 17,
+      "comments": 1,
+      "shares": 1,
+      "views": 480,
+      "caption": "The countdown is ON! ❄️⛷️ Only 80 DAYS until we’re back in the mountains for Winter Haus ‘27!\n\nHave you secured your spo",
+      "sound": {
+       "name": "original sound",
+       "author": "lala",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@afrohaus.x/video/7700067690664283423",
+      "type": "Video",
+      "at": "2026-10-24T03:15:34.000Z",
+      "likes": 7,
+      "comments": 0,
+      "shares": 9,
+      "views": 448,
+      "caption": "A GUARANTEED GOOD TIME ❄️🎿🥂 Winter Haus ‘27 is calling! \n\nTag your groupchat and start planning your Tahoe takeover. \ud83d",
+      "sound": {
+       "name": "HOTEL LOBBY (Unc & Phew)",
+       "author": "Quavo & Takeoff",
+       "original": false
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@afrohaus.x/video/7696218644920995103",
+      "type": "Video",
+      "at": "2026-10-13T18:19:11.000Z",
+      "likes": 13,
+      "comments": 2,
+      "shares": 4,
+      "views": 549,
+      "caption": "This trip is the one for you 🫵🏽 Tickets on sale now!\n\nBook before prices increase 🎟️\nLink in bio 🔗❄️ \n\nAge range: 21",
+      "sound": {
+       "name": "original sound",
+       "author": "Afrohaus.x",
+       "original": true
+      }
+     },
+     {
+      "url": "https://www.tiktok.com/@afrohaus.x/video/7694073428256509214",
+      "type": "Video",
+      "at": "2026-10-07T23:34:46.000Z",
+      "likes": 40,
+      "comments": 0,
+      "shares": 7,
+      "views": 1194,
+      "caption": "a guaranteed vibe if you stick with us… \n\nWINTER HAUS 2027 \nJanuary 28-31st, 2027\n\n🎟️🔗 in bio\n\n#blacktiktok #travel #p",
+      "sound": {
+       "name": "original sound",
+       "author": "Afrohaus.x",
+       "original": true
+      }
+     }
+    ]
+   },
+   "history": [
+    {
+     "d": "2026-11-23",
+     "f": 1635
+    }
+   ],
+   "fetched_at": "2026-11-23T05:12:19.132Z",
    "error": null
   }
  }

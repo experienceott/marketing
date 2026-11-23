@@ -1,0 +1,44 @@
+# OTT Studio · daily social sync (OTT, talent and competitors on Instagram + TikTok).
+# Runs every morning, whenever someone presses "Run workflow" on GitHub, and when the app
+# opens an issue titled "profile: instagram:handle" to add a new account.
+name: Social sync
+on:
+  schedule:
+    - cron: '23 13 * * *'   # about 5:23am Pacific every day
+  workflow_dispatch:
+  issues:
+    types: [opened]
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: social-sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    if: github.event_name != 'issues' || startsWith(github.event.issue.title, 'profile:')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Pull public social data through Apify
+        env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: node scripts/sync-profiles.mjs
+      - name: Save the new numbers
+        run: |
+          git config user.name "OTT Studio bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/profiles.json data/handles.json media/profiles
+          git diff --cached --quiet || git commit -m "Social sync $(date -u +%F)"
+          git pull --rebase --autostash
+          git push
+      - name: Close the add-account issue
+        if: github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue close ${{ github.event.issue.number }} --repo ${{ github.repository }} --comment "Added and synced. It now updates every morning."

@@ -1,0 +1,17 @@
+{
+ "note": "Accounts OTT Studio benchmarks against. Edit this list to add or remove competitors; the daily sync picks up changes automatically.",
+ "self": { "name": "OTT", "handles": ["instagram:overthetopxp", "tiktok:overthetopxp"] },
+ "competitors": [
+  { "name": "AfroHaus / Winterhaus", "focus": ["Tahoe Ski Weekend"], "handles": ["instagram:afrohaus.x", "tiktok:afrohaus.x"] },
+  { "name": "Play2Win", "focus": ["Nightlife"], "handles": ["instagram:play2winsocial"] },
+  { "name": "Sundaze (Anthony Presents)", "focus": ["Day parties", "Pool Party"], "handles": ["instagram:sundaze", "tiktok:anthonypresents"] },
+  { "name": "AP Group", "focus": ["Nightlife"], "handles": ["instagram:ap.group"] },
+  { "name": "United Tribes of Africa", "focus": ["Culture", "Tahoe Ski Weekend"], "partner": true, "handles": ["instagram:unitedtribesof_africa", "tiktok:unitedtribesof_africa"] },
+  { "name": "FRNDS Only", "focus": ["Nightlife"], "handles": ["instagram:frndsonly", "tiktok:frndsonly"] },
+  { "name": "Toasted Life", "focus": ["Lifestyle", "Day parties"], "handles": ["instagram:toastedlife"] },
+  { "name": "RnB and Ribs", "focus": ["R&B", "The Blend"], "handles": ["instagram:rnbandribs", "tiktok:rnbandribs"] },
+  { "name": "Town Strides", "focus": ["Wellness + fitness", "SF Fit Fest"], "handles": ["instagram:townstrides", "tiktok:town.strides"] },
+  { "name": "The RnB Brunch Bay Area", "focus": ["R&B", "Brunch & Build", "The Blend"], "handles": ["instagram:thernbbrunchbayarea", "tiktok:thernbbrunch"] },
+  { "name": "Familiar Faces", "focus": ["Nightlife", "R&B"], "handles": ["instagram:familiarfacesparty", "tiktok:familiarfacesparty"] }
+ ]
+}
