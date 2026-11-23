@@ -608,10 +608,11 @@ Thanks for thinking of OTT. Here's what we'd put together for you. Accept below 
  let raf=0;new MutationObserver(()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;mount()})}).observe(document.body,{childList:true,subtree:true});
  window.addEventListener('resize',()=>{try{if(HOST.isConnected)luckysheet.resize()}catch(e){}});
  // --- headline numbers read from the sheet itself (rows labelled Total revenue / Total expenses / Net / Margin) ---
- const LBL=[['rev',/^total (revenue|income|sales)\b/i],['exp',/^total (expenses|costs?|spend)\b/i],['net',/^net( profit| income)?\b/i],['mar',/^(net |profit )?margin\b/i]];
+ const LBL=[['rev',/^total (revenue|income|sales)\b/i],['exp',/^total (expenses|costs?|spend)\b/i],['net',/^net(?!\s*margin)( profit| income)?\b/i],['mar',/^(net |profit )?margin\b/i]];
  function totals(rec){let out={};for(const s of rec.data||[]){if(s.hide)continue;let rows={};for(const e of s.celldata||[])(rows[e.r]=rows[e.r]||[]).push(e);
    for(const r in rows){let cs=rows[r].sort((a,b)=>a.c-b.c);for(let i=0;i<cs.length;i++){let v=cs[i].v&&cs[i].v.v;if(typeof v!=='string')continue;let lab=v.trim();
      for(const [key,re] of LBL){if(out[key]!=null||!re.test(lab))continue;let n=cs.slice(i+1).find(x=>x.v&&typeof x.v.v==='number');if(n){out[key]=n.v.v;out[key+'_m']=n.v.m||String(n.v.v)}}}}}
+  if(out.net==null&&out.rev!=null&&out.exp!=null)out.net=out.rev-out.exp;
   return out}
  function chips(rec){let t=totals(rec),f=n=>'$'+Math.round(n).toLocaleString('en-US');let a=[];
   if(t.rev!=null)a.push(['Revenue',f(t.rev)]);if(t.exp!=null)a.push(['Expenses',f(t.exp)]);if(t.net!=null)a.push(['Net',f(t.net)]);if(t.mar!=null)a.push(['Margin',Math.abs(t.mar)<=1.5?(t.mar*100).toFixed(1)+'%':t.mar_m]);
