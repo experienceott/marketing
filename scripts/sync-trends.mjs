@@ -114,6 +114,7 @@ await safe('OTT comment cities', async () => {
     const vids = await run('clockworks~tiktok-scraper', { postURLs: tt, commentsPerPost: 60, resultsPerPage: 1 }, 'tt-comments');
     for (const v of vids) { const u = v.commentsDatasetUrl; if (!u || FIX) continue; try { const r = await fetch(u + (u.includes('?') ? '&' : '?') + 'token=' + TOKEN + '&clean=1'); if (r.ok) for (const x of await r.json()) texts.push({ t: x.text || '', p: 'tiktok', at: x.createTimeISO }); } catch {} }
   }
+  { const seen = new Set(); for (let i = texts.length - 1; i >= 0; i--) { const k = texts[i].t.trim().toLowerCase(); if (!k || seen.has(k)) texts.splice(i, 1); else seen.add(k); } }
   const all = [...cities.map(c => [c.name, c.state, c.aliases || [c.name]]), ...(cfg.request_cities || [])];
   const esc = w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const ask = /(come|bring|pull up|when.{0,20}(com|com?ing|be in|hit)|need (this|y'?all|you|one)|do (one|this) in|next.{0,12}(stop|city)|please.{0,15}(in|to))/i;
