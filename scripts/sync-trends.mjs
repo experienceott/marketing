@@ -85,6 +85,22 @@ await safe('Scene + cities', async () => {
     db.cities[c.name] = { ...prev, name: c.name, state: c.state || '', ott: !!c.ott, hashtags: c.hashtags, history, top: uniq.sort((a, b) => b.views - a.views).slice(0, 3).map(v => ({ url: v.url, views: v.views, author: v.author })) };
   }
 });
+// 3b) Instagram Reels audio: what competitors and OTT are putting under their Reels
+await safe('Reels audio', async () => {
+  const comp = await readJSON('data/competitors.json', { competitors: [] });
+  const owners = {}; for (const c of [{ name: 'OTT', handles: comp.self?.handles || [] }, ...comp.competitors]) for (const h of c.handles || []) if (h.startsWith('instagram:')) owners[h.split(':')[1]] = c.name;
+  const items = await run('apify~instagram-scraper', { directUrls: Object.keys(owners).map(u => `https://www.instagram.com/${u}/`), resultsType: 'reels', resultsLimit: cfg.reels_per_account || 8 }, 'reels');
+  const A = {};
+  for (const r of items) {
+    const m = r.musicInfo || r.music_info || r.audio || {};
+    const title = pick(m, 'song_name', 'songName', 'title', 'audio_name') || '', artist = pick(m, 'artist_name', 'artistName', 'artist') || '';
+    const orig = !!pick(m, 'uses_original_audio', 'usesOriginalAudio', 'is_original') || /original audio/i.test(title) || !title;
+    if (orig) continue;
+    const k = (title + '|' + artist).toLowerCase(), who = owners[String(r.ownerUsername || '').toLowerCase()] || r.ownerUsername;
+    (A[k] ||= { title, artist, uses: 0, plays: 0, accounts: new Set(), example: r.url }); A[k].uses++; A[k].plays += r.videoPlayCount || r.videoViewCount || 0; A[k].accounts.add(who);
+  }
+  db.reels = { at: now, sounds: Object.values(A).map(a => ({ ...a, accounts: [...a.accounts] })).sort((a, b) => b.accounts.length - a.accounts.length || b.plays - a.plays).slice(0, 20) };
+});
 // 4) OTT engagement lift by city mentioned in its own posts (from profiles.json)
 await safe('OTT city lift', async () => {
   const prof = await readJSON('data/profiles.json', { profiles: {} });
