@@ -384,3 +384,30 @@ html body.s2login .panel.login{margin:0 auto!important}
 html body .cmdk *{text-transform:none!important;letter-spacing:0!important}
 html body .cmdk .gskind{font-size:12px;font-weight:600;color:#8e8e93}
 html body .cmdbox{border-radius:28px!important;border:0!important;box-shadow:0 40px 90px -30px rgba(0,0,0,.45)!important}
+.s2af{display:inline-block;margin-left:8px;font-size:11px;font-weight:600;color:#8a6100;background:#fff4cc;border-radius:999px;padding:1px 8px;vertical-align:middle}
+.s2afnote{display:flex;align-items:center;gap:10px;margin:8px 0 12px;padding:8px 12px;border-radius:14px;background:#fff8d6;font-size:13px;color:#3a3a3c}
+.s2afnote .s2orb{width:24px;height:24px}
+@media (prefers-color-scheme:dark){.s2af{background:#332a00;color:#ffd60a}.s2afnote{background:#332a00;color:#f5f5f7}}
+/* modals, sheets and drawers follow the same rules */
+html body .modal *,html body .modalbg *,html body .qpbg *{text-transform:none!important}
+html body .modal h1{text-transform:uppercase!important}
+html body .modal .eyebrow,html body .modal .mtile span:first-child,html body .modal .gtiles span:first-child{letter-spacing:0!important;font-weight:600;color:#636366}
+html body .evnav{background:transparent!important;border:0!important;box-shadow:none!important}
+html body .evgroups{display:inline-flex!important;gap:2px;padding:4px;border-radius:999px;background:#e9e9ee;border:0!important}
+html body .evgroups button{height:36px;padding:0 16px!important;border-radius:999px!important;border:0!important;font-weight:500;color:#636366}
+html body .evgroups button.on{background:#fff!important;color:#0a0a0a!important;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.12)!important}
+html body .evgroups button.on::after,html body .evgroups button::after{display:none!important}
+html body .mtile,html body .gtiles>div{border:0!important;border-radius:18px!important;background:#f2f2f7!important;box-shadow:inset 0 1px 2px rgba(0,0,0,.05)!important}
+html body .ierow{position:relative}
+html body .ierow .s2af{position:absolute;right:0;top:50%;transform:translateY(-50%);margin:0}
+@media (prefers-color-scheme:dark){html body .evgroups{background:#2c2c2e}html body .evgroups button.on{background:#48484a!important;color:#f5f5f7!important}html body .mtile,html body .gtiles>div{background:#2c2c2e!important}}
+/* leftover outlined boxes become cards / insets */
+html body :is(.vfc,.pbkph,.rmnext,.hq,.sto,.toppost,.rmready,.fcbox,.tplban,.plhistrow){border-color:transparent!important;border-radius:18px!important;box-shadow:var(--s2-e1)!important;background:#fff}
+html body .plauto{border:0!important;border-radius:18px!important;background:#f2f2f7!important}
+html body .trow{border-top-color:transparent!important;border-right-color:transparent!important;border-bottom-color:transparent!important;border-radius:16px!important;box-shadow:var(--s2-e1)!important}
+html body .wrap :is(table){border-collapse:separate;border-spacing:0}
+html body .wrap :is(th){font-size:12px!important;font-weight:600!important;color:#636366!important;letter-spacing:0!important;border-bottom:1px solid #e5e5ea!important}
+html body .wrap :is(td){border-color:#f0f0f3!important}
+html body .wrap .empty,html body .wrap .emptybox,html body .wrap [class*="empty"]{border-style:solid!important;border-color:transparent!important;border-radius:24px!important}
+html body .wrap a:not(.btn){text-underline-offset:3px;text-decoration-thickness:1.5px}
+@media (prefers-color-scheme:dark){html body :is(.vfc,.pbkph,.rmnext,.hq,.sto,.toppost,.rmready,.fcbox,.tplban,.plhistrow){background:#1c1c1e}html body .plauto{background:#2c2c2e!important}html body .wrap th{border-bottom-color:#38383a!important}html body .wrap td{border-color:#2c2c2e!important}}
