@@ -726,7 +726,9 @@ try{let v=m.campaigns.find(v=>!v.internal&&typeof sp=="function"&&sp(v));if(v)ou
 try{let t=_();for(let k of m.tasks.filter(k=>(!e||k.owner===e)&&k.status!=="Done").sort((a,b)=>(a.due||"9").localeCompare(b.due||"9"))){if(out.length>=3)break;out.push({tag:k.due&&k.due<t?"Late":"Task",tone:k.due&&k.due<t?"bad":"neutral",t:k.title,sub:(k.campaign_id?ze(k.campaign_id)+" \xB7 ":"")+(k.due?O(k.due):"No date"),btn:`<button type="button" class="btn sm" data-open="task:${k.id}">Open</button>`})}}catch{}
 out=out.slice(0,3);if(!out.length)return{html:"",wrap:0};return{wrap:out.some(x=>x.wrap),html:`<section class="s2next"><h2>Do this next</h2><div class="s2nextg">${out.map(x=>`<div class="s2card"><span class="s2badge ${x.tone}">${c(x.tag)}</span><b>${c(x.t)}</b><small>${c(x.sub||"")}</small><div class="s2act">${x.btn}</div></div>`).join("")}</div></section>`}}
 {let o0=yr;yr=function(c){return o0(c)+S2Sug(c)}}
-{let o1=Ae;Ae=function(){let h=o1(),e=we(),d=S2DoNext(e);if(d.html){h=h.replace("</header>","</header>"+d.html);if(d.wrap)h=h.replace(/<div class="h2wrapup">[\s\S]*?<\/span><\/div>/,"")}return h}};try{y()}catch(e){}/*S2HOME_END*/
+{let o1=Ae;Ae=function(){let h=o1(),e=we(),d=S2DoNext(e);if(d.html){h=h.replace("</header>","</header>"+d.html);if(d.wrap)h=h.replace(/<div class="h2wrapup">[\s\S]*?<\/span><\/div>/,"")}return h}}
+function S2Tix(e){try{let t=Et(e);if(t.sold==null||!t.goal||t.out==null||t.out<0)return"";let pct=Math.min(100,Math.round(t.sold/t.goal*100)),tg=t.exp!=null?Math.min(100,Math.round(t.exp/t.goal*100)):null,beh=t.exp!=null&&t.sold<t.exp-Math.max(3,t.goal*.03);return`<div class="s2tix"><div class="s2tixr"><span class="s2tixn">${T(t.sold)}<small> / ${T(t.goal)}</small></span><span class="s2tixb ${beh?"bad":"good"}">${beh?"Behind":"On track"}</span></div><div class="s2tixbar"><i style="width:${pct}%"></i>${tg!=null?`<b style="left:${tg}%"></b>`:""}</div><div class="s2tixr s2tixs"><span>${t.out} day${t.out===1?"":"s"} left</span><span>${t.need!=null?t.need+"/day needed":""}</span></div></div>`}catch{return""}}
+{let o2=Ia;Ia=function(e){let h=o2(e);return h.replace('</div><div class="cmacts">',S2Tix(e)+'</div><div class="cmacts">')}};try{y()}catch(e){}/*S2HOME_END*/
 </script><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap"><style id="studio2">/* ===== Studio 2.0 skin: same rules as the redesign canvas ===== */
 html body{--bg:#f2f2f7;--ink:#0a0a0a;--yellow:#ffd60a;--muted:#636366;--line:#e5e5ea;--paper:#ffffff;--radius:24px;
  --s2-track:#e5e5ea;--s2-inset:#f2f2f7;--s2-good:#1a7f3c;
@@ -959,4 +961,16 @@ html body .btn.sm{min-height:34px;height:34px;padding:0 14px;font-size:13px}
 @media (prefers-color-scheme:dark){.s2card,.s2sug{background:#1c1c1e;color:#f5f5f7}.s2card small,.s2sm small{color:#a1a1a6}
  .s2badge.warn{background:#332a00;color:#ffd60a}.s2badge.neutral{background:#3a3a3c;color:#d1d1d6}.s2badge.bad{background:#3a1714;color:#ff7b72}}
 html body .hcard.big .hcname{font-size:clamp(28px,3vw,40px)!important;line-height:1.05!important}
+/* event hero: frosted ticket panel */
+.s2tix{margin-top:14px;width:320px;max-width:100%;padding:14px 16px;border-radius:22px;color:#fff;display:flex;flex-direction:column;gap:10px;background:rgba(255,255,255,.14);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 20px 40px -16px rgba(0,0,0,.5)}
+.s2tixr{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.s2tixn{font-size:30px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}.s2tixn small{font-size:15px;opacity:.7;font-weight:600}
+.s2tixb{font-size:12px;font-weight:700;border-radius:999px;padding:4px 10px}.s2tixb.bad{background:rgba(255,90,80,.32)}.s2tixb.good{background:rgba(48,209,88,.3)}
+.s2tixbar{position:relative;height:8px;border-radius:4px;background:rgba(255,255,255,.22)}
+.s2tixbar i{display:block;height:100%;border-radius:4px;background:#ffd60a;transform-origin:left;animation:s2grow 1.1s .3s cubic-bezier(.2,.8,.2,1) both}
+.s2tixbar b{position:absolute;top:-4px;width:2px;height:16px;border-radius:1px;background:#fff}
+.s2tixs{font-size:12.5px;opacity:.85}
+@keyframes s2grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+html body .cmhead{border-radius:28px 28px 0 0}
+html body .rosbtn{border:0!important;background:#e5e5ea!important;color:#0a0a0a!important;border-radius:999px!important;min-height:40px;padding:0 16px!important;font-size:14px!important;font-weight:600!important;display:inline-flex;align-items:center;gap:6px}@media (prefers-color-scheme:dark){html body .rosbtn{background:#3a3a3c!important;color:#f5f5f7!important}}
 </style></body></html>
