@@ -15,7 +15,8 @@ const comp = await readJSON('data/competitors.json', { competitors: [] });
 const compHandles = [...(comp.self?.handles || []), ...comp.competitors.flatMap(c => c.handles || [])].map(h => h.toLowerCase());
 const fromIssue = (process.env.ISSUE_TITLE || '').toLowerCase().match(/(instagram|tiktok):[a-z0-9._]{1,40}/g) || [];
 tracked.handles = [...new Set([...tracked.handles.map(h => h.toLowerCase()), ...fromIssue])];
-const all = [...new Set([...tracked.handles, ...compHandles])];
+const known = Object.entries(db.profiles).filter(([, v]) => !v.error || v.fetched_at > new Date(Date.now() - 14 * 864e5).toISOString()).map(([k]) => k.toLowerCase());
+const all = [...new Set([...tracked.handles, ...compHandles, ...known])];
 const only = fromIssue.length ? fromIssue : all; // an issue run fetches just the new handles
 const run = async (actor, input) => {
   if (FIXTURES) return JSON.parse(await fs.readFile(`${FIXTURES}/${actor.split('~')[1]}.json`, 'utf8'));
