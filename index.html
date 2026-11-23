@@ -718,6 +718,15 @@ Thanks for thinking of OTT. Here's what we'd put together for you. Accept below 
  .tceacts{margin-top:14px}.tcemsg{font-size:13px;color:#b91c1c;margin:8px 0 0;min-height:1em}.bigcal .citem.tm,.bigcal .citem.cdg{cursor:pointer}@media(max-width:600px){.tcegrid{grid-template-columns:1fr 1fr}}`;document.head.appendChild(st);
 })();
 
+
+/*S2HOME*/function S2Sug(c){try{let t=Et(c);if(t.sold==null||!t.goal||t.out==null||t.out<0||t.exp==null)return"";let gap=t.sold-t.exp;if(gap>=-Math.max(3,t.goal*.03))return"";return`<div class="s2sug"><span class="s2orb"><svg width="15" height="15" viewBox="0 0 24 24" fill="#0a0a0a" aria-hidden="true"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9zM19 14l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9z"/></svg></span><span class="s2sm"><b>${Math.round(-gap)} tickets behind pace</b><small>Needs ${t.need}/day for ${t.out} day${t.out===1?"":"s"}</small></span><button type="button" class="btn primary sm" data-nav="Today">Plan a push</button></div>`}catch{return""}}
+function S2DoNext(e){let out=[];try{let s=typeof TdNextSlot=="function"?TdNextSlot():null;if(s&&s.post){let p=s.post;out.push({tag:"Post next",tone:"warn",t:`${p.toLocaleDateString("en-US",{weekday:"short"})} ${p.toLocaleTimeString("en-US",{hour:"numeric"})}, before your audience peaks`,sub:s.src==="ig"?"From your Instagram audience":"From your recent posts",btn:`<button type="button" class="btn sm" data-nav="Today">Plan this post</button>`})}}catch{}
+try{let w=e?Ls(e)[0]:null;if(w)out.push({tag:"Waiting on you",tone:"neutral",t:w.txt,sub:w.sub,btn:`<button type="button" class="btn sm" ${w.at}>Open</button>`})}catch{}
+try{let v=m.campaigns.find(v=>!v.internal&&typeof sp=="function"&&sp(v));if(v)out.push({tag:"Wrap-up",tone:"neutral",t:"Wrap up "+v.name,sub:"Final numbers, photos, recaps",btn:`<button type="button" class="btn sm" data-wrap="${v.id}">Start wrap-up</button>`,wrap:1})}catch{}
+try{let t=_();for(let k of m.tasks.filter(k=>(!e||k.owner===e)&&k.status!=="Done").sort((a,b)=>(a.due||"9").localeCompare(b.due||"9"))){if(out.length>=3)break;out.push({tag:k.due&&k.due<t?"Late":"Task",tone:k.due&&k.due<t?"bad":"neutral",t:k.title,sub:(k.campaign_id?ze(k.campaign_id)+" \xB7 ":"")+(k.due?O(k.due):"No date"),btn:`<button type="button" class="btn sm" data-open="task:${k.id}">Open</button>`})}}catch{}
+out=out.slice(0,3);if(!out.length)return{html:"",wrap:0};return{wrap:out.some(x=>x.wrap),html:`<section class="s2next"><h2>Do this next</h2><div class="s2nextg">${out.map(x=>`<div class="s2card"><span class="s2badge ${x.tone}">${c(x.tag)}</span><b>${c(x.t)}</b><small>${c(x.sub||"")}</small><div class="s2act">${x.btn}</div></div>`).join("")}</div></section>`}}
+{let o0=yr;yr=function(c){return o0(c)+S2Sug(c)}}
+{let o1=Ae;Ae=function(){let h=o1(),e=we(),d=S2DoNext(e);if(d.html){h=h.replace("</header>","</header>"+d.html);if(d.wrap)h=h.replace(/<div class="h2wrapup">[\s\S]*?<\/span><\/div>/,"")}return h}};try{y()}catch(e){}/*S2HOME_END*/
 </script><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap"><style id="studio2">/* ===== Studio 2.0 skin: same rules as the redesign canvas ===== */
 html body{--bg:#f2f2f7;--ink:#0a0a0a;--yellow:#ffd60a;--muted:#636366;--line:#e5e5ea;--paper:#ffffff;--radius:24px;
  --s2-track:#e5e5ea;--s2-inset:#f2f2f7;--s2-good:#1a7f3c;
@@ -925,4 +934,29 @@ body:has(.s2boot){background:radial-gradient(900px 600px at 15% 10%,rgba(255,214
 .s2boot .ld::after{content:"";position:absolute;inset:0;width:40%;border-radius:3px;background:#ffd60a;animation:s2load 1.2s ease-in-out infinite}
 @keyframes s2load{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
 @media (prefers-color-scheme:dark){body:has(.s2boot){background:radial-gradient(900px 600px at 15% 10%,rgba(255,214,10,.22),transparent 60%),#000!important}.s2boot .card{background:rgba(30,30,32,.6);border-color:rgba(255,255,255,.1)}.s2boot svg{fill:#ffd60a}.s2boot .ld{background:rgba(255,255,255,.12)}}
+
+/* Home: do this next + suggestions on event cards */
+.s2next{display:flex;flex-direction:column;gap:12px;margin:8px 0 28px}
+.s2next h2{margin:0;font-size:19px}
+.s2nextg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.s2card{background:#fff;border-radius:24px;box-shadow:var(--s2-e1);padding:20px;display:flex;flex-direction:column;gap:10px;min-height:168px;animation:s2rise .6s cubic-bezier(.2,.8,.2,1) both}
+.s2card:nth-child(2){animation-delay:.06s}.s2card:nth-child(3){animation-delay:.12s}
+.s2card b{font-size:17px;line-height:1.25;font-weight:700}
+.s2card small{font-size:13px;color:#636366}
+.s2act{margin-top:auto}
+.s2badge{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600}
+.s2badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.s2badge.warn{background:#fff4cc;color:#8a6100}.s2badge.neutral{background:#e5e5ea;color:#3a3a3c}.s2badge.bad{background:#fdeceb;color:#c4271c}
+.s2sug{position:relative;isolation:isolate;display:flex;align-items:center;gap:10px;margin-top:10px;padding:8px 8px 8px 10px;border-radius:18px;background:#fff;box-shadow:var(--s2-e1)}
+.s2sug::before{content:"";position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;background:conic-gradient(from var(--s2ang),#ffd60a,#ff9f0a,#fff3b0,#ffd60a,#f5c400,#ffd60a);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:s2spin 5s linear infinite;z-index:-1}
+.s2orb{width:30px;height:30px;border-radius:50%;flex:none;display:grid;place-items:center;background:linear-gradient(140deg,#fff3b0,#ffd60a 55%,#ff9f0a);box-shadow:0 4px 10px -4px rgba(255,159,10,.6)}
+.s2sm{flex:1;min-width:0;display:flex;flex-direction:column}
+.s2sm b{font-size:14px;font-weight:600}.s2sm small{font-size:12px;color:#636366}
+html body .btn.sm{min-height:34px;height:34px;padding:0 14px;font-size:13px}
+@property --s2ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes s2spin{to{--s2ang:360deg}}
+@media (max-width:900px){.s2nextg{grid-template-columns:1fr}.s2card{min-height:0}}
+@media (prefers-color-scheme:dark){.s2card,.s2sug{background:#1c1c1e;color:#f5f5f7}.s2card small,.s2sm small{color:#a1a1a6}
+ .s2badge.warn{background:#332a00;color:#ffd60a}.s2badge.neutral{background:#3a3a3c;color:#d1d1d6}.s2badge.bad{background:#3a1714;color:#ff7b72}}
+html body .hcard.big .hcname{font-size:clamp(28px,3vw,40px)!important;line-height:1.05!important}
 </style></body></html>
