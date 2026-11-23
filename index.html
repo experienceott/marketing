@@ -510,8 +510,8 @@ Thanks for thinking of OTT. Here's what we'd put together for you. Accept below 
   if(past){done.push(past+' past event'+(past===1?'':'s')+' marked Completed');ch=true}
   // upcoming events with no SweatPals link: link the live listing on the same day that shares a name word (e.g. Hennessy dinner)
   try{let sp=JSON.parse(localStorage.getItem('ott_sp_cache')||'null'),all=((sp&&(sp.v||sp).events)||[]),ids=new Set(all.map(e=>e.event_id)),ev=all.filter(e=>e.name&&(e.tickets||0)>0),ln=0;
-   for(const c of m.campaigns||[]){if(!c.date||c.date<t||c.from_sweatpals_live)continue;if(c.sp_event_id&&(ids.has(c.sp_event_id)||!all.length))continue;let w=new Set(words(c.name));if(!w.size)continue;
-    let e=ev.find(e=>Math.abs(dd(locDay(e.start),c.date))<=1&&words(e.name).some(x=>w.has(x)));if(e){c.sp_event_id=e.event_id;c.sweatpals_event=e.name.trim();ln++}}
+   for(const c of m.campaigns||[]){if(!c.date||c.date<t||c.from_sweatpals_live)continue;if(c.sp_event_id&&(!all.length||(ids.has(c.sp_event_id)&&(all.find(e=>e.event_id===c.sp_event_id).tickets||0)>0)))continue;let w=new Set(words(c.name));if(!w.size)continue;
+    let e=ev.find(e=>e.event_id!==c.sp_event_id&&Math.abs(dd(locDay(e.start),c.date))<=1&&words(e.name).some(x=>w.has(x)));if(e){c.sp_event_id=e.event_id;c.sweatpals_event=e.name.trim();ln++}}
    if(ln){done.push(ln+' event'+(ln===1?'':'s')+' linked to SweatPals');ch=true}}catch(e){}
   // inquiries: newsletters and app emails from the inbox scan, and the same sender twice, close as Lost
   let junk=0,dup=0,seen={};const JUNK=/^(info|team|news|newsletter|updates?|welcome|hello|noreply|no-reply)@|@(m|mail|email|e|info|news)\.|@overthetopxp\.com$/i;
@@ -522,6 +522,165 @@ Thanks for thinking of OTT. Here's what we'd put together for you. Accept below 
   if(junk||dup){done.push([junk?junk+' newsletter'+(junk===1?'':'s'):'',dup?dup+' duplicate'+(dup===1?'':'s'):''].filter(Boolean).join(' and ')+' cleared from Inquiries');ch=true}
   if(ch){try{k('Data tidy',done.join('; '))}catch(e){}}}
  let ran=false;const _y=y;y=function(){let r=_y.apply(this,arguments);try{if(!ran&&G==='cloud'&&F&&ut&&m&&Array.isArray(m.campaigns)){ran=true;setTimeout(()=>{try{tidy()}catch(e){console.warn('tidy',e)}},2500)}}catch(e){}return r};
+})();
+
+;
+// ---- Studio fix 2 (Nov 22): native Sheets. Event budgets and team spreadsheets built, edited, uploaded and downloaded inside the Studio ----
+(function(){
+ const SHE={view:'list',open:'',dirty:false,timer:0,loading:false,libs:null,status:''};
+ const esc2=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const sheets=()=>{if(!Array.isArray(m.sheets))m.sheets=[];return m.sheets};
+ const td=()=>new Date().toISOString().slice(0,10);
+ const me=()=>{try{return (F&&F.email)||''}catch(e){return ''}};
+ const fmtD=s=>s?new Date(s).toLocaleDateString('en-US',{month:'short',day:'numeric'}):'';
+ const camp=id=>(m.campaigns||[]).find(c=>c.id===id);
+ // --- libraries (loaded the first time Sheets opens) ---
+ const LS='https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/';
+ function css(h){return new Promise(r=>{let l=document.createElement('link');l.rel='stylesheet';l.href=h;l.onload=l.onerror=r;document.head.appendChild(l)})}
+ function js(src){return new Promise((r,x)=>{let s=document.createElement('script');s.src=src;s.onload=r;s.onerror=()=>x(new Error('Could not load '+src));document.head.appendChild(s)})}
+ function libs(){if(SHE.libs)return SHE.libs;SHE.libs=(async()=>{await Promise.all([css(LS+'plugins/css/pluginsCss.css'),css(LS+'plugins/plugins.css'),css(LS+'css/luckysheet.css'),css(LS+'assets/iconfont/iconfont.css')]);
+  await js(LS+'plugins/js/plugin.js');await js(LS+'luckysheet.umd.js');await js('https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js')})();SHE.libs.catch(()=>{SHE.libs=null});return SHE.libs}
+ let lxP=null;const luckyExcel=()=>lxP||(lxP=js('https://cdn.jsdelivr.net/npm/luckyexcel@1.0.1/dist/luckyexcel.umd.js'));
+ // --- Google Sheet (whole workbook, formulas and formatting) -> Studio sheet ---
+ const HA={left:1,center:0,right:2,general:undefined,'general-left':1,'general-right':2};
+ function fromGoogle(j){return (j.tabs||[]).filter(t=>t.rows).map((t,ti)=>{let cd=[],merge={};
+  for(let r=0;r<t.rows;r++)for(let c=0;c<t.cols;c++){let v=t.v[r][c],f=(t.f[r]||[])[c]||'',nf=(t.nf[r]||[])[c]||'',bg=(t.bg[r]||[])[c]||'',fc=(t.fc[r]||[])[c]||'',bold=(t.fw[r]||[])[c]==='bold',it=(t.fi[r]||[])[c]==='italic',ha=HA[String((t.ha[r]||[])[c]||'').toLowerCase()];
+   let styled=(bg&&bg.toLowerCase()!=='#ffffff')||(fc&&fc.toLowerCase()!=='#000000')||bold||it;if(v===''&&!f&&!styled)continue;
+   let num=typeof v==='number';if(v===''&&f)v=0;let fa=nf&&nf!=='General'&&nf!=='@'?nf:'General',cell={v:v===''?null:v,ct:{fa,t:num?'n':'g'}};
+   if(num){try{cell.m=XLSX.SSF.format(fa==='General'?'General':fa,v)}catch(e){cell.m=String(v)}}else if(v!=='')cell.m=String(v);
+   cell.ff=1;if(f)cell.f=f;if(bg&&bg.toLowerCase()!=='#ffffff')cell.bg=bg;if(fc&&fc.toLowerCase()!=='#000000')cell.fc=fc;if(bold)cell.bl=1;if(it)cell.it=1;if(ha!==undefined)cell.ht=ha;
+   cd.push({r,c,v:cell})}
+  for(const [r,c,rs,cs] of t.merges||[]){merge[r+'_'+c]={r,c,rs,cs};let x=cd.find(e=>e.r===r&&e.c===c);if(x)x.v.mc={r,c,rs,cs};else cd.push({r,c,v:{mc:{r,c,rs,cs}}});
+   for(let i=r;i<r+rs;i++)for(let k2=c;k2<c+cs;k2++)if(i!==r||k2!==c){let y2=cd.find(e=>e.r===i&&e.c===k2);if(y2)y2.v.mc={r,c};else cd.push({r:i,c:k2,v:{mc:{r,c}}})}}
+  let columnlen={};(t.widths||[]).forEach((w,i)=>{if(w&&w!==100)columnlen[i]=w});
+  let s={name:t.name,index:'s'+ti,order:ti,status:ti===0?1:0,celldata:cd,calcChain:cd.filter(e=>e.v&&e.v.f).map(e=>({r:e.r,c:e.c,index:'s'+ti})),config:{merge,columnlen},row:Math.max(60,t.rows+20),column:Math.max(26,t.cols+4)};
+  if(t.hidden)s.hide=1;if(t.frozen||t.frozenCols)s.frozen={type:t.frozen&&t.frozenCols?'rangeBoth':t.frozen?'rangeRow':'rangeColumn',range:{row_focus:Math.max(0,(t.frozen||1)-1),column_focus:Math.max(0,(t.frozenCols||1)-1)}};
+  return s})}
+ async function importGoogle(url,name,cid){if(!m.brief_key)throw new Error('Needs the Studio key (Settings)');
+  let r=await fetch(U,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({sheet_full:{url},key:m.brief_key})}),j=await r.json();
+  if(!j.ok)throw new Error(/handle are required/i.test(j.error||'')?'Deploy engine v100 first, then try again':(j.error||'Could not read the sheet'));
+  await libs();let rec={id:q(),name:name||j.title||'Budget',campaign_id:cid||'',source:{type:'gsheet',id:j.id,title:j.title},data:fromGoogle(j),updated_at:new Date().toISOString(),by:me()};
+  sheets().push(rec);await k('Brought a sheet into the Studio',rec.name);return rec}
+ // --- xlsx out (values, formulas, number formats, widths, merges) ---
+ function toXlsx(rec,data){let wb=XLSX.utils.book_new();
+  for(const s of (data||rec.data||[])){let ws={},mr=0,mc=0,cells=s.celldata||(window.luckysheet&&s.data?luckysheet.transToCellData(s.data):[]);
+   for(const e of cells){let v=e.v||{};if(v.v==null&&!v.f)continue;let cell={};if(v.f){cell.f=String(v.f).replace(/^=/,'')}
+    if(typeof v.v==='number'){cell.t='n';cell.v=v.v}else if(typeof v.v==='boolean'){cell.t='b';cell.v=v.v}else{cell.t='s';cell.v=v.v==null?'':String(v.v)}
+    if(v.ct&&v.ct.fa&&v.ct.fa!=='General')cell.z=v.ct.fa;ws[XLSX.utils.encode_cell({r:e.r,c:e.c})]=cell;mr=Math.max(mr,e.r);mc=Math.max(mc,e.c)}
+   ws['!ref']=XLSX.utils.encode_range({s:{r:0,c:0},e:{r:mr,c:mc}});let cl=(s.config&&s.config.columnlen)||{};ws['!cols']=Array.from({length:mc+1},(_,i)=>({wpx:cl[i]||100}));
+   let mg=(s.config&&s.config.merge)||{};ws['!merges']=Object.values(mg).map(x=>({s:{r:x.r,c:x.c},e:{r:x.r+x.rs-1,c:x.c+x.cs-1}}));
+   XLSX.utils.book_append_sheet(wb,ws,String(s.name||'Sheet').replace(/[\\\/?*\[\]:]/g,' ').slice(0,31))}
+  XLSX.writeFile(wb,(rec.name||'sheet').replace(/[\\\/:*?"<>|]+/g,' ').trim()+'.xlsx')}
+ async function download(id){let rec=sheets().find(x=>x.id===id);if(!rec)return;await libs();let live=SHE.open===id&&window.luckysheet?compact():null;toXlsx(rec,live)}
+ // --- xlsx in ---
+ function upload(cid){let i=document.createElement('input');i.type='file';i.accept='.xlsx';i.onchange=async()=>{let f=i.files[0];if(!f)return;try{j('Reading '+f.name+'…');await libs();await luckyExcel();
+   LuckyExcel.transformExcelToLucky(f,async(ex)=>{if(!ex||!ex.sheets||!ex.sheets.length){j('Could not read that file. Only .xlsx works.');return}
+    let rec={id:q(),name:f.name.replace(/\.xlsx$/i,''),campaign_id:cid||'',source:{type:'xlsx',file:f.name},data:ex.sheets.map((s,ix)=>({name:s.name,index:'s'+ix,order:ix,status:ix===0?1:0,celldata:s.celldata||[],config:s.config||{},row:Math.max(60,(s.row||0)),column:Math.max(26,(s.column||0)),frozen:s.frozen})),updated_at:new Date().toISOString(),by:me()};
+    sheets().push(rec);await k('Uploaded a sheet',rec.name);openSheet(rec.id)})}catch(e){j(e.message||'Upload failed')}};i.click()}
+ // --- editor ---
+ function compact(){return luckysheet.getAllSheets().map((s,ix)=>{let o={name:s.name,index:s.index,order:s.order??ix,status:s.status,color:s.color,config:s.config||{},celldata:luckysheet.transToCellData(s.data||[]),row:s.row,column:s.column};if(s.calcChain&&s.calcChain.length)o.calcChain=s.calcChain;if(s.frozen)o.frozen=s.frozen;if(s.hide)o.hide=1;return o})}
+ async function saveOpen(){let rec=sheets().find(x=>x.id===SHE.open);if(!rec||!window.luckysheet)return;clearTimeout(SHE.timer);SHE.dirty=false;setSt('Saving…');
+  try{rec.data=compact();rec.updated_at=new Date().toISOString();rec.by=me();await k('Edited sheet',rec.name);setSt('Saved')}catch(e){setSt('Not saved');SHE.dirty=true}}
+ function setSt(t){SHE.status=t;let el=document.querySelector('#ottsh .shst');if(el)el.textContent=t}
+ function dirty(){SHE.dirty=true;setSt('Unsaved changes');clearTimeout(SHE.timer);SHE.timer=setTimeout(saveOpen,2500)}
+ async function openSheet(id){let rec=sheets().find(x=>x.id===id);if(!rec)return;SHE.view='edit';SHE.open=id;draw();setSt('Loading…');
+  try{await libs()}catch(e){setSt('Could not load the spreadsheet tools. Check the connection and try again.');return}
+  let data=JSON.parse(JSON.stringify(rec.data&&rec.data.length?rec.data:[{name:'Sheet1',index:'s0',order:0,status:1,celldata:[],config:{},row:60,column:26}]));
+  try{luckysheet.destroy()}catch(e){}
+  luckysheet.create({container:'luckysheet',data,title:rec.name,lang:'en',showinfobar:false,showsheetbarConfig:{add:true,menu:true},forceCalculation:true,allowUpdate:false,
+   hook:{updated:()=>dirty(),sheetActivate:()=>{}}});setSt('Saved')}
+ async function closeEditor(){if(SHE.dirty)await saveOpen();try{luckysheet.destroy()}catch(e){}SHE.view='list';SHE.open='';draw()}
+ // --- list ---
+ function eventRows(){let t=td(),cs=(m.campaigns||[]).filter(c=>c.date&&c.date>=new Date(Date.now()-120*864e5).toISOString().slice(0,10)).sort((a,b)=>(a.date<t)-(b.date<t)||(a.date<t?b.date.localeCompare(a.date):a.date.localeCompare(b.date)));
+  return cs.map(c=>{let nat=sheets().filter(x=>x.campaign_id===c.id),g=c.sheet&&c.sheet.id;
+   let act=nat.length?nat.map(x=>`<button class="btn sm primary" data-shopen="${x.id}">Open ${esc2(x.name)}</button>`).join(''):g?`<button class="btn sm primary" data-shimport="${c.id}">Bring in budget</button>`:`<button class="btn sm" data-shnew="${c.id}">+ Budget sheet</button>`;
+   return `<div class="shrow"><span class="shname"><b>${esc2(c.name)}</b><small>${esc2(fmtD(c.date+'T12:00:00'))}${c.date<t?' · past':''}${g&&!nat.length?' · linked: '+esc2(c.sheet.title||'Google Sheet'):''}</small></span><span class="shacts">${act}</span></div>`}).join('')}
+ function allRows(){let L=sheets().slice().sort((a,b)=>String(b.updated_at).localeCompare(String(a.updated_at)));if(!L.length)return '<p class="shmuted">No sheets yet. Start one, upload an .xlsx, or bring in an event budget above.</p>';
+  return L.map(x=>{let c=camp(x.campaign_id);return `<div class="shrow"><span class="shname"><b>${esc2(x.name)}</b><small>${c?esc2(c.name)+' · ':''}${(x.data||[]).length} tab${(x.data||[]).length===1?'':'s'} · edited ${esc2(fmtD(x.updated_at))}${x.by?' by '+esc2(String(x.by).split('@')[0]):''}</small></span><span class="shacts"><button class="btn sm primary" data-shopen="${x.id}">Open</button><button class="btn sm" data-shdl="${x.id}">Download .xlsx</button><button class="linkbtn red" data-shdel="${x.id}">Delete</button></span></div>`}).join('')}
+ function draw(){let el=document.getElementById('ottsh');if(!el){el=document.createElement('div');el.id='ottsh';document.body.appendChild(el)}document.body.classList.add('shopen');
+  if(SHE.view==='edit'){let rec=sheets().find(x=>x.id===SHE.open)||{};let opts=['<option value="">No event</option>',...(m.campaigns||[]).slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).map(c=>`<option value="${c.id}" ${c.id===rec.campaign_id?'selected':''}>${esc2(c.name)}</option>`)].join('');
+   el.innerHTML=`<div class="shbar"><button class="btn sm" data-shback>← Sheets</button><input class="field shtitle" value="${esc2(rec.name||'')}" data-shname aria-label="Sheet name"><select class="field shev" data-shev>${opts}</select><span class="shst">${esc2(SHE.status)}</span><span class="shsp"></span><button class="btn sm" data-shsave>Save</button><button class="btn sm primary" data-shdl="${rec.id}">Download .xlsx</button></div><div id="luckysheet"></div>`;return}
+  el.innerHTML=`<div class="shwrap"><div class="shhead"><div><h1>Sheets</h1><p class="shmuted">Event budgets and team spreadsheets, built and edited right here. Formulas, tabs, formatting, upload and download.</p></div><span class="shacts"><button class="btn" data-shup>Upload .xlsx</button><button class="btn primary" data-shnew="">+ New sheet</button><button class="close shx" data-shclose aria-label="Close">×</button></span></div>
+   <section class="panel"><div class="row"><h3>Event budgets</h3><button class="linkbtn" data-shimportall>Bring in every linked budget</button></div>${eventRows()||'<p class="shmuted">No events yet.</p>'}</section>
+   <section class="panel"><div class="row"><h3>All sheets</h3></div>${allRows()}</section></div>`}
+ function openList(){SHE.view='list';draw()}
+ function closeAll(){if(SHE.view==='edit'){closeEditor().then(()=>{document.getElementById('ottsh')?.remove();document.body.classList.remove('shopen')});return}document.getElementById('ottsh')?.remove();document.body.classList.remove('shopen')}
+ async function bringIn(cid){let c=camp(cid);if(!c||!c.sheet||!c.sheet.id)return;try{j('Bringing in '+(c.sheet.title||'the budget')+'…');let rec=await importGoogle('https://docs.google.com/spreadsheets/d/'+c.sheet.id+'/edit',(c.sheet.title||c.name+' budget'),cid);j(rec.name+' is now a Studio sheet');openSheet(rec.id)}catch(e){j(e.message)}}
+ document.addEventListener('click',async e=>{let t=e.target;if(!t.closest)return;
+  if(t.closest('[data-sheets]')){e.preventDefault();e.stopPropagation();openList();return}
+  let b=t.closest('[data-shevsheet]');if(b){e.preventDefault();e.stopPropagation();let cid=b.dataset.shevsheet,nat=sheets().find(x=>x.campaign_id===cid);if(nat)openSheet(nat.id);else if(camp(cid)?.sheet?.id)bringIn(cid);else{openList()}return}
+  if(!t.closest('#ottsh'))return;
+  if(t.closest('[data-shclose]')){closeAll();return}
+  if(t.closest('[data-shback]')){closeEditor();return}
+  if(t.closest('[data-shsave]')){saveOpen();return}
+  if(t.closest('[data-shup]')){upload('');return}
+  let o=t.closest('[data-shopen]');if(o){openSheet(o.dataset.shopen);return}
+  let d=t.closest('[data-shdl]');if(d){download(d.dataset.shdl);return}
+  let x=t.closest('[data-shdel]');if(x){let rec=sheets().find(s=>s.id===x.dataset.shdel);if(rec&&confirm('Delete "'+rec.name+'"? This cannot be undone.')){m.sheets=sheets().filter(s=>s.id!==rec.id);await k('Deleted sheet',rec.name);draw()}return}
+  let n=t.closest('[data-shnew]');if(n){let cid=n.dataset.shnew||'',c=camp(cid);let rec={id:q(),name:c?c.name+' budget':'Untitled sheet',campaign_id:cid,source:{type:'new'},data:[],updated_at:new Date().toISOString(),by:me()};sheets().push(rec);await k('New sheet',rec.name);openSheet(rec.id);return}
+  let im=t.closest('[data-shimport]');if(im){bringIn(im.dataset.shimport);return}
+  if(t.closest('[data-shimportall]')){let cs=(m.campaigns||[]).filter(c=>c.sheet&&c.sheet.id&&!sheets().some(s=>s.campaign_id===c.id));if(!cs.length){j('Every linked budget is already in Sheets');return}let n2=0;for(const c of cs){try{await importGoogle('https://docs.google.com/spreadsheets/d/'+c.sheet.id+'/edit',c.sheet.title||c.name+' budget',c.id);n2++}catch(er){j(c.name+': '+er.message)}}j(n2+' budget'+(n2===1?'':'s')+' brought in');draw();return}
+ },true);
+ document.addEventListener('change',async e=>{let t=e.target;if(!t.closest||!t.closest('#ottsh'))return;let rec=sheets().find(x=>x.id===SHE.open);if(!rec)return;
+  if(t.matches('[data-shname]')){rec.name=t.value.trim()||rec.name;await k('Renamed sheet',rec.name)}
+  if(t.matches('[data-shev]')){rec.campaign_id=t.value;await k('Sheet moved',rec.name)}});
+ window.addEventListener('beforeunload',e=>{if(SHE.dirty){saveOpen();e.preventDefault();e.returnValue=''}});
+ // --- entry points: a Sheets button in the top bar, and a Budget sheet button inside each event ---
+ function decorate(){try{let nav=document.querySelector('.top .nav');if(nav&&!nav.querySelector('[data-sheets]')){let b=document.createElement('button');b.type='button';b.dataset.sheets='1';b.textContent='Sheets';let cal=nav.querySelector(':scope > [data-nav="Calendar"]');cal?cal.after(b):nav.appendChild(b)}
+  let mo=document.querySelector('.campbg');if(mo&&!mo.querySelector('[data-shevsheet]')){let dup=[...mo.querySelectorAll('button')].find(x=>x.textContent.trim()==='Duplicate');let title=(mo.querySelector('h2')||{}).textContent||'';let c=(m.campaigns||[]).find(x=>String(x.name||'').trim().toLowerCase()===title.trim().toLowerCase());
+   if(dup&&c){let b=document.createElement('button');b.type='button';b.className=dup.className;b.dataset.shevsheet=c.id;b.textContent='Budget sheet';dup.after(b)}}}catch(e){}}
+ new MutationObserver(()=>decorate()).observe(document.body,{childList:true,subtree:true});
+ let st=document.createElement('style');st.textContent=`#ottsh{position:fixed;inset:0;z-index:9000;background:var(--bg,#f5f5f6);overflow:auto}body.shopen{overflow:hidden}
+ #ottsh .shwrap{max-width:1100px;margin:0 auto;padding:32px 20px 60px}#ottsh .shhead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}#ottsh h1{margin:0}#ottsh .shmuted{color:#6b6b70;margin:6px 0 0;font-size:14px}
+ #ottsh .shacts{display:flex;gap:8px;align-items:center;flex-wrap:wrap}#ottsh .panel{margin-bottom:14px}#ottsh .shrow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #f1f1f3}#ottsh .shrow:first-of-type{border-top:0}
+ #ottsh .shname{display:flex;flex-direction:column;min-width:0}#ottsh .shname small{color:#6b6b70;font-size:12px}#ottsh .shx{font-size:26px;line-height:1;background:none;border:0;cursor:pointer;margin-left:6px}
+ #ottsh .shbar{position:absolute;top:0;left:0;right:0;height:56px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#fff;border-bottom:1px solid #e6e6e9}#ottsh .shtitle{max-width:340px;font-weight:700}#ottsh .shev{max-width:260px}#ottsh .shst{font-size:12px;color:#6b6b70;white-space:nowrap}#ottsh .shsp{flex:1}
+ #ottsh #luckysheet{position:absolute;top:56px;left:0;right:0;bottom:0}
+ @media(max-width:700px){#ottsh .shhead{flex-direction:column}#ottsh .shrow{flex-direction:column;align-items:flex-start}#ottsh .shev{display:none}#ottsh .shtitle{max-width:150px}}`;document.head.appendChild(st);
+})();
+
+;
+// ---- Studio fix 3 (Nov 22): add, edit and delete events on the shared OTT team calendar from the Studio (invites go to the people picked) ----
+(function(){
+ const esc3=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const PEOPLE=['Rechelle','Rachel','Daria','Jaymee','Gabe'];
+ const pad=n=>String(n).padStart(2,'0'),dayOf=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()),hm=d=>pad(d.getHours())+':'+pad(d.getMinutes());
+ function evInfo(e){let all=!!e[4],s=all?new Date(e[2]+'T12:00:00'):new Date(e[2]),en=all?null:new Date(e[3]);return {id:e[0],title:e[1],allDay:all,date:dayOf(s),start:all?'':hm(s),end:all||!en?'':hm(en),location:e[5]||'',guests:Array.isArray(e[6])?e[6]:[]}}
+ async function send(team_cal){if(!m.brief_key)throw new Error('Needs the Studio key (Settings)');
+  let r=await fetch(U,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({team_cal:Object.assign({set:[],del:[]},team_cal),key:m.brief_key})}),d=await r.json();
+  if(!d.ok)throw new Error(d.error||'Calendar did not save');if(d.error)throw new Error(d.error);
+  if(Array.isArray(d.events)){Pe.ev=d.events;Pe.at=Date.now();try{localStorage.setItem('ott_teamcal',JSON.stringify({ev:d.events}))}catch(e){}}return d}
+ function form(x){x=x||{};document.querySelector('.tcebg')?.remove();let el=document.createElement('div');el.className='modalbg tcebg';
+  let t=x.date||dayOf(new Date());
+  el.innerHTML=`<div class="modal tcemodal" role="dialog" aria-modal="true"><header class="row"><h2>${x.id?'Edit team event':'Add to the team calendar'}</h2><button class="close" data-tceclose aria-label="Close">×</button></header>
+   <label class="tcef">Title<input class="field" name="title" value="${esc3(x.title||'')}" placeholder="e.g. Content Day, Venue walkthrough"></label>
+   <div class="tcegrid"><label class="tcef">Date<input class="field" type="date" name="date" value="${esc3(t)}"></label><label class="tcef">Start<input class="field" type="time" name="start" value="${esc3(x.start||'10:00')}" ${x.allDay?'disabled':''}></label><label class="tcef">End<input class="field" type="time" name="end" value="${esc3(x.end||'11:00')}" ${x.allDay?'disabled':''}></label><label class="tcechk"><input type="checkbox" name="allDay" ${x.allDay?'checked':''}> All day</label></div>
+   <div class="tcef">Invite<div class="tceppl">${PEOPLE.map(n=>`<label class="tcep ${(x.guests||[]).includes(n)?'on':''}"><input type="checkbox" name="g" value="${n}" ${(x.guests||[]).includes(n)?'checked':''}>${n}</label>`).join('')}</div><small>They get a Google Calendar invite at their team email.</small></div>
+   <label class="tcef">Location<input class="field" name="location" value="${esc3(x.location||'')}" placeholder="Address or Google Meet link"></label>
+   <label class="tcef">Notes<textarea class="field" name="desc" rows="3">${esc3(x.desc||'')}</textarea></label>
+   <div class="row tceacts">${x.id?`<button class="linkbtn red" data-tcedel="${esc3(x.id)}">Delete event</button>`:'<span></span>'}<span><button class="btn" data-tceclose>Cancel</button> <button class="btn primary" data-tcesave="${esc3(x.id||'')}">${x.id?'Save changes':'Add to calendar'}</button></span></div><p class="tcemsg"></p></div>`;
+  el.addEventListener('click',e=>{if(e.target===el)el.remove()});document.body.appendChild(el);el.querySelector('[name=title]').focus()}
+ document.addEventListener('change',e=>{let t=e.target;if(!t.closest||!t.closest('.tcemodal'))return;if(t.name==='allDay'){t.closest('.tcemodal').querySelectorAll('[name=start],[name=end]').forEach(i=>i.disabled=t.checked)}if(t.name==='g')t.closest('.tcep').classList.toggle('on',t.checked)});
+ document.addEventListener('click',async e=>{let t=e.target;if(!t.closest)return;
+  if(t.closest('[data-tceadd]')){e.preventDefault();form({});return}
+  if(t.closest('[data-tceclose]')){document.querySelector('.tcebg')?.remove();return}
+  let sv=t.closest('[data-tcesave]');if(sv){let f=sv.closest('.tcemodal'),g=n=>f.querySelector(`[name=${n}]`),msg=f.querySelector('.tcemsg');
+   let o={id:sv.dataset.tcesave||undefined,ref:'n'+Date.now(),title:g('title').value.trim(),date:g('date').value,allDay:g('allDay').checked,start:g('start').value,end:g('end').value,location:g('location').value.trim(),desc:g('desc').value.trim(),guests:[...f.querySelectorAll('[name=g]:checked')].map(i=>i.value)};
+   if(!o.title||!o.date){msg.textContent='Add a title and a date.';return}sv.disabled=true;msg.textContent='Saving to the team calendar…';
+   try{let d=await send({ev:[o]});if(!d.ev)throw new Error('Deploy engine v100 to add events from the Studio.');document.querySelector('.tcebg')?.remove();j(o.id?'Team event updated':'Added to the team calendar'+(o.guests.length?' and invites sent':''));y()}catch(er){sv.disabled=false;msg.textContent=/ev|handle/i.test(er.message)?'Deploy engine v100 to add events from the Studio.':er.message}return}
+  let dl=t.closest('[data-tcedel]');if(dl){if(!confirm('Delete this event from the team calendar for everyone?'))return;let msg=dl.closest('.tcemodal').querySelector('.tcemsg');msg.textContent='Deleting…';
+   try{await send({del:[dl.dataset.tcedel]});document.querySelector('.tcebg')?.remove();j('Removed from the team calendar');y()}catch(er){msg.textContent=er.message}return}
+  // tap a team calendar item to edit it
+  let it=t.closest('.bigcal .citem.tm, .bigcal .citem.cdg');if(it&&Array.isArray(Pe.ev)){let title=(it.getAttribute('title')||it.textContent||'').split(' · ')[0].replace(/^\d{1,2}(:\d\d)?(am|pm)\s+/i,'').trim();
+   let day=Number((it.closest('.cday')?.querySelector('.cdn')||{}).textContent)||0;let c=Pe.ev.filter(ev=>ev[1]===title);if(day){let c2=c.filter(ev=>Number(evInfo(ev).date.slice(8,10))===day);if(c2.length)c=c2}
+   if(c.length===1){e.preventDefault();e.stopPropagation();form(evInfo(c[0]))}}},true);
+ // the add button sits above the calendar grid in the Team view
+ function decorate(){try{let bc=document.querySelector('.bigcal');if(!bc||document.querySelector('[data-tceadd]'))return;let team=[...document.querySelectorAll('.calsw button, .seg button')].some(b=>/^team$/i.test(b.textContent.trim())&&b.classList.contains('on'))||/Team/.test((document.querySelector('h1')||{}).textContent||'');
+  if(!team)return;let b=document.createElement('div');b.className='tcebar';b.innerHTML='<button class="btn primary sm" data-tceadd>+ Add to team calendar</button><span class="sub tiny">Tap a team event to edit it.</span>';bc.before(b)}catch(e){}}
+ new MutationObserver(()=>decorate()).observe(document.body,{childList:true,subtree:true});
+ let st=document.createElement('style');st.textContent=`.tcebar{display:flex;gap:12px;align-items:center;margin:0 0 10px}.tcemodal{max-width:560px}.tcemodal header{margin-bottom:12px}.tcef{display:block;margin:10px 0;font-size:13px;font-weight:600;color:#3f3f46}.tcef .field{margin-top:5px;width:100%}.tcef small{display:block;font-weight:400;color:#71717a;margin-top:6px}
+ .tcegrid{display:grid;grid-template-columns:1.3fr 1fr 1fr auto;gap:10px;align-items:end}.tcechk{display:flex;gap:6px;align-items:center;font-size:13px;padding-bottom:12px;white-space:nowrap}.tceppl{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}.tcep{display:flex;gap:6px;align-items:center;padding:6px 12px;border:1px solid #e4e4e7;border-radius:99px;font-weight:500;cursor:pointer}.tcep input{display:none}.tcep.on{background:#111;color:#fff;border-color:#111}
+ .tceacts{margin-top:14px}.tcemsg{font-size:13px;color:#b91c1c;margin:8px 0 0;min-height:1em}.bigcal .citem.tm,.bigcal .citem.cdg{cursor:pointer}@media(max-width:600px){.tcegrid{grid-template-columns:1fr 1fr}}`;document.head.appendChild(st);
 })();
 
 </script></body></html>
