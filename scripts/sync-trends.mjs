@@ -41,12 +41,16 @@ await safe('US sounds', async () => {
   const pop = await run('burbn~tiktok-trending-sounds', { country_code: 'US', period: '7', rank_type: 'popular', maxResults: 20, limit: 20 }, 'sounds-popular');
   const sur = await run('burbn~tiktok-trending-sounds', { country_code: 'US', period: '7', rank_type: 'surging', maxResults: 20, limit: 20 }, 'sounds-surging');
   const p = pop.map(normSound).filter(s => s.title), q = sur.map(normSound).filter(s => s.title);
-  if (p.length || q.length) db.us = { ...(db.us || {}), sounds: p, surging: q, sounds_at: now };
+  if (p.length || q.length) { db.us = { ...(db.us || {}), sounds: p, surging: q, sounds_at: now, sounds_src: 'chart' }; return; }
+  // Backup: sounds behind what is on TikTok Explore in the US right now
+  const ex = await run('automation-lab~tiktok-trends-scraper', { trendType: 'sound', countryCode: 'US', maxResults: 40 }, 'sounds-explore');
+  const e = ex.map(x => ({ title: pick(x, 'title', 'name', 'musicName', 'soundName') || '', artist: pick(x, 'author', 'artist', 'authorName', 'musicAuthor') || '', rank: num(pick(x, 'rank', 'listRank')), change: null, commercial: !!pick(x, 'isCommerceMusic', 'commercial', 'isCommercial'), original: !!pick(x, 'original', 'isOriginal', 'musicOriginal'), url: pick(x, 'url', 'soundUrl', 'musicUrl', 'link') || '', views: num(pick(x, 'videoViews', 'views', 'playCount')), uses: num(pick(x, 'videoCount', 'usageCount', 'uses')) })).filter(s => s.title && !s.original && !/^original sound/i.test(s.title));
+  if (e.length) db.us = { ...(db.us || {}), sounds: e, surging: [], sounds_at: now, sounds_src: 'explore' };
 });
 // 2) US trending hashtags
 await safe('US hashtags', async () => {
   const items = await run('automation-lab~tiktok-trends-scraper', { trendType: 'hashtag', countryCode: 'US', period: 7, maxResults: 40 }, 'hashtags');
-  const h = items.map(x => ({ tag: String(pick(x, 'hashtag', 'hashtagName', 'name', 'title') || '').replace(/^#/, ''), rank: num(pick(x, 'rank')), change: num(pick(x, 'rankDiff', 'rank_diff', 'rankChange')), posts: num(pick(x, 'postCount', 'publishCount', 'posts', 'videoCount')), views: num(pick(x, 'videoViews', 'views', 'viewCount')), industry: pick(x, 'industry', 'industryName') || '', isNew: !!pick(x, 'isNew', 'is_new', 'newOnBoard') })).filter(x => x.tag);
+  const h = items.map(x => ({ tag: String(pick(x, 'hashtag', 'hashtagName', 'name', 'title') || '').replace(/^#/, ''), rank: num(pick(x, 'rank')), change: num(pick(x, 'rankDiff', 'rank_diff', 'rankChange')), momentum: num(pick(x, 'momentumPct')), stage: pick(x, 'trendStage') || '', posts: num(pick(x, 'publishedVideoCount', 'postCount', 'publishCount', 'posts', 'videoCount')), views: num(pick(x, 'videoViews', 'views', 'viewCount')), industry: pick(x, 'industry', 'industryName') || '', isNew: !!pick(x, 'isNew', 'is_new', 'newOnBoard') })).filter(x => x.tag);
   if (h.length) db.us = { ...(db.us || {}), hashtags: h, hashtags_at: now };
 });
 // 3) Scene + cities from real videos (one TikTok run)
