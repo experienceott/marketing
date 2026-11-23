@@ -44,7 +44,7 @@ await safe('US sounds', async () => {
   if (p.length || q.length) { db.us = { ...(db.us || {}), sounds: p, surging: q, sounds_at: now, sounds_src: 'chart' }; return; }
   // Backup: sounds behind what is on TikTok Explore in the US right now
   const ex = await run('automation-lab~tiktok-trends-scraper', { trendType: 'sound', countryCode: 'US', maxResults: 40 }, 'sounds-explore');
-  const e = ex.map(x => ({ title: pick(x, 'title', 'name', 'musicName', 'soundName') || '', artist: pick(x, 'author', 'artist', 'authorName', 'musicAuthor') || '', rank: num(pick(x, 'rank', 'listRank')), change: null, commercial: !!pick(x, 'isCommerceMusic', 'commercial', 'isCommercial'), original: !!pick(x, 'original', 'isOriginal', 'musicOriginal'), url: pick(x, 'url', 'soundUrl', 'musicUrl', 'link') || '', views: num(pick(x, 'videoViews', 'views', 'playCount')), uses: num(pick(x, 'videoCount', 'usageCount', 'uses')) })).filter(s => s.title && !s.original && !/^original sound/i.test(s.title));
+  const e = ex.map(x => ({ title: pick(x, 'title', 'name', 'musicName', 'soundName') || '', artist: pick(x, 'soundAuthor', 'author', 'artist', 'authorName', 'musicAuthor') || '', rank: num(pick(x, 'rank', 'listRank')), change: null, commercial: !!pick(x, 'isCommercial', 'isCommerceMusic', 'commercial'), original: !!pick(x, 'isOriginal', 'original', 'musicOriginal'), url: pick(x, 'exampleVideoUrl', 'linkedVideoUrl', 'url', 'soundUrl') || '', views: num(pick(x, 'videoViews', 'views', 'playCount')), uses: num(pick(x, 'videosInSample', 'videoCount', 'uses')) })).filter(s => s.title && !s.original && !/^original sound/i.test(s.title));
   if (e.length) db.us = { ...(db.us || {}), sounds: e, surging: [], sounds_at: now, sounds_src: 'explore' };
 });
 // 2) US trending hashtags
@@ -91,7 +91,9 @@ await safe('Reels audio', async () => {
   const owners = {}; for (const c of [{ name: 'OTT', handles: comp.self?.handles || [] }, ...comp.competitors]) for (const h of c.handles || []) if (h.startsWith('instagram:')) owners[h.split(':')[1]] = c.name;
   const items = await run('apify~instagram-scraper', { directUrls: Object.keys(owners).map(u => `https://www.instagram.com/${u}/`), resultsType: 'reels', resultsLimit: cfg.reels_per_account || 8 }, 'reels');
   const A = {};
+  const fresh = Date.now() - 60 * 864e5;
   for (const r of items) {
+    if (r.isPinned || (r.timestamp && Date.parse(r.timestamp) < fresh)) continue;
     const m = r.musicInfo || r.music_info || r.audio || {};
     const title = pick(m, 'song_name', 'songName', 'title', 'audio_name') || '', artist = pick(m, 'artist_name', 'artistName', 'artist') || '';
     const orig = !!pick(m, 'uses_original_audio', 'usesOriginalAudio', 'is_original') || /original audio/i.test(title) || !title;
