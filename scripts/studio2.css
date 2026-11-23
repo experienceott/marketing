@@ -296,3 +296,67 @@ html body #root .wrap .pcard2 .plogo2 img{max-height:72px!important;max-width:80
 .s2qf{display:flex;align-items:center;gap:10px;padding:10px 10px 10px 12px;margin-bottom:6px;border-radius:18px;background:#fff8d6;box-shadow:inset 0 0 0 1px rgba(255,214,10,.6)}
 .s2qf .field{flex:1;background:#fff!important;min-height:40px}
 @media (prefers-color-scheme:dark){.s2qf{background:#332a00}.s2qf .field{background:#1c1c1e!important}}
+html body .tlpt.tlsm circle{fill:#0a0a0a;stroke:#fff;stroke-width:2;opacity:.75}
+html body .tlpt.tlsm circle.cr{fill:#ffd60a}
+html body .tlpt.tlsm:hover circle{opacity:1;r:8}
+@media (prefers-color-scheme:dark){html body .tlpt.tlsm circle{fill:#f5f5f7;stroke:#1c1c1e}}
+.s2tile{stroke:none}.s2tile.s2off{fill:#f2f2f7;stroke:#e5e5ea}
+.s2gst{fill:#0a0a0a!important;font-weight:700}.s2gst.no{fill:#aeaeb2!important;font-weight:500}
+.s2ask-b circle{fill:#0a0a0a;stroke:#fff;stroke-width:2}.s2ask-b text{fill:#ffd60a;font-size:9px;font-weight:800}
+.s2ottdot{fill:#0a0a0a;stroke:#fff;stroke-width:1.5}
+.s2leg-ask{display:inline-flex;align-items:center;gap:6px;margin-left:12px}.s2leg-ask b{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#0a0a0a;color:#ffd60a;font-size:10px}
+.s2askn{font-style:normal;font-size:11px;font-weight:700;background:#0a0a0a;color:#ffd60a;border-radius:999px;padding:1px 7px;margin-left:4px}
+@media (prefers-color-scheme:dark){.s2tile.s2off{fill:#2c2c2e;stroke:#3a3a3c}.s2gst.no{fill:#636366!important}.s2ask-b circle{fill:#f5f5f7;stroke:#1c1c1e}.s2ask-b text{fill:#0a0a0a}}
+/* Pricing: modern rate card */
+html body .rcpanel{padding:28px!important}
+html body .rctable{border-collapse:separate!important;border-spacing:0}
+html body .rctable th,html body .rctable td{border:0!important;border-bottom:1px solid #f0f0f3!important;padding:12px 14px!important}
+html body .rctable thead th{border-bottom:0!important;vertical-align:bottom;padding-top:18px!important;padding-bottom:18px!important}
+html body .rctable thead th:not(:first-child){background:#f7f7f9;border-radius:20px 20px 0 0}
+html body .rctable th.hl,html body .rctable td.hl{background:#fff8d6!important}
+html body .rctable thead th.hl{box-shadow:inset 0 3px 0 #ffd60a}
+html body .rctable .rck{font-size:12px!important;font-weight:600;color:#636366;letter-spacing:0!important}
+html body .rctable .rcn{font-size:17px;font-weight:700}
+html body .rctable .rcprice{font-size:34px!important;font-weight:800;letter-spacing:-.02em}
+html body .rctable tr.rcsec td,html body .rctable tr.rcsec th{background:transparent!important;border-bottom:0!important;padding-top:22px!important;font-size:13px;font-weight:700;color:#0a0a0a}
+html body .rctable tr.rcsec td:first-child,html body .rctable tr.rcsec th:first-child{color:#8a6100}
+html body .rctable tbody td:first-child,html body .rctable tbody th:first-child{font-weight:600;color:#3a3a3c;font-size:13px}
+html body .rctable tfoot td,html body .rctable tfoot th{border-bottom:0!important;padding-top:18px!important}
+html body .rchead{border-bottom:0!important;padding-bottom:6px}
+html body .rcstats b{font-size:28px;letter-spacing:-.02em}
+.s2pdf{margin-left:8px}
+@media (prefers-color-scheme:dark){html body .rctable thead th:not(:first-child){background:#2c2c2e}html body .rctable th.hl,html body .rctable td.hl{background:#332a00!important}html body .rctable th,html body .rctable td{border-bottom-color:#38383a!important}html body .rctable tr.rcsec td,html body .rctable tr.rcsec th{color:#f5f5f7}}
+/* print just the rate card */
+@media print{
+ body.s2print-rc{background:#fff!important}
+ body.s2print-rc::before,body.s2print-rc .s2ask,body.s2print-rc .toast,body.s2print-rc .offbar,body.s2print-rc #root>.top,body.s2print-rc #root>.subnav{display:none!important}
+ body.s2print-rc .wrap{margin:0!important;padding:0!important;max-width:none!important}
+ body.s2print-rc .wrap>*:not(.rcpanel){display:none!important}
+ body.s2print-rc .rcpanel{box-shadow:none!important;padding:0!important}
+ body.s2print-rc .rcpanel>.row,body.s2print-rc .rcrates,body.s2print-rc .s2pdf{display:none!important}
+ body.s2print-rc .rcin{border:0!important;background:transparent!important;box-shadow:none!important}
+ body.s2print-rc *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ @page{size:landscape;margin:12mm}
+}
+html body .rctable td.hl,html body .rctable th.hl{box-shadow:none!important}
+html body .rctable thead th.hl{box-shadow:inset 0 3px 0 #ffd60a!important}
+html body .rctable tr.rcsec td.hl{background:#fff8d6!important}
+@media (prefers-color-scheme:dark){html body .rctable tr.rcsec td.hl{background:#332a00!important}}
+@media print{
+ body.s2print-rc [class^="undo"],body.s2print-rc [class*=" undo"]{display:none!important}
+ body.s2print-rc .rcscroll{overflow:visible!important}
+ body.s2print-rc .rctable{width:100%!important;font-size:11px}
+ body.s2print-rc .rctable .rcprice{font-size:24px!important}
+ body.s2print-rc .rcpanel{width:100%!important}
+}
+@media print{html body.s2print-rc #root .wrap,html body.s2print-rc #root>main{margin:0!important;padding:0!important;max-width:none!important}html body.s2print-rc .rcin{width:100%!important;min-width:0!important}}
+@media print{body.s2print-rc .rctable tfoot{display:table-row-group}}
+.s2take{display:flex;flex-direction:column;gap:12px;margin:4px 0 24px}
+.s2take h2{margin:0;font-size:19px}
+.s2takeg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.s2tk{background:#fff;border-radius:24px;box-shadow:var(--s2-e1);padding:20px;display:flex;flex-direction:column;gap:10px}
+.s2tk b{font-size:17px;line-height:1.25}.s2tk small{font-size:13px;color:#636366}
+.qpideas .qpc button{background:#fff8d6!important;border-color:rgba(255,214,10,.7)!important}
+@media (max-width:900px){.s2takeg{grid-template-columns:1fr}}
+@media (prefers-color-scheme:dark){.s2tk{background:#1c1c1e}.s2tk small{color:#a1a1a6}.qpideas .qpc button{background:#332a00!important;color:#f5f5f7!important}}
+.s2take{margin-top:28px!important}
