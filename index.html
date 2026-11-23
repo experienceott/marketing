@@ -509,9 +509,9 @@ Thanks for thinking of OTT. Here's what we'd put together for you. Accept below 
   let past=0;for(const c of m.campaigns||[]){let end=c.end_date&&c.end_date>c.date?c.end_date:c.date;if(end&&end<t&&(!c.status||/^(Planning|Tickets live|Sold out)$/.test(c.status))){c.status='Completed';past++}}
   if(past){done.push(past+' past event'+(past===1?'':'s')+' marked Completed');ch=true}
   // upcoming events with no SweatPals link: link the live listing on the same day that shares a name word (e.g. Hennessy dinner)
-  try{let sp=JSON.parse(localStorage.getItem('ott_sp_cache')||'null'),ev=((sp&&(sp.v||sp).events)||[]).filter(e=>e.name&&(e.tickets||0)>0),ln=0;
-   for(const c of m.campaigns||[]){if(!c.date||c.date<t||c.sp_event_id||c.from_sweatpals_live)continue;let w=new Set(words(c.name));if(!w.size)continue;
-    let e=ev.find(e=>Math.abs(dd(locDay(e.start),c.date))<=1&&words(e.name).some(x=>w.has(x)));if(e){c.sp_event_id=e.event_id;if(!c.sweatpals_event)c.sweatpals_event=e.name.trim();ln++}}
+  try{let sp=JSON.parse(localStorage.getItem('ott_sp_cache')||'null'),all=((sp&&(sp.v||sp).events)||[]),ids=new Set(all.map(e=>e.event_id)),ev=all.filter(e=>e.name&&(e.tickets||0)>0),ln=0;
+   for(const c of m.campaigns||[]){if(!c.date||c.date<t||c.from_sweatpals_live)continue;if(c.sp_event_id&&(ids.has(c.sp_event_id)||!all.length))continue;let w=new Set(words(c.name));if(!w.size)continue;
+    let e=ev.find(e=>Math.abs(dd(locDay(e.start),c.date))<=1&&words(e.name).some(x=>w.has(x)));if(e){c.sp_event_id=e.event_id;c.sweatpals_event=e.name.trim();ln++}}
    if(ln){done.push(ln+' event'+(ln===1?'':'s')+' linked to SweatPals');ch=true}}catch(e){}
   // inquiries: newsletters and app emails from the inbox scan, and the same sender twice, close as Lost
   let junk=0,dup=0,seen={};const JUNK=/^(info|team|news|newsletter|updates?|welcome|hello|noreply|no-reply)@|@(m|mail|email|e|info|news)\.|@overthetopxp\.com$/i;
